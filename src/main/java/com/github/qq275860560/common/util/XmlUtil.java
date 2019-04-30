@@ -23,8 +23,6 @@ import org.jdom2.input.SAXBuilder;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.dianping.cat.Cat;
-
 /**
  * @author jiangyuanlin@163.com
  */
