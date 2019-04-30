@@ -6,10 +6,7 @@
 	<artifactId>github-qq275860560-common</artifactId>
 	<version>20190427</version>
 	<packaging>jar</packaging>
-	<name>github-qq275860560-common</name>
-
-	 
-	
+	<name>github-qq275860560-common</name>	
 	 
 	<distributionManagement>
 		<snapshotRepository>
@@ -22,22 +19,6 @@
                 </repository> 
 	</distributionManagement>
 	
-	<repositories>
-		<repository>
-			<id>nexus-aliyun</id>
-			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>	
-	</repositories>
-	
-	
-
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.host.url>http://132.122.237.68:9000</sonar.host.url>
