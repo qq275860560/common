@@ -33,15 +33,7 @@ public class IpUtil {
  
 	
 	private static final String unknown = "unknown";
-
-	/**
-	 * 测试指定ip是否能够连通
-	 * 
-	 * @param ip
-	 *            正确的ipv4或者ipv6，或者主机名或者域名
-	 * @return true代表能够连通，false代表无法连通
-	 * @throws Exception
-	 */
+ 
 	public static boolean getIpStatus(String ip) {
 		log.debug("getPingStatus start");
 		BufferedReader bufferedReader =  null;
@@ -81,16 +73,7 @@ public class IpUtil {
 		return false;
 	}
 
-	/**
-	 * 测试指定ip的端口是否能够连通
-	 * 
-	 * @param ip
-	 *            正确的ipv4或者ipv6，或者主机名或者域名
-	 * @param ip
-	 *            主机端口
-	 * @return true代表能够连通，false代表无法连通
-	 * @throws Exception
-	 */
+ 
 	public static boolean getPortStatus(String ip, int port) {
 		log.debug("getPortStatus start");
 		Socket socket = null;
@@ -126,12 +109,8 @@ public class IpUtil {
 		return false;
 	}
 
-	/**
-	 * 获取客户端ip地址(可以穿透代理)
-	 * 
-	 * @param request
-	 * @return
-	 */
+	// 获取客户端ip地址(可以穿透代理)
+	
 	public static String getIpAddr(HttpServletRequest request) {
 		log.debug("getIpAddr start");
 		String ip = request.getHeader("X-Real-IP");
@@ -187,14 +166,8 @@ public class IpUtil {
 		return ip;
 	}
 
-	/**
-	 * 通过IP获取地址(需要联网，调用淘宝的IP库)
-	 * 
-	 * @param ip
-	 *            正确的ip地址
-	 * @return
-	 */
-	public static String getIpInfo(String ip) {
+	//通过IP获取地址(需要联网，调用淘宝的IP库)
+ 	public static String getIpInfo(String ip) {
 		log.debug("getIpInfo start");
 		// 如果输入的是域名，先转换为ip
 		HttpURLConnection httpURLConnection = null;

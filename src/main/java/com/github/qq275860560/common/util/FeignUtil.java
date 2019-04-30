@@ -39,14 +39,7 @@ public class FeignUtil {
 
 	private static final Log log = LogFactory.getLog(FeignUtil.class);
 
-    
-	/**
-     * 适用于Content-Type和Accept都为json的接口
-     * @param clazz 使用feign访问的接口类,如MedBodyClient.class
-      * @param fallback 回退类
-     * @param url 添加网址
-     * @return
-     */
+   
     public static <T> T buildHystrixFeign(String clientName, Set<String> serverList , final Class<T> clazz, String url , T fallback) {
     	RibbonUtil.initServers(clientName, serverList);
         return HystrixFeign.builder().client(RibbonClient.create()).encoder(new JacksonEncoder()).decoder(new JacksonDecoder()) 
@@ -65,12 +58,7 @@ public class FeignUtil {
                 }).target(clazz, url, fallback);
     }
     
-	/**
-	 * 适用于Content-Type和Accept都为json的接口
-	 * @param clazz
-	 * @param url
-	 * @return
-	 */
+	 
 	public static <T> T buildFeignClient(String clientName, Set<String> serverList , Class<T> clazz,String url){
 		RibbonUtil.initServers(clientName, serverList);
 		return Feign.builder()
@@ -78,13 +66,7 @@ public class FeignUtil {
 		.decoder(new JacksonDecoder())
 		.target(clazz, url);
 	}
-	
-	/**
-	 * 适用于Content-Type和Accept都为json的接口
-	 * @param clazz
-	 * @param url
-	 * @return
-	 */
+	 
 	public static <T> T buildFeignClient(String propertiesFile, Class<T> clazz,String url){
 		RibbonUtil.initServersFromPropertiesFile(propertiesFile);
 		return Feign.builder()

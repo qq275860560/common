@@ -21,11 +21,8 @@ public class ResponseUtil {
 	private ResponseUtil() {
 	}
 
-	/** 把字符串发回给客户端
-	 * @param response
-	 * @param result
-	 * @throws IOException
-	 */
+	// 把字符串发回给客户端
+ 
 	public static void sendResult(HttpServletResponse response, String result) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-Type", "application/json;charset=UTF-8");// 解决乱码
@@ -39,11 +36,8 @@ public class ResponseUtil {
 		out.close();
 	}
 
-	/** 把文件流发回给客户端
-	 * @param response
-	 * @param result
-	 * @throws IOException
-	 */
+	// 把文件流发回给客户端
+	 
 	public static void sendResult(HttpServletResponse response, File file,String contentType) throws IOException {
 		FileInputStream fis = null;
 		ServletOutputStream out = null;

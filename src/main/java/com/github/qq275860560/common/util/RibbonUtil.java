@@ -65,10 +65,10 @@ public class RibbonUtil {
 
 	}
 	
-	/*
-	 *spring-boot3.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
-	 *spring-boot3.ribbon.listOfServers=127.0.0.1:8080,127.0.0.1:8081
-	 */
+ 
+	 //spring-boot3.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
+	 //spring-boot3.ribbon.listOfServers=127.0.0.1:8080,127.0.0.1:8081
+	 
 	public static void initServersFromPropertiesFile(String propertiesFileName ) {
 		try{
 		ConfigurationManager.loadPropertiesFromResources(propertiesFileName);

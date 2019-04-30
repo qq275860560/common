@@ -21,13 +21,7 @@ public class ShellUtil {
 	private ShellUtil() {
 	}
 
-	/**
-	 * 
-	 * 
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
+	 
 	public static Map<String, Object> execute(String ip, Long port, String username, String password, String shell) {
 		InputStream stdOut = null;
 		InputStream stdErr = null;

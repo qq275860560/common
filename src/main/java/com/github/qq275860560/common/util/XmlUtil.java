@@ -32,12 +32,8 @@ public class XmlUtil {
 	private XmlUtil() {
 	}
 
-	/**
-	 * 将对象序列化成Json字符串
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	//将对象序列化成Json字符串
+	 
 	public static String toXMLString(Object obj) {
 		String jsonString = null;
 		try {
@@ -49,13 +45,8 @@ public class XmlUtil {
 
 	}
 
-	/**
-	 * 将Json字符串反序列化成对象,适用于单层节点转换
-	 * 
-	 * @param xmlString
-	 * @param clazz
-	 * @return
-	 */
+	//将Json字符串反序列化成对象,适用于单层节点转换
+	 
 	public static Map<String, Object> parse(String xmlString) {
 
 		Map<String, Object> responseMap = new HashMap<String, Object>();
@@ -108,13 +99,8 @@ public class XmlUtil {
 		return null;
 	}
 
-	/**
-	 * 格式化xml
-	 * 
-	 * @param content
-	 *            要格式化的xml字符串
-	 * @return
-	 */
+	//格式化xml
+ 
 	public static String format(String content) {
 		String header = getHeader(content);
 		return (StringUtils.isEmpty(header) ? "" : header) + format(null, content, 0);
@@ -162,11 +148,8 @@ public class XmlUtil {
 		return format;
 	}
 
-	/**
-	 * 获取xml头部数据，格式：<? …… ?>
-	 * 
-	 * @return xml头部数据，null表示不存在
-	 */
+	//获取xml头部数据，格式：<? …… ?>
+	 
 	private static String getHeader(String content) {
 		for (int i = 0; i < content.length(); i++) {
 			char c = content.charAt(i);
@@ -194,13 +177,8 @@ public class XmlUtil {
 		return null;
 	}
 
-	/**
-	 * 获取xml报文的第一个标签
-	 * 
-	 * @param content
-	 *            xml报文
-	 * @return 标签名称
-	 */
+	//获取xml报文的第一个标签
+	 
 	private static String getFirstTag(String content) {
 		StringBuilder tag = new StringBuilder();
 		int index = 0;

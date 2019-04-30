@@ -25,11 +25,8 @@ public class JsonUtil {
 			.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
 			.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE));;
 
-	/**
-	 * 将对象序列化成Json字符串
-	 * @param obj
-	 * @return
-	 */
+	//将对象序列化成Json字符串
+	
 	public static String toJSONString(Object obj) {
 		if(obj==null) return null;
 		// return JSONUtils.toJSONString(obj);
@@ -44,12 +41,8 @@ public class JsonUtil {
 
 	}
 
-	/**
-	 * 将Json字符串反序列化成对象
-	 * @param jsonString
-	 * @param clazz
-	 * @return
-	 */
+	//将Json字符串反序列化成对象
+	 
 	public static <T> T parse(String jsonString, Class<T> clazz) {
 		// return clazz.cast(JSONUtils.parse(jsonString));
 		T t = null;
@@ -63,12 +56,8 @@ public class JsonUtil {
 
 	
 	
-	/**
-	 * 将输入流反序列化成对象
-	 * @param jsonString
-	 * @param clazz
-	 * @return
-	 */
+	//将输入流反序列化成对象 
+	
 	public static <T> T parse(InputStream inputStream, Class<T> clazz) {	 
 		T t = null;
 		try {
@@ -90,11 +79,7 @@ public class JsonUtil {
 		return result;
 	}
 
-	/**
-	 * 格式化json
-	 * @param content : 要格式化的json字符串
-	 * @return：格式化后的字符串
-	 */
+	 
 	public static String format(String content) {
 		if (null == content || "".equals(content))
 			return "";
@@ -144,11 +129,7 @@ public class JsonUtil {
 
 		return sb.toString();
 	}
-
-	/**
-	 * 添加space
-	 * 
-	 */
+ 
 	private static void addIndentBlank(StringBuilder sb, int indent) {
 		for (int i = 0; i < indent; i++) {
 			sb.append('\t');

@@ -56,16 +56,7 @@ public class JwtUtil {
 	}
 	
 
-
-	/**
-	 * 生成token方法
-	 * @param issUser 令牌的创建者 网站或应用clientId
-	 * @param audience 令牌使用者 用户ID
-	 * @param minutes 有效期时间 
-	 * @param payLoadMap 令牌有效负载参数，即需要在token中保存的用户信息
-	 * @return
-	 * @throws JoseException
-	 */
+ 
 	public static String encrypt(String issUser, String audience, Float minutes, Map<String, Object> payLoadMap)
 			throws JoseException {
 		if (StringUtils.isBlank(issUser)) {// 令牌创建者
@@ -114,15 +105,7 @@ public class JwtUtil {
 		return jws.getCompactSerialization();
 
 	}
-
-	/**
-	 * token 校验token
-	 * @param token token串
-	 * @param isUser token创建者
-	 * @param audience token使用者
-	 * @return 令牌有效负载参数
-	 * @throws InvalidJwtException 
-	 */
+ 
 	public static Map<String, Object> decrypt(String token, String isUser, String audience) throws InvalidJwtException {
 
 		JwtConsumer jwtConsumer = new JwtConsumerBuilder().setRequireExpirationTime() // the

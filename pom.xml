@@ -6,9 +6,41 @@
 	<artifactId>github-qq275860560-common</artifactId>
 	<version>20190427</version>
 	<packaging>jar</packaging>
-	<name>github-qq275860560-common</name>	
+	<name>github-qq275860560-common</name>
+	<description>github-qq275860560-common</description>	
 	 
-	<distributionManagement>
+	<parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+	</parent>
+	<licenses>
+     <license>
+       <name>The Apache License, Version 2.0</name>
+       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+     </license>
+   </licenses>
+   <scm>
+      <connection>
+         scm:git:https://github.com/qq275860560/common.git
+      </connection>
+      <developerConnection>
+         scm:git:https://github.com/qq275860560/common.git
+      </developerConnection>
+      <url>https://github.com/qq275860560/common</url>
+      <tag>master</tag>
+  </scm>   
+	<developers>
+    <developer>
+      <name>jiangyuanlin</name>
+      <email>jiangyuanlin@163.com</email>
+      <organization>github</organization>     
+    </developer>
+  </developers>
+  
+	
+  
+	<!-- <distributionManagement>
 		<snapshotRepository>
                     <id>oss</id>
                     <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
@@ -17,7 +49,7 @@
                     <id>oss</id>
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository> 
-	</distributionManagement>
+	</distributionManagement> -->
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

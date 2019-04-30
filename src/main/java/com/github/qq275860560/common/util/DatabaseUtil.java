@@ -77,14 +77,8 @@ public class DatabaseUtil {
 	}
 	
 	
-	/**
-	 * 取第一列，转换为字符串列表
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	// 取第一列，转换为字符串列表
+	 
 	public static List<String> jdbcQueryForFirstColumnString(DataSource dataSource, String sql, Object... args)throws Exception {
 		List<Map<String, Object>> list = jdbcQueryForList(dataSource, sql, args);
 		List<String> resultList = new ArrayList<String>();
@@ -97,14 +91,8 @@ public class DatabaseUtil {
 		return resultList;
 	}
 
-	/**
-	 * 取第一列，转换为字符串列表
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	//取第一列，转换为字符串列表
+	
 	public static List<Integer> jdbcQueryForFirstColumnInteger(DataSource dataSource, String sql, Object... args)throws Exception {
 		List<Map<String, Object>> list = jdbcQueryForList(dataSource, sql, args);
 		List<Integer> resultList = new ArrayList<Integer>();
@@ -117,14 +105,8 @@ public class DatabaseUtil {
 		return resultList;
 	}
 
-	/**
-	 * 取第一行，第一列，转换为整形
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	// 取第一行，第一列，转换为整形
+
 	public static int jdbcQueryForInt(DataSource dataSource, String sql, Object... args) throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
 		int result = 0;
@@ -137,14 +119,8 @@ public class DatabaseUtil {
 		return result;
 	}
 	
-	/**
-	 * 取第一行，第一列，转换为整形
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	//取第一行，第一列，转换为整形
+	
 	public static double jdbcQueryForDouble(DataSource dataSource, String sql, Object... args) throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
 		double result = 0;
@@ -157,14 +133,8 @@ public class DatabaseUtil {
 		return result;
 	}
 
-	/**
-	 * 取第一行，第一列，转换为字符串
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	//取第一行，第一列，转换为字符串
+	 
 	public static String jdbcQueryForString(DataSource dataSource, String sql, Object... args) throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
 		String result = "";
@@ -177,14 +147,8 @@ public class DatabaseUtil {
 		return result;
 	}
 
-	/**
-	 * 取第一行，转换为HashMap，比如{"name_":XXX,"age_":YYY,"sex_":ZZZ}
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	//取第一行，转换为HashMap，比如{"name_":XXX,"age_":YYY,"sex_":ZZZ}
+	 
 	public static Map<String, Object> jdbcQueryForMap(DataSource dataSource, String sql, Object... args)throws Exception {
 		List<Map<String, Object>> resultList = jdbcQueryForList(dataSource, sql, args);
 		if (resultList.isEmpty())
@@ -193,14 +157,8 @@ public class DatabaseUtil {
 			return resultList.get(0);
 	}
 
-	/**
-	 * 取第一行，转换为字符串列表
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 * @throws Exception
-	 */
+	//取第一行，转换为字符串列表
+	 
 	public static List<String> jdbcQueryForFirstRowString(DataSource dataSource, String sql, Object... args)
 			throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
@@ -294,13 +252,8 @@ public class DatabaseUtil {
 		}		
 	}
 
-	/**
-	 * 增删改
-	 * 
-	 * @param sql
-	 * @param args
-	 * @return
-	 */
+	// 增删改
+ 
 	public static int jdbcUpdate(DataSource dataSource, String sql, Object... args)  throws Exception{
 		Connection connection = null;
 		try {

@@ -74,101 +74,72 @@ public class EurekaUtil {
 		 System.exit(1);
 	}
 	}
-	  /**
-     * 注册一个应用实例
-     * @param appId 应用id
-     * @param payload json或者xml
-     */
+	//注册一个应用实例
+  
 	public static void  registerInstance(String appId,String payload) throws Exception{
 		start();
 	}
 
 
-    /**
-     * 删除一个实例
-     * @param appId 应用id
-     * @param instanceId 实例id
-     */
+  // 删除一个实例
+  
 	public static void  deleteInstance(String appId,String instanceId){
 		   String url = String.format(eurekaServiceUrl+"/apps/%s/%s",appId,instanceId);
 		   HttpConnectionUtil.send(url, "DELETE", null, null);
 	}
 
-    /**
-     * 发送一个应用实例心跳
-     * @param appId 应用id
-     * @param instanceId 实例id
-     */
+   // 发送一个应用实例心跳
+  
 	public static void  heartbeat(String appId,String instanceId){
 		String url = String.format(eurekaServiceUrl+"/apps/%s/%s",appId,instanceId);
 		HttpConnectionUtil.send(url, "PUT", null, null);
 	}
 
-    /**
-     * 列出所有实例
-     * @return json/xml
-     */
+  //列出所有实例
+   
 	private static String instances(){
 	    String url = eurekaServiceUrl+"/apps";
 		return HttpConnectionUtil.send(url, "GET", null, null);
 	}
 
-    /**
-     * 列出应用下的所有实例
-     * @param appId 应用id
-     * @return json/xml
-     */
+   //列出应用下的所有实例
+     
 	private static String instances(String appId){
 		 String url = String.format(eurekaServiceUrl+"/apps/%s",appId);
 		 return HttpConnectionUtil.send(url, "GET", null, null);
 	}
 
-    /**
-     * 查询指定的实例
-     * @param appId 应用id
-     * @param instanceId 实例id
-     * @return json/xml
-     */
+   //查询指定的实例
+     
 	private static String instance(String appId,String instanceId){
 		String url = String.format(eurekaServiceUrl+"/apps/%s/%s",appId,instanceId);
 		 return HttpConnectionUtil.send(url, "GET", null, null);
 	}
 
-    /**
-     * 查询特定的实例
-     * @param instanceId 实例id
-     * @return json/xml
-     */
+  //查询特定的实例
+   
 	private static String instance(String instanceId){
 		 String url = String.format(eurekaServiceUrl+"/instances/%s",instanceId);
 		 return HttpConnectionUtil.send(url, "GET", null, null);
 	}
 	
-	   /**
-     * 查询指定服务的ip端口
-     * 通过注册中心vipAddress互相调用。实际过程就是调用前去eureka拿一个真实地址替换vipAddress变量。
-     */
+	
+     // 查询指定服务的ip端口 通过注册中心vipAddress互相调用。实际过程就是调用前去eureka拿一个真实地址替换vipAddress变量。
+      
 	public static String getInstanceIpAndPort(String vipAddress){
 		 InstanceInfo instanceInfo = eurekaClient.getNextServerFromEureka(vipAddress, false);
 		 return instanceInfo.getIPAddr()+":"+ instanceInfo.getPort();
 	}
 
-    /**
-     * 中止/失效一个实例
-     * @param appId 应用id
-     * @param instanceId 实例id
-     */
+   // 中止/失效一个实例
+    
 	private static void outOfService(String appId,String instanceId){
 		 String url = String.format(eurekaServiceUrl+"/apps/%s/%s/status?value=OUT_OF_SERVICE",appId,instanceId);
 		 HttpConnectionUtil.send(url, "PUT", null, null);
 	}
 
-    /**
-     * 恢复一个实例到指定状态
-     * @param appId 应用id
-     * @param instanceId 实例id
-     * @param status UP, DOWN,STARTING,OUT_OF_SERVICE,UNKNOWN;
-     */
+   //恢复一个实例到指定状态
+   
 	public static void  backInService(String appId, String instanceId, String status){
 		if(!status.equals("UP") 
 				&& !status.equals("DOWN") 
@@ -183,23 +154,15 @@ public class EurekaUtil {
 		 HttpConnectionUtil.send(url, "DELETE", null, null);
 	}
 
-    /**
-     * 更新实例的元数据
-     * @param appId 应用id
-     * @param instanceId 实例id
-     * @param key 键
-     * @param value 值
-     */
+   // 更新实例的元数据
+    
 	public static void  updateMetadata(String appId,String instanceId,String key,String value){
 	     String url = String.format(eurekaServiceUrl+"/apps/%s/%s/metadata?%s=%s",appId,instanceId,key,value);
 	     HttpConnectionUtil.send(url, "PUT", null, null);
 	}
 
-    /**
-     * 在一个特定的vip地址查询所有实例
-     * @param vipAddress vip地址
-     * @return json/xml
-     */
+   //在一个特定的vip地址查询所有实例
+     
     private static String listInstancesByVipAddress(String vipAddress){
     	//查询vipAddress域名下的所有服务
 		List<InstanceInfo> serverInfos = eurekaClient.getInstancesByVipAddress(vipAddress, false);
@@ -211,11 +174,8 @@ public class EurekaUtil {
     	return HttpConnectionUtil.send(url, "GET", null, null);    	  
     }
 
-    /**
-     * 在一个特定的安全vip地址查询所有实例
-     * @param svipAddress 安全的vip地址
-     * @return json/xml
-     */
+  // 在一个特定的安全vip地址查询所有实例
+     
     private static  String svips(String svipAddress){    	
     	 String url = String.format(eurekaServiceUrl+"/svips/%s",svipAddress);
     	 return HttpConnectionUtil.send(url, "GET", null, null);    

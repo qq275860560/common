@@ -11,11 +11,9 @@ public class IntegerUtil {
 
 	private IntegerUtil(){}
 	 
-	/** 
-	 * 低位低字节
+	// 低位低字节
  
-	 * @return 
-	 */
+	 
 	public static byte[] intToByte(int number) {		 
 		return intToByte(number,4);
 	}
@@ -33,11 +31,8 @@ public class IntegerUtil {
 	}
 	
 	
-	/** 
-	 * 低位低字节 
+	//低位低字节 
 	 
-	 * @return 
-	 */
 	public static int byeToInt(byte[] bytes) {
 		//int temp =bytes[3];		
 		//for (int i = 2; i >=0; i--) {			

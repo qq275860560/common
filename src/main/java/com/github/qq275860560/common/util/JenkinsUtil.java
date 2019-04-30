@@ -204,13 +204,8 @@ public class JenkinsUtil {
 		return getJob(   url,  username,  password, job_name)!=null?true:false;
 	}
 	
-	/**系统存在返回真
-	 * @param url
-	 * @param username
-	 * @param password
-	 * @param job_name
-	 * @return
-	 */
+	//系统存在返回真
+	  
 	public   static boolean exisitJob(  String url,String username,String password,String job_name) {
 		String fmt = "%s/view/all/checkJobName?value=%s";
 		String urlString = String.format(fmt, url, job_name);

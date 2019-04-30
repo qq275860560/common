@@ -48,12 +48,8 @@ public class SVNUtil {
 
 	}
 
-	/**获取svn中文件中的内容，适用于utf8格式的文本型
-	 * @param url
-	 * @param username
-	 * @param password
-	 * @return
-	 */
+	//获取svn中文件中的内容，适用于utf8格式的文本型
+ 
 	public static String getFileContent(String url, String username, String password) throws Exception {
 		String result = null;
 		try {
@@ -74,12 +70,8 @@ public class SVNUtil {
 		return result;
 	}
 
-	/**列出所有项目
-	 * @param url
-	 * @param username
-	 * @param password
-	 * @return
-	 */
+	//列出所有项目
+	 
 	public static List<String> listProjectName(String url, String username, String password) throws Exception {
 
 		List<String> resultList = new ArrayList<>();

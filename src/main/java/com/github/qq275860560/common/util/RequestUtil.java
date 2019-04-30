@@ -19,27 +19,24 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntityEnclosingRequest;
 
 /**
- * @author jiangyuanlin@163.com
- * http请求的参数变成Map或者List的工具类
- * 对于ContentType为application/x-www-form-urlencoded的格式一般为a=1&b=2&b=3，解析后的Map有两个key，其中一个key为a，value为"1"，另一个key为b，value为new String[]{"2","3"}
- * 对于Content-Type=application/json;charset=UTF-8的消息体格式为标准json字符串，调用jackson反序列化
- */
+ * @author jiangyuanlin@163.com 
+ * */
 public class RequestUtil {
+	
 	private static Log log = LogFactory.getLog(RequestUtil.class);
 
+	// http请求的参数变成Map或者List的工具类;对于ContentType为application/x-www-form-urlencoded的格式一般为a=1&b=2&b=3，解析后的Map有两个key，其中一个key为a，value为"1"，另一个key为b，value为new String[]{"2","3"};    对于Content-Type=application/json;charset=UTF-8的消息体格式为标准json字符串，调用jackson反序列化
+
+	 
 	private RequestUtil() {
 	}
 
 	 
 
 	
-	/**
-	 * 将ContentType=application/x-www-form-urlencoded的请求参数解析到Map中
-	 * 
-	 * @param request
-	 * @return
-	 * @throws Exception
-	 */
+	// 将ContentType=application/x-www-form-urlencoded的请求参数解析到Map中
+ 
+	 
 	public static Map<String, Object> parameterToMap(HttpServletRequest request)  {
 		try {
 			if (request == null)
@@ -59,13 +56,9 @@ public class RequestUtil {
 		}
 	}
 	
-	/**
-	 * 将Content-Type=application/json;charset=UTF-8的请求体解析到Map中
-	 * 
-	 * @param request
-	 * @return
-	 * @throws Exception
-	 */
+	//将Content-Type=application/json;charset=UTF-8的请求体解析到Map中
+ 
+	 
 	public static Map<String, Object> bodyToMap(HttpServletRequest request)  {
 		try {
 			if (request == null)
@@ -105,13 +98,8 @@ public class RequestUtil {
 		}
 	}
 	
-	/**
-	 * 将Content-Type为application/json;charset=UTF-8的请求体解析到List中
-	 * 
-	 * @param request
-	 * @return
-	 * @throws Exception
-	 */
+	//将Content-Type为application/json;charset=UTF-8的请求体解析到List中
+  
 	public static List<Object> bodyToList(HttpServletRequest request) {
 		try {
 			if (request == null)
@@ -150,13 +138,8 @@ public class RequestUtil {
 		return  bos.toString("UTF-8");
 	}
 	
-	/**
-	 * 将ContentType=application/x-www-form-urlencoded的Map转为请求参数
-	 * 
-	 * @param request
-	 * @return
-	 * @throws Exception
-	 */
+	//将ContentType=application/x-www-form-urlencoded的Map转为请求参数
+  
 	public static String mapToParameter(Map<String, Object> requestMap) {
 		try {
 			if (requestMap == null)

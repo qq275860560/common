@@ -4,17 +4,14 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author jiangyuanlin@163.com
- * 字符串转换成数组
  * 
  * 
  *
  */
 public class ArrayUtil {
 
-	/**
-	 * @param ids 逗号区分的整型字符串，格式如"1,2,3,4"，
-	 * @return 返回整型数组
-	 */
+	// @param ids 逗号区分的整型字符串，格式如"1,2,3,4"  返回整型数组
+	  
 	public static Integer[] convert(String ids) {
 		if(StringUtils.isBlank(ids)) return new Integer[]{};
 		String[] idsArr = ids.split(",");
