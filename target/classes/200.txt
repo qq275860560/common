@@ -1,7 +1,0 @@
-SIP/2.0 200 OK
-From: ${From};tag=${tag}
-To: ${To}
-Call-ID: ${callId}
-CSeq: ${seq} MESSAGE
-Via: SIP/2.0/UDP 192.168.199.80:5060;rport;branch=${branch}
-Max-Forwards: 70
