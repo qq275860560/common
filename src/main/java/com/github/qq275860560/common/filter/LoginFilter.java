@@ -25,7 +25,6 @@ import com.github.qq275860560.common.model.ApiResult;
 import com.github.qq275860560.common.util.JsonUtil;
 import com.github.qq275860560.common.util.JwtUtil;
 import com.github.qq275860560.common.util.ResponseUtil;
-import com.github.qq275860560.common.util.TokenUtil;
 
 /**
  * @author jiangyuanlin@163.com
@@ -129,7 +128,7 @@ public class LoginFilter implements Filter {
 			} catch (Exception e) {
 				log.error("", e);
 				String result = JsonUtil.toJSONString(new ApiResult(com.github.qq275860560.common.model.ApiResult.AUTHENTICATION_FAIL,
-						com.github.qq275860560.common.model.ApiResult.AUTHENTICATION_FAIL_MSG,
+						 ApiResult.AUTHENTICATION_FAIL_MSG,
 						   ExceptionUtils.getStackTrace(e) ));
 				ResponseUtil.sendResult(response, result);
 
