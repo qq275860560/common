@@ -12,9 +12,9 @@ public class SleepCode {
 
 	// 升序排序
 	public static List<Integer> sort(List<Integer> list) throws Exception {
-		List<Integer> resultList = new ArrayList<>();
+		final List<Integer> resultList = new ArrayList<>();
 
-		for (int i : list) {
+		for (final int i : list) {
 			new Thread() {
 				public void run() {
 					try {

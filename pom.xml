@@ -4,16 +4,12 @@
 
 	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>20190430</version>
+	<version>201905061822</version>
 	<packaging>jar</packaging>
 	<name>github-qq275860560-common</name>
 	<description>github-qq275860560-common</description>	
-	 
-	<parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>7</version>
-	</parent>
+	<url>https://github.com/qq275860560/common</url> 
+	
 	<licenses>
      <license>
        <name>The Apache License, Version 2.0</name>
@@ -32,24 +28,23 @@
   </scm>   
 	<developers>
     <developer>
-      <name>jiangyuanlin</name>
-      <email>jiangyuanlin@163.com</email>
-      <organization>github</organization>     
+      <name>qq275860560</name>
+      <email>jiangyuanlin@163.com</email>  
     </developer>
   </developers>
   
 	
   
-	<!-- <distributionManagement>
+	<distributionManagement>
 		<snapshotRepository>
-                    <id>oss</id>
+                    <id>sonatype-nexus-snapshots</id>
                     <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
                 </snapshotRepository>
                 <repository>
-                    <id>oss</id>
+                    <id>sonatype-nexus-staging</id>
                     <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
                 </repository> 
-	</distributionManagement> -->
+	</distributionManagement>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -64,7 +59,7 @@
 		<sonar.ws.timeout>300</sonar.ws.timeout>	
 		<javacpp.platform.dependencies>windows-x86_64</javacpp.platform.dependencies>
         <!-- <javacpp.platform.linux-x86_64>linux-x86_64</javacpp.platform.linux-x86_64>-->
-	</properties>
+ 	</properties>
 	<dependencies>
 	
 		<dependency>
@@ -687,6 +682,48 @@
 					</execution>
 				</executions>
 			</plugin>	
+			 <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin> 
+            
+			 <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                    <!-- -Dgpg.passphrase='秘钥密码'或者-Darguments='gpg.passphrase=秘钥密码' -->
+                </executions>
+            </plugin>
+            <!-- <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus-staging</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>  -->
 			
 			<!-- 切换到项目根目录执行mvn clean compile test package sonar:sonar能够生成测试报告  http://132.122.237.68:9000可以查看 -->			
 			<plugin>
