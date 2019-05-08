@@ -60,8 +60,8 @@ com.github.qq275860560.common.util.JdbcTemplateSqlGeneratorUtil
 ```
 public static void main(String[] args) throws Exception {
 	JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://10.18.96.50:3306/rest_home_hz?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
-	JdbcTemplateSqlGeneratorUtil.username="resthome";
-	JdbcTemplateSqlGeneratorUtil.password = "resthome&*()";
+	JdbcTemplateSqlGeneratorUtil.username="root";
+	JdbcTemplateSqlGeneratorUtil.password = "123456";
 	JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 	JdbcTemplateSqlGeneratorUtil.schemaName = "rest_home_hz";
 	JdbcTemplateSqlGeneratorUtil.tableName = "c_service_catalog";
