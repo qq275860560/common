@@ -19,30 +19,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JdbcTemplateSqlGeneratorUtil {
 
-	public static String url = "jdbc:mysql://10.18.96.50:3306/rest_home_hz?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
-	public static String username = "resthome";
-	public static String password = "resthome&*()";
-	public static String driverClassName = "com.mysql.jdbc.Driver";
-	public static String schemaName = "rest_home_hz";
+	public static String url ;
+	public static String username;
+	public static String password ;
+	public static String driverClassName ;
+	public static String schemaName;
 
-	public static String tableName = "c_service_catalog";
-	public static String modelName = "CServiceCatalog";
+	public static String tableName ;
+	public static String modelName ;
 
+	 
 	public static void main(String[] args) throws Exception {
+		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://10.18.96.50:3306/rest_home_hz?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
+		JdbcTemplateSqlGeneratorUtil.username="resthome";
+		JdbcTemplateSqlGeneratorUtil.password = "resthome&*()";
+		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
+		JdbcTemplateSqlGeneratorUtil.schemaName = "rest_home_hz";
+		JdbcTemplateSqlGeneratorUtil.tableName = "c_service_catalog";
+		JdbcTemplateSqlGeneratorUtil.modelName = "CServiceCatalog";
+		JdbcTemplateSqlGeneratorUtil.generate();
+	}
 
-		// String schemaName ="msmng";
-		// String schemaName ="spms";
-		// String tableName = "sp_organization";
-		// String modelName = "Org";
-		// String tableName = "user";
-		// String modelName = "User";
-
-		// String tableName = "sp_repair_return_log";
-		// String modelName = "RepairReturnLog";
-
-		// String tableName = "sp_rework_transfer_log";
-		// String modelName = "ReworkTransferLog";
-
+	private static void generate() throws Exception {
 		log.info(countInterface(schemaName, tableName, modelName) + "\n"
 				+ checkInterface(schemaName, tableName, modelName) + "\n"
 				+ deleteInterface(schemaName, tableName, modelName) + "\n"
@@ -65,7 +63,6 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 		log.info("" + assignNull(schemaName, tableName));
 		log.info("" + assignFromMap(schemaName, tableName));
-
 	}
 
 	private static StringBuilder assignNull(String schemaName, String tableName) throws Exception {
