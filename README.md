@@ -27,7 +27,8 @@ public FilterRegistrationBean filterRegistrationBean() {
 }
 ```
 
-# http请求的参数变成Map或者List的工具类
+# 请求对象解释器
+http请求的参数变成Map或者List的工具类
 com.github.qq275860560.common.util.RequestUtil
 ## 适用场景
 * 对于ContentType为application/x-www-form-urlencoded的格式一般为a=1&b=2&b=3，解析后的Map有两个key，其中一个key为a，value为"1"，另一个key为b，value为new String[]{"2","3"};   
@@ -50,6 +51,7 @@ log.info("请求参数="+list);
 
 
 # sql语句生成器
+mysql增删改查语句模板生成
 com.github.qq275860560.common.util.JdbcTemplateSqlGeneratorUtil
 ## 适用场景
 有些项目使用轻量级的JdbcTemplate,
