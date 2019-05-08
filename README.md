@@ -1,7 +1,8 @@
 平常工作中积累的小而美的代码
 
 
-# com.github.qq275860560.common.filter.CorsFilter
+# 跨域过滤器
+com.github.qq275860560.common.filter.CorsFilter
 ## 使用场景
 适用于前后端跨域的项目，只要在web.xml或javaconfig，加入此过滤器即可
 ## 使用方式
