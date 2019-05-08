@@ -34,12 +34,11 @@ public class EventMessage implements Serializable {
 	/**
 	 * 消息命令
 	 */
-	//private int command = TEXT_Type;
+	// private int command = TEXT_Type;
 	/**
 	 * 消息动作 
 	 */
-	//private int action = TEXT_Type;
-
+	// private int action = TEXT_Type;
 
 	/**
 	 * 当前发送方id,此id不一定为用户id，可能是群组id，某种组织id，如果业务需要区分，建议继承此类，扩展字段,比如增加fromType

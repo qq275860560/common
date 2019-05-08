@@ -15,7 +15,7 @@ public class URLEncodeUtil {
 	}
 
 	// url转码，解决乱码问题
-  
+
 	public static String encode(String urlPath) {// 防止乱码
 		try {
 			StringBuilder pathBuilder = new StringBuilder();

@@ -17,24 +17,19 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.log4j.Logger;
 
- 
-
 /**
  * @author jiangyuanlin@163.com
  */
 public class FtpUtil {
 	private static Log log = LogFactory.getLog(FtpUtil.class);
 	private static FTPClient ftpClient = new FTPClient();
- 
 
 	static {
-		ftpClient.setConnectTimeout(20000);  
-		ftpClient.addProtocolCommandListener(new PrintCommandListener(
-				new PrintWriter(System.out)));
+		ftpClient.setConnectTimeout(20000);
+		ftpClient.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
 	}
-	
- 
-	public FTPFile[] listFiles(String tempDir){
+
+	public FTPFile[] listFiles(String tempDir) {
 		FTPFile[] ff = null;
 		try {
 			ff = ftpClient.listFiles(tempDir);
@@ -43,9 +38,8 @@ public class FtpUtil {
 		}
 		return ff;
 	}
- 
-	public boolean connect(String hostname, int port, String username,
-			String password) throws IOException {
+
+	public boolean connect(String hostname, int port, String username, String password) throws IOException {
 		ftpClient.connect(hostname, port);
 		log.info("FTP 远程连接成功");
 		if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())) {
@@ -69,7 +63,7 @@ public class FtpUtil {
 		} catch (IOException e) {
 			result = false;
 		}
-		
+
 		return result;
 	}
 

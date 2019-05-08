@@ -32,34 +32,32 @@ public class FreemarkerUtil {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("contentLength", 215);
 		File destFile = new File("c:/444.txt");
-		generateFile(srcFile,map,destFile);
-		String result = generateString(srcFile,map);
+		generateFile(srcFile, map, destFile);
+		String result = generateString(srcFile, map);
 		log.info(result);
 
 	}
 
-	public static void generateFile(File srcFile ,Map<String, Object> map,File destFile) throws IOException {
-		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destFile), "UTF-8"));	
+	public static void generateFile(File srcFile, Map<String, Object> map, File destFile) throws IOException {
+		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destFile), "UTF-8"));
 		convertWriter(srcFile, map, writer);
 	}
-	
-	public static String generateString(File srcFile ,Map<String, Object> map) throws IOException {
-	 	Writer writer = new StringWriter();;
+
+	public static String generateString(File srcFile, Map<String, Object> map) throws IOException {
+		Writer writer = new StringWriter();
+		;
 		convertWriter(srcFile, map, writer);
 		return writer.toString();
 	}
-	 
-	
-	
 
 	protected static void convertWriter(File srcFile, Map<String, Object> map, Writer writer) throws IOException {
-		try {			
+		try {
 			Configuration configuration = new Configuration();
 			configuration.setDefaultEncoding("utf-8");
-			configuration.setDirectoryForTemplateLoading( srcFile.getParentFile()); 
-			Template template = configuration.getTemplate(srcFile.getName());	 
+			configuration.setDirectoryForTemplateLoading(srcFile.getParentFile());
+			Template template = configuration.getTemplate(srcFile.getName());
 			template.process(map, writer);
-			writer.close();		 	 
+			writer.close();
 		} catch (Exception e) {
 			log.error("", e);
 		} finally {
@@ -67,27 +65,24 @@ public class FreemarkerUtil {
 				writer.close();
 		}
 	}
-	
-	   public static String renderString(String templateString, Map<String, ?> model) {
-	        try {
-	            StringWriter writer = new StringWriter();
-	            Template t = new Template("name", new StringReader(templateString), new Configuration());
-	            t.process(model, writer);
-	            return writer.toString();
-	        } catch (Exception e) {
-	        	log.error("", e);
-	        }
-	        return null;
-	    }
 
-	 
+	public static String renderString(String templateString, Map<String, ?> model) {
+		try {
+			StringWriter writer = new StringWriter();
+			Template t = new Template("name", new StringReader(templateString), new Configuration());
+			t.process(model, writer);
+			return writer.toString();
+		} catch (Exception e) {
+			log.error("", e);
+		}
+		return null;
+	}
 
-	    public static Configuration buildConfiguration(String directory) throws IOException {
-	        Configuration cfg = new Configuration();
-	        Resource path = new DefaultResourceLoader().getResource(directory);
-	        cfg.setDirectoryForTemplateLoading(path.getFile());
-	        return cfg;
-	    }
+	public static Configuration buildConfiguration(String directory) throws IOException {
+		Configuration cfg = new Configuration();
+		Resource path = new DefaultResourceLoader().getResource(directory);
+		cfg.setDirectoryForTemplateLoading(path.getFile());
+		return cfg;
+	}
 
-	
 }

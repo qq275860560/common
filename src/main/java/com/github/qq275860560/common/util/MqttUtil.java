@@ -1,6 +1,5 @@
 package com.github.qq275860560.common.util;
 
-
 import org.fusesource.hawtbuf.Buffer;
 import org.fusesource.hawtbuf.UTF8Buffer;
 import org.fusesource.hawtdispatch.Dispatch;
@@ -12,6 +11,7 @@ import org.fusesource.mqtt.client.QoS;
 import org.fusesource.mqtt.client.Topic;
 import org.fusesource.mqtt.client.Tracer;
 import org.fusesource.mqtt.codec.MQTTFrame;
+
 /**
  * @author jiangyuanlin@163.com
  */

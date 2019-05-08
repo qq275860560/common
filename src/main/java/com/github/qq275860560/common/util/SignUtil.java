@@ -21,20 +21,20 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SignUtil {
 	private static Log log = LogFactory.getLog(SignUtil.class);
-	 
+
 	private SignUtil() {
 	}
 
 	public static final String DEFAULT_KEY = "key";
 
-	//签名结果比较忽略大小写
-	 
+	// 签名结果比较忽略大小写
+
 	public static boolean validate(Map<String, String> map, String keyValue, String sign) {
 		return validate(map, DEFAULT_KEY, keyValue, sign);
 	}
 
-	//签名结果比较忽略大小写
-	 
+	// 签名结果比较忽略大小写
+
 	public static boolean validate(Map<String, String> map, String keyName, String keyValue, String sign) {
 		if (StringUtils.isBlank(sign)) {
 			return false;
@@ -46,14 +46,14 @@ public class SignUtil {
 		return false;
 	}
 
-	//返回签名的大写字符串
- 
+	// 返回签名的大写字符串
+
 	public static String getSign(Map<String, String> map, String keyValue) {
 		return getSign(map, DEFAULT_KEY, keyValue);
 	}
 
-	//返回签名的大写字符串
-	 
+	// 返回签名的大写字符串
+
 	public static String getSign(Map<String, String> map, String keyName, String keyValue) {
 		// 过滤空值
 		HashMap<String, String> temp = new HashMap<String, String>();
@@ -86,7 +86,8 @@ public class SignUtil {
 
 		try {
 			String resultSign = md5Encode(sourceStr, "UTF-8").toUpperCase();
-			//log.debug("sign source: [" + sourceStr + "], result sign: [" + resultSign + "]");
+			// log.debug("sign source: [" + sourceStr + "], result sign: [" + resultSign +
+			// "]");
 			return resultSign;
 		} catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException("验证签名失败", e);

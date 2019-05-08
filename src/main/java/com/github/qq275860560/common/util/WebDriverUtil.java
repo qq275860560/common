@@ -110,8 +110,8 @@ public class WebDriverUtil {
 		return true;
 	}
 
-	//创建HtmlUnitDriver
-	 
+	// 创建HtmlUnitDriver
+
 	public static WebDriver createHtmlUnitDriver() {
 		DesiredCapabilities desiredCapabilities = DesiredCapabilities.htmlUnit();
 		// desiredCapabilities.setCapability("loadImages", false);
@@ -125,7 +125,7 @@ public class WebDriverUtil {
 	}
 
 	// 创建ChromeDriver
-  
+
 	public static WebDriver createChromeDriver() throws MalformedURLException {
 		if (System.getProperty("os.name").toLowerCase().startsWith("linux")) {
 			System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\chromedriver");
@@ -146,8 +146,7 @@ public class WebDriverUtil {
 		return eventFiringWebDriver;
 	}
 
-	//创建FirefoxDriver
-  
+	// 创建FirefoxDriver
 
 	public static WebDriver createFirefoxDriver() throws Exception {
 		if (System.getProperty("os.name").toLowerCase().startsWith("linux")) {
@@ -169,8 +168,7 @@ public class WebDriverUtil {
 		return eventFiringWebDriver;
 	}
 
-	//创建IEDriver
-  
+	// 创建IEDriver
 
 	public static WebDriver createIEDriver() throws Exception {
 		// if (System.getProperty("os.name").toLowerCase().startsWith("linux"))
@@ -195,8 +193,8 @@ public class WebDriverUtil {
 		return eventFiringWebDriver;
 	}
 
-	//关闭浏览器
-	 
+	// 关闭浏览器
+
 	public static void closeDriver(WebDriver driver) {
 		driver.close();
 		if (driver instanceof RemoteWebDriver
@@ -216,55 +214,55 @@ public class WebDriverUtil {
 	}
 
 	// 模拟浏览器退出
-	 
+
 	public static void quit(WebDriver driver) {
 		driver.quit();
 	}
 
-	//模拟浏览器关闭
-	 
+	// 模拟浏览器关闭
+
 	public static void close(WebDriver driver) {
 		driver.close();
 	}
 
-	//模拟浏览器返回
-	 
+	// 模拟浏览器返回
+
 	public static void back(WebDriver driver) {
 		driver.navigate().back();
 	}
 
 	// 模拟浏览器前进
-	  
+
 	public static void forward(WebDriver driver) {
 		driver.navigate().forward();
 	}
 
 	// 模拟浏览器刷新
-	  
+
 	public static void refresh(WebDriver driver) {
 		driver.navigate().refresh();
 	}
 
 	// 模拟浏览器最大化
-	 
+
 	public static void maximize(WebDriver driver) {
 		driver.manage().window().maximize();
 	}
 
 	// 获取页面url
-	  
+
 	public static String getCurrentUrl(WebDriver driver) {
 		return driver.getCurrentUrl();
 	}
 
 	// 获取页面源码
-	 
+
 	public static String getPageSource(WebDriver driver) {
 		return driver.getPageSource();
 	}
 
-	//获取页面截图
-	 
+	// 获取页面截图
+
 	public static String getScreenshot(WebDriver driver) throws Exception {
 		String id = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + RandomStringUtils.randomNumeric(15);
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -274,48 +272,46 @@ public class WebDriverUtil {
 	}
 
 	// 执行JavaScript脚本
- 
+
 	public static Object executeJScript(WebDriver driver, String script, Object... args) {
 		return ((JavascriptExecutor) driver).executeScript(script, args);
 	}
 
-	//清空
-	 
+	// 清空
+
 	public static void clear(WebDriver driver, By by) throws Exception {
 		driver.findElement(by).clear();
 	}
 
-	//鼠标左边单击
-	  
+	// 鼠标左边单击
+
 	public static void click(WebDriver driver, By by) throws Exception {
 		driver.findElement(by).click();
 	}
 
-	//发送文本
-	  
+	// 发送文本
+
 	public static void sendKeys(WebDriver driver, By by, String text) throws Exception {
 		driver.findElement(by).sendKeys(text);
 	}
 
 	// 鼠标悬停
-	 
+
 	public static void clickAndHold(WebDriver driver, By by) {
 		WebElement element = driver.findElement(by);
 		new Actions(driver).clickAndHold(element).perform();
 	}
 
- 
 	public static void contextClick(WebDriver driver, By by) {
 		WebElement element = driver.findElement(by);
 		new Actions(driver).contextClick(element).perform();
 	}
 
- 
 	public static void doubleClick(WebDriver driver, By by) {
 		WebElement element = driver.findElement(by);
 		new Actions(driver).doubleClick(element).perform();
 	}
- 
+
 	public static void enableCheckbox(WebDriver driver, By by, boolean b) {
 		WebElement checkbox = driver.findElement(by);
 		if (b) {// 启用
@@ -330,7 +326,6 @@ public class WebDriverUtil {
 		}
 	}
 
-	 
 	public static void setSelect(WebDriver driver, By by, boolean b) {
 		WebElement checkbox = driver.findElement(by);
 		if (b) {// 选择
@@ -344,12 +339,10 @@ public class WebDriverUtil {
 		}
 	}
 
-	 
 	public static String getMethodName() {
 		return new Throwable().getStackTrace()[1].getMethodName();
 	}
 
-	 
 	public static void setSelected(WebDriver driver, By by, boolean b) throws Exception {
 		List<WebElement> elements = driver.findElements(by);
 		for (WebElement element : elements) {
@@ -358,19 +351,16 @@ public class WebDriverUtil {
 		}
 	}
 
-	 
-	public static void select(WebDriver driver, By by,  String option) {
+	public static void select(WebDriver driver, By by, String option) {
 		WebElement element = driver.findElement(by);
 		Select select = new Select(element);
 		select.selectByVisibleText(option);
 	}
-	
-	 
+
 	public WebElement findElement(WebDriver driver, By by) throws Exception {
 		return driver.findElement(by);
 	}
 
-	 
 	public List<WebElement> findElements(WebDriver driver, By by) throws Exception {
 		return driver.findElements(by);
 	}
@@ -428,7 +418,7 @@ public class WebDriverUtil {
 							.executeScript("return " + jqueryObj + ".css('" + assertKey + "');");
 				} else if ("getText".equalsIgnoreCase(assertMethod)) {
 					real_value = (String) javascriptExecutor.executeScript("return " + jqueryObj + ".text();");
-				}else if ("getValue".equalsIgnoreCase(assertMethod)) {
+				} else if ("getValue".equalsIgnoreCase(assertMethod)) {
 					real_value = (String) javascriptExecutor.executeScript("return " + jqueryObj + ".val();");
 				}
 			} else {
@@ -438,7 +428,7 @@ public class WebDriverUtil {
 					real_value = webElement.getCssValue(assertKey);
 				} else if ("getText".equalsIgnoreCase(assertMethod)) {
 					real_value = webElement.getText();
-				}else if ("getValue".equalsIgnoreCase(assertMethod)) {
+				} else if ("getValue".equalsIgnoreCase(assertMethod)) {
 					real_value = webElement.getAttribute("value");
 				}
 			}
@@ -470,19 +460,16 @@ public class WebDriverUtil {
 	public static void alt_F4(WebDriver driver) {
 		new Actions(driver).keyDown(Keys.ALT).sendKeys(Keys.F4).keyUp(Keys.ALT).perform();
 	}
-	
-	 
-	public void pressKeyboard(int keyCode) throws  Exception {
- 
-		Robot  
-			rb = new Robot();
-		 
-		rb.keyPress(keyCode);	// press key
-		rb.delay(100); 			// delay 100ms
-		rb.keyRelease(keyCode);	// release key
-	 
+
+	public void pressKeyboard(int keyCode) throws Exception {
+
+		Robot rb = new Robot();
+
+		rb.keyPress(keyCode); // press key
+		rb.delay(100); // delay 100ms
+		rb.keyRelease(keyCode); // release key
+
 	}
-	
 
 	// 鼠标操作
 	// 鼠标左键操作
@@ -565,8 +552,6 @@ public class WebDriverUtil {
 
 	}
 
- 
-
 	// 锁定浏览器打开的新页面
 	public static void popupPage(WebDriver driver) {
 		// 获取当前页面的 句柄
@@ -619,24 +604,20 @@ public class WebDriverUtil {
 		return target.getText();
 	}
 
-	 
 	public static void elementMove(WebDriver driver, String elementdI) {
 		WebElement sourceWebElement = driver.findElement(By.id(elementdI));
 		new Actions(driver).moveToElement(sourceWebElement).perform();
 	}
 
-	 
 	public static void switchFrame(WebDriver driver, String elementId) throws Exception {
 		WebElement element = driver.findElement(By.id(elementId));
 		driver.switchTo().frame(element);
 	}
 
-	 
 	public static void switchFrame(WebDriver driver) {
 		driver.switchTo().defaultContent();
 	}
 
-	 
 	public boolean checkJsURLConnect(WebDriver driver) {
 		String jsurl;
 		String msg = "校验有错误： \r\n";
@@ -670,7 +651,6 @@ public class WebDriverUtil {
 
 	}
 
- 
 	public boolean checkCssURLConnect(WebDriver driver) {
 		String cssurl;
 		String msg = "校验有错误： \r\n";
@@ -702,7 +682,7 @@ public class WebDriverUtil {
 		}
 		return flag;
 	}
- 
+
 	public static boolean checkPicConnect(WebDriver driver) {
 		String msg = "校验有错误： \r\n";
 		boolean flag = true;
@@ -759,7 +739,6 @@ public class WebDriverUtil {
 		return flag;
 	}
 
- 
 	public static void scrollVerticalBar(WebDriver driver, Integer height) {
 		if (height == null || height == -1) {
 			// 移动滚动条至页尾
@@ -768,26 +747,25 @@ public class WebDriverUtil {
 			executeJScript(driver, "window.scrollTo(0," + height + ");");
 		}
 	}
- 
+
 	public String getCookieValueByName(WebDriver driver, String cookieName) {
 		Cookie cookie = driver.manage().getCookieNamed(cookieName);
 		return cookie.getValue();
 	}
 
-	 
 	public static void deleteCookieValueByName(WebDriver driver, String cookieName) {
 		driver.manage().deleteCookieNamed(cookieName);
 	}
- 
+
 	public static void deleteAllCookies(WebDriver driver) {
 		driver.manage().deleteAllCookies();
 	}
- 
+
 	public static void addCookie(WebDriver driver, String key, String value) {
 		Cookie cookie = new Cookie(key, value);
 		driver.manage().addCookie(cookie);
 	}
- 
+
 	public static void addAllCookie(WebDriver driver, String cookies) {
 		String sKey, sValue;
 		String[] cookieStrArr = cookies.split(";");
@@ -798,7 +776,7 @@ public class WebDriverUtil {
 			addCookie(driver, sKey, sValue);
 		}
 	}
- 
+
 	public static void sleep(long millis) {
 		try {
 			Thread.sleep(millis);
@@ -806,26 +784,22 @@ public class WebDriverUtil {
 		}
 	}
 
- 
 	public static void implicitlyWait(WebDriver driver, int seconds) {
 		driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
 	}
- 
+
 	public static void until(WebDriver driver, int seconds, By by) {
 		new WebDriverWait(driver, seconds).until(ExpectedConditions.presenceOfElementLocated(by));
 	}
 
-	 
 	public static void upload(WebDriver driver, By by, String path) {
 		driver.findElement(by).sendKeys(path);
 	}
 
-	 
 	public static void getText(WebDriver driver, By by) {
 		driver.findElement(by).getText();
 	}
 
-	 
 	public static void verifyComboBoxSelectOption(WebDriver driver, String elementId, String text, boolean matched) {
 		WebElement comboSelect = driver.findElement(By.id(elementId));
 		List<WebElement> options = ((Select) comboSelect).getOptions();
@@ -840,7 +814,6 @@ public class WebDriverUtil {
 		}
 	}
 
-	 
 	public static void verifyComboBoxSelectOption(WebDriver driver, String elementId, String[] texts, boolean matched) {
 		WebElement comboSelect = driver.findElement(By.id(elementId));
 		List<WebElement> options = ((Select) comboSelect).getOptions();
@@ -1009,13 +982,13 @@ class MyWebDriverEventListener implements WebDriverEventListener {
 	@Override
 	public <X> void afterGetScreenshotAs(OutputType<X> arg0, X arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public <X> void beforeGetScreenshotAs(OutputType<X> arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

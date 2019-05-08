@@ -75,11 +75,12 @@ public class HttpServerUtil {
 			try {
 				Socket socket = serverSocket.accept();
 				HttpServerConnection httpServerConnection = httpConnectionFactory.createConnection(socket);
-				ThreadPoolExecutorUtil.threadPoolExecutor.execute(new HandlerRunnable(httpService, httpServerConnection));
+				ThreadPoolExecutorUtil.threadPoolExecutor
+						.execute(new HandlerRunnable(httpService, httpServerConnection));
 			} catch (InterruptedIOException ex) {
 				break;
 			} catch (IOException e) {
-				log.error("",e);
+				log.error("", e);
 				break;
 			}
 		}
@@ -101,7 +102,7 @@ public class HttpServerUtil {
 			if (!method.equals("POST")) {
 				result = "{\"code\":\"-1\",\"msg\":\"请求失败，只支持post请求\",\"data\":\"" + "" + "\"}";
 			} else {
-				
+
 				if (request.getLastHeader("Content-Type").getValue().equals("application/json;charset=UTF-8")) {
 
 					// 分析uri
@@ -121,8 +122,6 @@ public class HttpServerUtil {
 		}
 
 	}
-
-	 
 
 	static class HandlerRunnable implements Runnable {
 

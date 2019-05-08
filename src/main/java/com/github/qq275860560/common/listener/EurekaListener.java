@@ -23,14 +23,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.github.qq275860560.common.util.EurekaUtil;
+
 /**
  * @author jiangyuanlin@163.com
  */
 public class EurekaListener implements ServletContextListener {
 	private static Logger log = LoggerFactory.getLogger(EurekaListener.class);
-	 public static void main(String[] args) throws Exception{
+
+	public static void main(String[] args) throws Exception {
 		EurekaUtil.start();
 	}
+
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		EurekaUtil.shutdown();
@@ -39,16 +42,17 @@ public class EurekaListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		try {		
-			EurekaUtil.start();		
-			while(true){
-				EurekaUtil.heartbeat(EurekaUtil.properties.getProperty("eureka.name"),EurekaUtil.properties.getProperty("instanceId"));
-				 Thread.sleep(20000);
-				}
+		try {
+			EurekaUtil.start();
+			while (true) {
+				EurekaUtil.heartbeat(EurekaUtil.properties.getProperty("eureka.name"),
+						EurekaUtil.properties.getProperty("instanceId"));
+				Thread.sleep(20000);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 }

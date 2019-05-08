@@ -13,21 +13,21 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ThreadPoolExecutorUtil {
 	private static Log log = LogFactory.getLog(ThreadPoolExecutorUtil.class);
- 
-	public static ThreadFactory threadFactory =  new ThreadFactory() {
+
+	public static ThreadFactory threadFactory = new ThreadFactory() {
 		@Override
 		public Thread newThread(Runnable runnable) {
 			return new Thread(runnable);
 		}
 	};
-	public static ThreadPoolExecutor threadPoolExecutor  = null;
-	static{
-			int poolSize = Runtime.getRuntime().availableProcessors() * 2 + 1;
-			LinkedBlockingQueue<Runnable> requestQueue = new LinkedBlockingQueue<Runnable>(1024);
-			//
-			  threadPoolExecutor = new ThreadPoolExecutor(poolSize, poolSize, 60L, TimeUnit.SECONDS,
-					requestQueue, threadFactory);
-			threadPoolExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
-}
-		 
+	public static ThreadPoolExecutor threadPoolExecutor = null;
+	static {
+		int poolSize = Runtime.getRuntime().availableProcessors() * 2 + 1;
+		LinkedBlockingQueue<Runnable> requestQueue = new LinkedBlockingQueue<Runnable>(1024);
+		//
+		threadPoolExecutor = new ThreadPoolExecutor(poolSize, poolSize, 60L, TimeUnit.SECONDS, requestQueue,
+				threadFactory);
+		threadPoolExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
+	}
+
 }

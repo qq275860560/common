@@ -26,17 +26,17 @@ import com.github.qq275860560.common.util.ResponseUtil;
 public class ExceptionFilter implements Filter {
 	private static final Log log = LogFactory.getLog(ExceptionFilter.class);
 
-	private static String  environment;
+	private static String environment;
 
 	static {
 		try {
-			Configuration configuration = new Configurations().properties(new File("/","application.properties"));
+			Configuration configuration = new Configurations().properties(new File("/", "application.properties"));
 			environment = configuration.getString("spring.profiles.active");
 		} catch (Exception e) {
-			log.error("",e);			
+			log.error("", e);
 		}
 	}
-	
+
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		return;
@@ -51,14 +51,13 @@ public class ExceptionFilter implements Filter {
 			chain.doFilter(request, response);
 		} catch (Exception e) {
 			log.error("", e);
-			if("prod".equals(environment)){
+			if ("prod".equals(environment)) {
+				ResponseUtil.sendResult(response, "{\"code\":-2,\"msg\":\"请求错误\",\"data\":\"" + e.getMessage() + "\"}");
+			} else {
 				ResponseUtil.sendResult(response,
-						"{\"code\":-2,\"msg\":\"请求错误\",\"data\":\"" + e.getMessage() + "\"}");
-			}else{
-				ResponseUtil.sendResult(response,
-						"{\"code\":-2,\"msg\":\"请求错误\",\"data\":\"" + ExceptionUtils.getStackTrace(e) + "\"}");				
+						"{\"code\":-2,\"msg\":\"请求错误\",\"data\":\"" + ExceptionUtils.getStackTrace(e) + "\"}");
 			}
-			
+
 		}
 	}
 

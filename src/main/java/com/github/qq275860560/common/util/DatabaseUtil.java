@@ -33,34 +33,30 @@ public class DatabaseUtil {
 	private DatabaseUtil() {
 	}
 
- 
 	public static String url;
 	public static String username;
 	public static String password;
 	public static String driverClassName;
-	
+
 	public static DruidDataSource dataSource;
-    public static JdbcTemplate jdbcTemplate;
+	public static JdbcTemplate jdbcTemplate;
 
 	static {
 		try {
-			Configuration configuration = new Configurations()
-					.properties(new File("/", "application.properties"));
-			url = configuration.getString("spring.datasource.url"); 
+			Configuration configuration = new Configurations().properties(new File("/", "application.properties"));
+			url = configuration.getString("spring.datasource.url");
 			username = configuration.getString("spring.datasource.username");
-			password = configuration.getString("spring.datasource.password");	
-			driverClassName = configuration.getString("spring.datasource.driverClassName"); //"com.mysql.cj.jdbc.Driver"
-			dataSource = getDataSource(driverClassName,url, username, password);
+			password = configuration.getString("spring.datasource.password");
+			driverClassName = configuration.getString("spring.datasource.driverClassName"); // "com.mysql.cj.jdbc.Driver"
+			dataSource = getDataSource(driverClassName, url, username, password);
 			jdbcTemplate = new JdbcTemplate(dataSource);
 		} catch (Exception e) {
 			log.error("", e);
-			//System.exit(1);// 配置不准确，直接退出
+			// System.exit(1);// 配置不准确，直接退出
 		}
 	}
- 
-	
-	public static DruidDataSource getDataSource(String driverClassName,String url, String username,
-			String password) {
+
+	public static DruidDataSource getDataSource(String driverClassName, String url, String username, String password) {
 		DruidDataSource dataSource = new DruidDataSource();// 创建了一个实例
 		dataSource.setDriverClassName(driverClassName);
 		dataSource.setUrl(url);// 设置数据库连接地址
@@ -69,17 +65,17 @@ public class DatabaseUtil {
 		dataSource.setTestOnBorrow(false);
 		dataSource.setTestOnReturn(false);
 		dataSource.setTestWhileIdle(true);
-		dataSource.setPoolPreparedStatements(false);	
+		dataSource.setPoolPreparedStatements(false);
 		List<String> connectionInitSqls = new ArrayList<String>();
 		connectionInitSqls.add("SET GLOBAL time_zone = '+8:00'");
 		dataSource.setConnectionInitSqls(connectionInitSqls);
 		return dataSource;
 	}
-	
-	
+
 	// 取第一列，转换为字符串列表
-	 
-	public static List<String> jdbcQueryForFirstColumnString(DataSource dataSource, String sql, Object... args)throws Exception {
+
+	public static List<String> jdbcQueryForFirstColumnString(DataSource dataSource, String sql, Object... args)
+			throws Exception {
 		List<Map<String, Object>> list = jdbcQueryForList(dataSource, sql, args);
 		List<String> resultList = new ArrayList<String>();
 		for (Map<String, Object> map : list) {
@@ -91,9 +87,10 @@ public class DatabaseUtil {
 		return resultList;
 	}
 
-	//取第一列，转换为字符串列表
-	
-	public static List<Integer> jdbcQueryForFirstColumnInteger(DataSource dataSource, String sql, Object... args)throws Exception {
+	// 取第一列，转换为字符串列表
+
+	public static List<Integer> jdbcQueryForFirstColumnInteger(DataSource dataSource, String sql, Object... args)
+			throws Exception {
 		List<Map<String, Object>> list = jdbcQueryForList(dataSource, sql, args);
 		List<Integer> resultList = new ArrayList<Integer>();
 		for (Map<String, Object> map : list) {
@@ -118,9 +115,9 @@ public class DatabaseUtil {
 		}
 		return result;
 	}
-	
-	//取第一行，第一列，转换为整形
-	
+
+	// 取第一行，第一列，转换为整形
+
 	public static double jdbcQueryForDouble(DataSource dataSource, String sql, Object... args) throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
 		double result = 0;
@@ -133,8 +130,8 @@ public class DatabaseUtil {
 		return result;
 	}
 
-	//取第一行，第一列，转换为字符串
-	 
+	// 取第一行，第一列，转换为字符串
+
 	public static String jdbcQueryForString(DataSource dataSource, String sql, Object... args) throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
 		String result = "";
@@ -147,9 +144,10 @@ public class DatabaseUtil {
 		return result;
 	}
 
-	//取第一行，转换为HashMap，比如{"name_":XXX,"age_":YYY,"sex_":ZZZ}
-	 
-	public static Map<String, Object> jdbcQueryForMap(DataSource dataSource, String sql, Object... args)throws Exception {
+	// 取第一行，转换为HashMap，比如{"name_":XXX,"age_":YYY,"sex_":ZZZ}
+
+	public static Map<String, Object> jdbcQueryForMap(DataSource dataSource, String sql, Object... args)
+			throws Exception {
 		List<Map<String, Object>> resultList = jdbcQueryForList(dataSource, sql, args);
 		if (resultList.isEmpty())
 			return Collections.emptyMap();
@@ -157,8 +155,8 @@ public class DatabaseUtil {
 			return resultList.get(0);
 	}
 
-	//取第一行，转换为字符串列表
-	 
+	// 取第一行，转换为字符串列表
+
 	public static List<String> jdbcQueryForFirstRowString(DataSource dataSource, String sql, Object... args)
 			throws Exception {
 		Map<String, Object> resultMap = jdbcQueryForMap(dataSource, sql, args);
@@ -171,7 +169,8 @@ public class DatabaseUtil {
 		return resultList;
 	}
 
-	public static List<Map<String, Object>> jdbcQueryForList(DataSource dataSource, String sql, Object... args)  throws Exception {
+	public static List<Map<String, Object>> jdbcQueryForList(DataSource dataSource, String sql, Object... args)
+			throws Exception {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
@@ -249,12 +248,12 @@ public class DatabaseUtil {
 				} catch (Exception e2) {
 					log.error("", e2);
 				}
-		}		
+		}
 	}
 
 	// 增删改
- 
-	public static int jdbcUpdate(DataSource dataSource, String sql, Object... args)  throws Exception{
+
+	public static int jdbcUpdate(DataSource dataSource, String sql, Object... args) throws Exception {
 		Connection connection = null;
 		try {
 			connection = dataSource.getConnection();
@@ -265,7 +264,7 @@ public class DatabaseUtil {
 			}
 			return stmt.executeUpdate();
 		} catch (Exception e) {
-			throw e;		 
+			throw e;
 		} finally {
 			// 从连接池获取的连接connection跟JDK中的connection有点不同，前者的close方法并没有关闭与数据库的连接，而是将连接返回到池中
 			if (connection != null)
@@ -274,9 +273,7 @@ public class DatabaseUtil {
 				} catch (Exception e2) {
 					log.error("", e2);
 				}
-		}	 
+		}
 	}
-
-	  
 
 }

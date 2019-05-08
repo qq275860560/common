@@ -22,7 +22,7 @@ public class ResponseUtil {
 	}
 
 	// 把字符串发回给客户端
- 
+
 	public static void sendResult(HttpServletResponse response, String result) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-Type", "application/json;charset=UTF-8");// 解决乱码
@@ -37,8 +37,8 @@ public class ResponseUtil {
 	}
 
 	// 把文件流发回给客户端
-	 
-	public static void sendResult(HttpServletResponse response, File file,String contentType) throws IOException {
+
+	public static void sendResult(HttpServletResponse response, File file, String contentType) throws IOException {
 		FileInputStream fis = null;
 		ServletOutputStream out = null;
 		try {
@@ -49,11 +49,11 @@ public class ResponseUtil {
 			int count = fis.read(b);
 			log.info("字节总数:" + count);
 			response.setCharacterEncoding("utf-8");
-			if(contentType!=null){
+			if (contentType != null) {
 				response.setContentType(contentType);
-			}else{//字节流默认为excel文件
+			} else {// 字节流默认为excel文件
 				response.setContentType("application/vnd.ms-excel;charset=utf-8");
-				//"application/octet-stream;charset=UTF-8"
+				// "application/octet-stream;charset=UTF-8"
 			}
 			response.addHeader("Content-Disposition",
 					"attachment;filename=" + new String(filename.getBytes(), "utf-8"));

@@ -20,12 +20,12 @@ import redis.clients.jedis.JedisPoolConfig;
 public class RedisUtil {
 
 	private static Log log = LogFactory.getLog(RedisUtil.class);
-	 
+
 	private RedisUtil() {
 	}
 
 	private static JedisCluster jedisCluster;
-	//环境变量,可选值DEV0,TEST,QA00,PROD
+	// 环境变量,可选值DEV0,TEST,QA00,PROD
 	private static String environment;
 	static {
 		try {
@@ -33,7 +33,7 @@ public class RedisUtil {
 			JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
 			jedisPoolConfig.setMaxTotal(configuration.getInt("maxtotal"));
 			jedisPoolConfig.setMaxIdle(configuration.getInt("maxidle"));
-			environment=configuration.getString("environment");
+			environment = configuration.getString("environment");
 			Set<HostAndPort> set = new HashSet<HostAndPort>();
 			String[] servers = configuration.getString("servers").split(",");
 			for (int i = 0; i < servers.length; i++) {
@@ -55,71 +55,56 @@ public class RedisUtil {
 		}
 	}
 
- 
 	public static String get(String key) {
-		return jedisCluster.get(key+":"+environment);
+		return jedisCluster.get(key + ":" + environment);
 
 	}
 
- 
 	public static String set(String key, String value, String nxxx, String expx, long time) {
-		return jedisCluster.set(key+":"+environment, value, nxxx, expx, time);
+		return jedisCluster.set(key + ":" + environment, value, nxxx, expx, time);
 	}
- 
+
 	public static String set(String key, String value) {
 
-		return jedisCluster.set(key+":"+environment, value);
+		return jedisCluster.set(key + ":" + environment, value);
 	}
 
-	 
 	public static String setex(String key, int seconds, String value) {
-		return jedisCluster.setex(key+":"+environment, seconds, value);
+		return jedisCluster.setex(key + ":" + environment, seconds, value);
 
 	}
-	
-	 
+
 	public static String setnx(String key, int seconds, String value) {
-		return jedisCluster.set(key+":"+environment,value,"NX","EX", seconds);
+		return jedisCluster.set(key + ":" + environment, value, "NX", "EX", seconds);
 	}
-	
 
-	 
 	public static long del(String... keys) {
-		String[] newkeys=new String[keys.length];
-		for(int i=0;i<keys.length;i++){
-			newkeys[i]=keys[i]+":"+environment;
+		String[] newkeys = new String[keys.length];
+		for (int i = 0; i < keys.length; i++) {
+			newkeys[i] = keys[i] + ":" + environment;
 		}
 		return jedisCluster.del(newkeys);
 	}
 
-	 
 	public static boolean exists(String key) {
-		return jedisCluster.exists(key+":"+environment);
+		return jedisCluster.exists(key + ":" + environment);
 	}
 
-	 
 	public static void expire(String key, int seconds) {
-		jedisCluster.expire(key+":"+environment, seconds);
+		jedisCluster.expire(key + ":" + environment, seconds);
 
 	}
 
-	 
 	public static long ttl(String key) {
-		return jedisCluster.ttl(key+":"+environment);
+		return jedisCluster.ttl(key + ":" + environment);
 	}
 
-
-	 
-	public static long lpush(String key,String value) {
-		return jedisCluster.lpush(key+":"+environment,value);
+	public static long lpush(String key, String value) {
+		return jedisCluster.lpush(key + ":" + environment, value);
 	}
 
-	 
 	public static String rpop(String key) {
-		return jedisCluster.rpop(key+":"+environment);
+		return jedisCluster.rpop(key + ":" + environment);
 	}
-	
-	 
-	
- 
+
 }

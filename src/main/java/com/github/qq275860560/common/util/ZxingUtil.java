@@ -27,8 +27,8 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
  * Zxing图形码工具
  */
 public class ZxingUtil {
-	//Zxing图形码生成工具
- 
+	// Zxing图形码生成工具
+
 	public static File encode(String contents, BarcodeFormat barcodeFormat, Integer margin,
 			ErrorCorrectionLevel errorLevel, String format, int width, int height, File saveImgFile) throws Exception {
 		BufferedImage bufImg;
@@ -45,7 +45,6 @@ public class ZxingUtil {
 		return saveImgFile;
 	}
 
-	 
 	@SuppressWarnings("finally")
 	public static String decode(File srcImgFile) throws Exception {
 		BufferedImage image = ImageIO.read(srcImgFile);

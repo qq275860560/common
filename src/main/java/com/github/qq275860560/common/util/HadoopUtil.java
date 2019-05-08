@@ -13,6 +13,7 @@ import org.apache.hadoop.fs.LocatedFileStatus;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.RemoteIterator;
 import org.apache.hadoop.io.IOUtils;
+
 /**
  * @author jiangyuanlin@163.com
  *
@@ -23,7 +24,7 @@ public class HadoopUtil {
 
 		// 配置读取，读取默认配置
 		Configuration conf = new Configuration();
-		//conf.set("dfs.client.use.datanode.hostname", "true");
+		// conf.set("dfs.client.use.datanode.hostname", "true");
 		// hdfs客户端对象获取
 		FileSystem fileSystem = FileSystem.get(new URI("hdfs://GITHUB-QQ275860560-hadoop:8020"), conf, "root");
 		// 从hdfs系统下载文件到本地
@@ -40,20 +41,20 @@ public class HadoopUtil {
 
 		// hdfs客户端对象获取
 		FileSystem fileSystem = FileSystem.get(new URI("hdfs://GITHUB-QQ275860560-hadoop:8020"), conf, "root");
-		// 从本地上传到hdfs系统 
+		// 从本地上传到hdfs系统
 		fileSystem.mkdirs(new Path("/input/"));
 		fileSystem.copyFromLocalFile(
 				new Path("D:/workspace/GITHUB-QQ275860560-web/src/main/resources/application.properties"),
 				new Path("/input/test3.txt"));
-		 
+
 		fileSystem.close();
 
 	}
 
-	public static void main2(String[] args) throws Exception{
+	public static void main2(String[] args) throws Exception {
 		// 配置读取，读取默认配置
 		Configuration conf = new Configuration();
-		//conf.set("dfs.client.use.datanode.hostname", "true");
+		// conf.set("dfs.client.use.datanode.hostname", "true");
 		FileSystem fileSystem = FileSystem.get(new URI("hdfs:github-build-hadoop:8020"), conf, "root");
 		// 创建文件夹
 		try {

@@ -8,12 +8,13 @@ import java.io.ObjectOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
- 
+
 public class SerializeUtil {
 	private static final Log log = LogFactory.getLog(SerializeUtil.class);
 
 	public static byte[] serialize(Object object) throws Exception {
-		if(object == null) return null;
+		if (object == null)
+			return null;
 		ObjectOutputStream oos = null;
 		ByteArrayOutputStream baos = null;
 		try {
@@ -29,9 +30,9 @@ public class SerializeUtil {
 		}
 	}
 
- 
 	public static Object unSerialize(byte[] bytes) throws Exception {
-		if(bytes == null) return null;
+		if (bytes == null)
+			return null;
 		ByteArrayInputStream bais = null;
 		try {
 			// 反序列化

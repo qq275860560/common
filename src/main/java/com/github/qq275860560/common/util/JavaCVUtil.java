@@ -1,7 +1,5 @@
 package com.github.qq275860560.common.util;
 
-
- 
 import static org.bytedeco.javacpp.opencv_highgui.imshow;
 import static org.bytedeco.javacpp.opencv_highgui.waitKey;
 import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
@@ -21,26 +19,25 @@ import org.bytedeco.javacv.FrameGrabber;
 import org.bytedeco.javacv.FrameRecorder;
 import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
- 
+
 public class JavaCVUtil {
 
-    public static void main(String[] args) {
-    	//System.loadLibrary("opencv_java341.dll");
-    	 
-        //读取原始图片
-        Mat image = imread(new File(JavaCVUtil.class.getResource("/bd_logo1.png").getFile()).getAbsolutePath()); 
-        if (image.empty()) {
-            System.err.println("加载图片出错，请检查图片路径！");
-            return;
-        }
-        //显示图片 
-        imshow("显示原始图像", image);
+	public static void main(String[] args) {
+		// System.loadLibrary("opencv_java341.dll");
 
-        //无限等待按键按下
-        waitKey(0);
-    }
+		// 读取原始图片
+		Mat image = imread(new File(JavaCVUtil.class.getResource("/bd_logo1.png").getFile()).getAbsolutePath());
+		if (image.empty()) {
+			System.err.println("加载图片出错，请检查图片路径！");
+			return;
+		}
+		// 显示图片
+		imshow("显示原始图像", image);
 
-    
+		// 无限等待按键按下
+		waitKey(0);
+	}
+
 	public static void main1(String[] args) throws Exception, InterruptedException {
 		OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
 		grabber.start(); // 开始获取摄像头数据
@@ -60,7 +57,7 @@ public class JavaCVUtil {
 			Thread.sleep(50);// 50毫秒刷新一次图像
 		}
 	}
-	
+
 	public static void recordCamera(String outputFile, double frameRate)
 			throws Exception, InterruptedException, FrameRecorder.Exception {
 		Loader.load(opencv_objdetect.class);
@@ -101,7 +98,7 @@ public class JavaCVUtil {
 		grabber.stop();
 
 	}
-	
+
 	// 文件
 	// public static void main(String[] args)
 	// throws Exception, InterruptedException,
@@ -109,17 +106,17 @@ public class JavaCVUtil {
 	// recordCamera("video.mp4", 25);
 	// }
 
-//	// hls流
+	// // hls流
 	public static void main2(String[] args)
 			throws Exception, InterruptedException, org.bytedeco.javacv.FrameRecorder.Exception {
 		recordCamera("rtmp://list.sectong.com:1935/hls/osx", 25);
 	}
 
-//	rtmp 流
+	// rtmp 流
 
-//	public static void main(String[] args)
-//			throws Exception, InterruptedException, org.bytedeco.javacv.FrameRecorder.Exception {
-//		recordCamera("rtmp://list.sectong.com:1935/myapp/osx", 25);
-//	}
+	// public static void main(String[] args)
+	// throws Exception, InterruptedException,
+	// org.bytedeco.javacv.FrameRecorder.Exception {
+	// recordCamera("rtmp://list.sectong.com:1935/myapp/osx", 25);
+	// }
 }
- 

@@ -25,21 +25,19 @@ import com.sun.management.OperatingSystemMXBean;
 public class SystemInfoUtil {
 	private static Log log = LogFactory.getLog(SystemInfoUtil.class);
 	private static final int CPUTIME = 5000;
-	//网管进程信息采集周期(注意：PERIOD_TIME 一定要大于 SLEEP_TIME )
- 
+	// 网管进程信息采集周期(注意：PERIOD_TIME 一定要大于 SLEEP_TIME )
+
 	private static final int PERIOD_TIME = 1000 * 60 * 15;
-	//此类中Thread.sleep()里的线程睡眠时间
-	 
+	// 此类中Thread.sleep()里的线程睡眠时间
+
 	private static final int SLEEP_TIME = 1000 * 60 * 9;
 	private static final int PERCENT = 100;
 	private static final int FAULTLENGTH = 10;
 	private static String isWindowsOrLinux = isWindowsOrLinux();
 	private static String pid = "";
- 
 
-	 
-//判断是服务器的系统类型是Windows 还是 Linux
- 
+	// 判断是服务器的系统类型是Windows 还是 Linux
+
 	public static String isWindowsOrLinux() {
 		String osName = System.getProperty("os.name");
 		String sysName = "";
@@ -51,8 +49,8 @@ public class SystemInfoUtil {
 		return sysName;
 	}
 
-	//获取JVM 的CPU占用率（%）
-	 
+	// 获取JVM 的CPU占用率（%）
+
 	public static String getCPURate() {
 		String cpuRate = "";
 		if (isWindowsOrLinux.equals("windows")) { // 判断操作系统类型是否为：windows
@@ -62,8 +60,8 @@ public class SystemInfoUtil {
 		}
 		return cpuRate;
 	}
-//windows环境下获取JVM的PID
-	 
+	// windows环境下获取JVM的PID
+
 	public void getJvmPIDOnWindows() {
 		RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
 		pid = runtime.getName().split("@")[0];
@@ -71,7 +69,7 @@ public class SystemInfoUtil {
 	}
 
 	// linux环境下获取JVM的PID
-	 
+
 	public void getJvmPIDOnLinux() {
 		String command = "pidof java";
 		BufferedReader in = null;
@@ -88,7 +86,7 @@ public class SystemInfoUtil {
 	}
 
 	// 获取JVM的内存占用率（%）
- 
+
 	public String getMemoryRate() {
 		String memRate = "";
 		if (isWindowsOrLinux.equals("windows")) { // 判断操作系统类型是否为：windows
@@ -99,8 +97,8 @@ public class SystemInfoUtil {
 		return memRate;
 	}
 
-	//获取JVM 线程数
-	 
+	// 获取JVM 线程数
+
 	public static int getThreadCount() {
 		int threadCount = 0;
 		if (isWindowsOrLinux.equals("windows")) { // 判断操作系统类型是否为：windows
@@ -111,8 +109,8 @@ public class SystemInfoUtil {
 		return threadCount;
 	}
 
-	//获取磁盘读写速率（MB/s）
-	 
+	// 获取磁盘读写速率（MB/s）
+
 	// public String getDiskAccess() { // TODO:待完成
 	// String diskAccess = "";
 	// if (isWindowsOrLinux.equals("windows")) { // 判断操作系统类型是否为：windows
@@ -123,8 +121,8 @@ public class SystemInfoUtil {
 	// return diskAccess;
 	// }
 
-	//获取网口吞吐量（MB/s）
- 
+	// 获取网口吞吐量（MB/s）
+
 	public String getNetworkThroughput() {
 		String throughput = "";
 		if (isWindowsOrLinux.equals("windows")) { // 判断操作系统类型是否为：windows
@@ -136,7 +134,7 @@ public class SystemInfoUtil {
 	}
 
 	// 获取Windows环境下网口的上下行速率
-	 
+
 	public String getNetworkThroughputForWindows() {
 		Process pro1 = null;
 		Process pro2 = null;
@@ -144,7 +142,7 @@ public class SystemInfoUtil {
 		BufferedReader input = null;
 		String rxPercent = "";
 		String txPercent = "";
-		Map<String, Object> jsonObject = new HashMap<String,Object>();
+		Map<String, Object> jsonObject = new HashMap<String, Object>();
 		try {
 			String command = "netstat -e";
 			pro1 = r.exec(command);
@@ -169,8 +167,8 @@ public class SystemInfoUtil {
 		return JsonUtil.toJSONString(jsonObject);
 	}
 
-	//获取Linux环境下网口的上下行速率
-	 
+	// 获取Linux环境下网口的上下行速率
+
 	public String getNetworkThroughputForLinux() {
 		Process pro1 = null;
 		Process pro2 = null;
@@ -178,7 +176,7 @@ public class SystemInfoUtil {
 		BufferedReader input = null;
 		String rxPercent = "";
 		String txPercent = "";
-		Map<String, Object> jsonObject = new HashMap<String,Object>();
+		Map<String, Object> jsonObject = new HashMap<String, Object>();
 		try {
 			String command = "watch ifconfig";
 			pro1 = r.exec(command);
@@ -201,12 +199,11 @@ public class SystemInfoUtil {
 		}
 		jsonObject.put("rxPercent", rxPercent); // 下行速率
 		jsonObject.put("txPercent", txPercent); // 上行速率
-		return  JsonUtil.toJSONString(jsonObject);
+		return JsonUtil.toJSONString(jsonObject);
 	}
 
- 
-	//获取linux环境下JVM的cpu占用率
- 
+	// 获取linux环境下JVM的cpu占用率
+
 	public static String getCPURateForLinux() {
 		InputStream is = null;
 		InputStreamReader isr = null;
@@ -284,7 +281,7 @@ public class SystemInfoUtil {
 	}
 
 	// 获取Linux环境下JVM的内存占用率
-	 
+
 	public String getMemoryRateForLinux() {
 		Process pro = null;
 		Runtime r = Runtime.getRuntime();
@@ -317,8 +314,8 @@ public class SystemInfoUtil {
 		return remCount;
 	}
 
-	//获取windows环境下jvm的内存占用率
- 
+	// 获取windows环境下jvm的内存占用率
+
 	public String getMemoryRateForWindows() {
 		String command = "TASKLIST /NH /FO CSV /FI \"PID EQ " + pid + " \"";
 		String remCount = ""; // jvm物理内存占用量
@@ -353,8 +350,8 @@ public class SystemInfoUtil {
 		return String.valueOf((Float.parseFloat(result) * 100));
 	}
 
-	//获取linux磁盘读写速率
-	 
+	// 获取linux磁盘读写速率
+
 	// public String getDiskAccessForLinux() {
 	// Process pro = null;
 	// Runtime r = Runtime.getRuntime();
@@ -396,7 +393,7 @@ public class SystemInfoUtil {
 	// }
 
 	// 获取Linux服务器的语言环境
- 
+
 	public String getLocale() {
 		Process pro = null;
 		Runtime r = Runtime.getRuntime();
@@ -415,8 +412,8 @@ public class SystemInfoUtil {
 		return ts.nextToken();
 	}
 
-	//获取Linux环境下JVM的线程数
- 
+	// 获取Linux环境下JVM的线程数
+
 	public static int getThreadCountForLinux() {
 		Process pro = null;
 		Runtime r = Runtime.getRuntime();
@@ -440,8 +437,8 @@ public class SystemInfoUtil {
 	}
 
 	// 获取Windows环境下JVM的线程数
-	 
-	public static int  getThreadCountForWindows() {
+
+	public static int getThreadCountForWindows() {
 		String command = "wmic process " + pid + " list brief";
 		int count = 0;
 		BufferedReader in = null;
@@ -482,10 +479,8 @@ public class SystemInfoUtil {
 		}
 	}
 
-	 
+	// 获取网口上下行速率
 
-	//获取网口上下行速率
- 
 	public String[] readInLine(BufferedReader input, String osType) {
 		String rxResult = "";
 		String txResult = "";
@@ -527,8 +522,8 @@ public class SystemInfoUtil {
 		return arr;
 	}
 
-	//由于String.subString对汉字处理存在问题（把一个汉字视为一个字节)，因此在 包含汉字的字符串时存在隐患，现调整如下：
- 
+	// 由于String.subString对汉字处理存在问题（把一个汉字视为一个字节)，因此在 包含汉字的字符串时存在隐患，现调整如下：
+
 	private String substring(String src, int start_idx, int end_idx) {
 		byte[] b = src.getBytes();
 		String tgt = "";
@@ -538,8 +533,8 @@ public class SystemInfoUtil {
 		return tgt;
 	}
 
-	//格式化浮点数(float 和 double)，保留两位小数
- 
+	// 格式化浮点数(float 和 double)，保留两位小数
+
 	private String formatNumber(Object obj) {
 		String result = "";
 		if (obj.getClass().getSimpleName().equals("Float")) {
@@ -550,8 +545,8 @@ public class SystemInfoUtil {
 		return result;
 	}
 
-	//测试方法 ：监测java执行相关命令后是否能获取到结果集(注：此方法执行后会中断程序的执行，测试完后请注释掉)
-	
+	// 测试方法 ：监测java执行相关命令后是否能获取到结果集(注：此方法执行后会中断程序的执行，测试完后请注释掉)
+
 	public void testGetInput(BufferedReader in) {
 		int y = 0;
 		try {
@@ -574,10 +569,10 @@ public class SystemInfoUtil {
 				int threadCount = getThreadCount();
 				String cpuRate = getCPURate(); // CPU使用率
 				String memoryRate = getMemoryRate(); // 内存占用率
-				Map<String,Object> jsonObj = JsonUtil.parse(getNetworkThroughput(), Map.class);
-			 
-				String upSpeed = (String)jsonObj.get ("txPercent");// 上行速度
-				String downSpeed = (String)jsonObj.get("rxPercent"); // 下行速度
+				Map<String, Object> jsonObj = JsonUtil.parse(getNetworkThroughput(), Map.class);
+
+				String upSpeed = (String) jsonObj.get("txPercent");// 上行速度
+				String downSpeed = (String) jsonObj.get("rxPercent"); // 下行速度
 				System.out.println("JVM PID：" + pid);
 				System.out.println("JVM 线程数：" + threadCount);
 				System.out.println("内存占用率：" + memoryRate + "%");

@@ -23,16 +23,13 @@ import com.netflix.loadbalancer.Server;
 public class RibbonUtil {
 
 	private static final Log log = LogFactory.getLog(RibbonUtil.class);
- 
- 
- 
 
 	public static Server getServer(String clientName) {
 		// ClientFactory.getNamedLoadBalancer会缓存结果, 所以不用担心它每次都会向eureka发起查询
 		@SuppressWarnings("rawtypes")
 		DynamicServerListLoadBalancer lb = (DynamicServerListLoadBalancer) ClientFactory
 				.getNamedLoadBalancer(clientName);
-		
+
 		RandomRule randomRule = new RandomRule();
 		return randomRule.choose(lb, null);
 	}
@@ -64,19 +61,17 @@ public class RibbonUtil {
 		((AggregatedConfiguration) ConfigurationManager.getConfigInstance()).addConfiguration(config, clientName);
 
 	}
-	
- 
-	 //spring-boot3.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
-	 //spring-boot3.ribbon.listOfServers=127.0.0.1:8080,127.0.0.1:8081
-	 
-	public static void initServersFromPropertiesFile(String propertiesFileName ) {
-		try{
-		ConfigurationManager.loadPropertiesFromResources(propertiesFileName);
-		}catch (Exception e) {
+
+	// spring-boot3.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule
+	// spring-boot3.ribbon.listOfServers=127.0.0.1:8080,127.0.0.1:8081
+
+	public static void initServersFromPropertiesFile(String propertiesFileName) {
+		try {
+			ConfigurationManager.loadPropertiesFromResources(propertiesFileName);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 	public static void main(String[] args) throws Exception {
 		String clientName = "spring-boot";
@@ -98,7 +93,6 @@ public class RibbonUtil {
 			log.info("random server=" + getServer(clientName + 2));
 		}
 
-		
 		RibbonUtil.initServersFromPropertiesFile("ribbon.properties");
 		for (int i = 0; i < 10; i++) {
 			log.info("random server=" + getServer("GITHUB-QQ275860560-web"));

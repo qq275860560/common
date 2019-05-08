@@ -38,7 +38,7 @@ public class JwtUtil {
 
 	static {
 		try {
-			Configuration configuration = new Configurations().properties(new File("/","application.properties"));
+			Configuration configuration = new Configurations().properties(new File("/", "application.properties"));
 			byte[] keyBytes = (new Base64()).decode(configuration.getString("privateKey"));
 			PKCS8EncodedKeySpec keySpec_privateKey = new PKCS8EncodedKeySpec(keyBytes);
 			KeyFactory keyFactory_privateKey = KeyFactory.getInstance("RSA");
@@ -47,16 +47,14 @@ public class JwtUtil {
 			keyBytes = (new Base64()).decode(configuration.getString("publicKey"));
 			X509EncodedKeySpec keySpec_publicKey = new X509EncodedKeySpec(keyBytes);
 			KeyFactory keyFactory_publicKey = KeyFactory.getInstance("RSA");
-			publicKey =  keyFactory_publicKey.generatePublic(keySpec_publicKey);
+			publicKey = keyFactory_publicKey.generatePublic(keySpec_publicKey);
 
 		} catch (Exception e) {
-			log.error("",e);
+			log.error("", e);
 			System.exit(1);
 		}
 	}
-	
 
- 
 	public static String encrypt(String issUser, String audience, Float minutes, Map<String, Object> payLoadMap)
 			throws JoseException {
 		if (StringUtils.isBlank(issUser)) {// 令牌创建者
@@ -105,7 +103,7 @@ public class JwtUtil {
 		return jws.getCompactSerialization();
 
 	}
- 
+
 	public static Map<String, Object> decrypt(String token, String isUser, String audience) throws InvalidJwtException {
 
 		JwtConsumer jwtConsumer = new JwtConsumerBuilder().setRequireExpirationTime() // the

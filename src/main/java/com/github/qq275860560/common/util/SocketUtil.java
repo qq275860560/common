@@ -39,7 +39,8 @@ public class SocketUtil {
 			while ((line = br.readLine()) != null) {
 				sb.append(line).append("\r\n");
 			}
-			if(sb.length()>0) sb.delete(sb.length()-2, sb.length());
+			if (sb.length() > 0)
+				sb.delete(sb.length() - 2, sb.length());
 			return sb.toString();
 		} catch (Exception e) {
 			log.error("", e);
@@ -56,6 +57,5 @@ public class SocketUtil {
 		}
 		return null;
 	}
-	
 
 }

@@ -21,7 +21,8 @@ public class CacheUtil {
 	public static void set(String key, Object object) {
 		map.put(key, object);
 	}
-	public static void del(String key){
+
+	public static void del(String key) {
 		map.remove(key);
 	}
 

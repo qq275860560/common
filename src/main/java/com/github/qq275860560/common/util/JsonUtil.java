@@ -25,14 +25,15 @@ public class JsonUtil {
 			.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
 			.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE));;
 
-	//将对象序列化成Json字符串
-	
+	// 将对象序列化成Json字符串
+
 	/**
 	 * @param obj
 	 * @return
 	 */
 	public static String toJSONString(Object obj) {
-		if(obj==null) return null;
+		if (obj == null)
+			return null;
 		// return JSONUtils.toJSONString(obj);
 
 		String jsonString = null;
@@ -45,8 +46,8 @@ public class JsonUtil {
 
 	}
 
-	//将Json字符串反序列化成对象
-	 
+	// 将Json字符串反序列化成对象
+
 	public static <T> T parse(String jsonString, Class<T> clazz) {
 		// return clazz.cast(JSONUtils.parse(jsonString));
 		T t = null;
@@ -58,11 +59,9 @@ public class JsonUtil {
 		return t;
 	}
 
-	
-	
-	//将输入流反序列化成对象 
-	
-	public static <T> T parse(InputStream inputStream, Class<T> clazz) {	 
+	// 将输入流反序列化成对象
+
+	public static <T> T parse(InputStream inputStream, Class<T> clazz) {
 		T t = null;
 		try {
 			t = mapper.readValue(inputStream, clazz);
@@ -71,7 +70,7 @@ public class JsonUtil {
 		}
 		return t;
 	}
-	
+
 	public static String getValue(String jsonKey, String content) {
 		String result = null;
 		try {
@@ -83,7 +82,6 @@ public class JsonUtil {
 		return result;
 	}
 
-	 
 	public static String format(String content) {
 		if (null == content || "".equals(content))
 			return "";
@@ -133,7 +131,7 @@ public class JsonUtil {
 
 		return sb.toString();
 	}
- 
+
 	private static void addIndentBlank(StringBuilder sb, int indent) {
 		for (int i = 0; i < indent; i++) {
 			sb.append('\t');
@@ -144,8 +142,8 @@ public class JsonUtil {
 
 		String name = getValue("age", "{\"name\":\"zhangsan张三\",\"age\":100}");
 		log.info(name);
-		
-		log.info(JsonUtil.toJSONString(new ApiResult(0,"请求成功",null)));
+
+		log.info(JsonUtil.toJSONString(new ApiResult(0, "请求成功", null)));
 	}
 
 }

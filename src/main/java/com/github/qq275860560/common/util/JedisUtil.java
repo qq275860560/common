@@ -13,41 +13,41 @@ import redis.clients.jedis.Jedis;
  * @author jiangyuanlin@163.com
  */
 public class JedisUtil {
-	
-	public static void set(String ip,int port,String password,String key,String value) {
+
+	public static void set(String ip, int port, String password, String key, String value) {
 		Jedis jedis = new Jedis(ip, port);
-		if(password!=null)jedis.auth(password);
-		jedis.set(key,value);
+		if (password != null)
+			jedis.auth(password);
+		jedis.set(key, value);
 	}
-	
-	public static String get(String ip,int port,String password,String key) {
+
+	public static String get(String ip, int port, String password, String key) {
 		Jedis jedis = new Jedis(ip, port);
-		if(password!=null)jedis.auth(password);
+		if (password != null)
+			jedis.auth(password);
 		return jedis.get(key);
 	}
-	
-	public static void lpush(String ip,int port,String password,String key,String value) {
+
+	public static void lpush(String ip, int port, String password, String key, String value) {
 		Jedis jedis = new Jedis(ip, port);
-		if(password!=null)jedis.auth(password);
+		if (password != null)
+			jedis.auth(password);
 		jedis.lpush(key, value);
 	}
-	
-	public static String rpop(String ip,int port,String password,String key) {
+
+	public static String rpop(String ip, int port, String password, String key) {
 		Jedis jedis = new Jedis(ip, port);
-		if(password!=null)jedis.auth(password);
+		if (password != null)
+			jedis.auth(password);
 		return jedis.rpop(key);
 	}
-	
+
 	public static void main(String[] args) {
 		set("132.122.237.68", 6379, "123456", "foo", "bar");
 		System.out.println(get("132.122.237.68", 6379, "123456", "foo"));
-				
+
 		lpush("132.122.237.68", 6379, "123456", "queue", "value");
-		System.out.println(rpop("132.122.237.68", 6379, "123456", "queue"));		
+		System.out.println(rpop("132.122.237.68", 6379, "123456", "queue"));
 	}
-	
- 
-	
-		
 
 }

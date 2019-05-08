@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @author jiangyuanlin@163.com
  */
 @Component
-public class SpringContextUtil  implements ApplicationContextAware {
+public class SpringContextUtil implements ApplicationContextAware {
 	private static Log log = LogFactory.getLog(SpringContextUtil.class);
 	private static ApplicationContext applicationContext;
 
@@ -22,7 +22,7 @@ public class SpringContextUtil  implements ApplicationContextAware {
 	}
 
 	public static <T> T getBean(String beanName) {
-		return applicationContext == null ? null : (T)applicationContext.getBean(beanName);
+		return applicationContext == null ? null : (T) applicationContext.getBean(beanName);
 	}
 
 	public static Object getBean(Class<?> clazz) {

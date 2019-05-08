@@ -38,7 +38,7 @@ public class TokenUtil {
 	}
 
 	public static String decrypt(String token) throws Exception {
-		if(token==null){
+		if (token == null) {
 			throw new Exception("token不能为空");
 		}
 		Map<String, Object> payLoadMap0 = null;

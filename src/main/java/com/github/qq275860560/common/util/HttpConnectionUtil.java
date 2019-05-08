@@ -24,26 +24,19 @@ public class HttpConnectionUtil {
 	private HttpConnectionUtil() {
 	}
 
-	 
- 
 	/*
-	public static String get(String urlString ) {
-		return HttpConnectionUtil.send(urlString, "GET", null, null);
-	}
-	public static String delete(String urlString ) {
-		return HttpConnectionUtil.send(urlString, "DELETE", null, null);
-	}
-	public static String put(String urlString,  String content) {
-		return HttpConnectionUtil.send(urlString, "PUT", null, content);
-	}
-	public static String post(String urlString,  String content) {
-		return HttpConnectionUtil.send(urlString, "POST", null, content);
-	} 
-	
-	public static String send(String urlString, String httpMethod, String content) {
-		return HttpConnectionUtil.send(urlString, httpMethod, null, content);
-	}
-	*/
+	 * public static String get(String urlString ) { return
+	 * HttpConnectionUtil.send(urlString, "GET", null, null); } public static String
+	 * delete(String urlString ) { return HttpConnectionUtil.send(urlString,
+	 * "DELETE", null, null); } public static String put(String urlString, String
+	 * content) { return HttpConnectionUtil.send(urlString, "PUT", null, content); }
+	 * public static String post(String urlString, String content) { return
+	 * HttpConnectionUtil.send(urlString, "POST", null, content); }
+	 * 
+	 * public static String send(String urlString, String httpMethod, String
+	 * content) { return HttpConnectionUtil.send(urlString, httpMethod, null,
+	 * content); }
+	 */
 	public static String send(String urlString, String httpMethod, Map<String, String> headerMap, String content) {
 		log.trace("requestBody=" + content);
 		long start = System.currentTimeMillis();// 开始执行时间
@@ -109,8 +102,8 @@ public class HttpConnectionUtil {
 		} catch (Exception e) {
 			log.error("请求总共用时=" + (System.currentTimeMillis() - start) + "ms,url=" + urlString + ",httpmethod="
 					+ httpMethod + ",content=" + content);
-			//log.error("", e);
-			log.info("网络不通:"+urlString);
+			// log.error("", e);
+			log.info("网络不通:" + urlString);
 		} finally {
 			if (httpURLConnection != null) {
 				httpURLConnection.disconnect();
@@ -132,9 +125,7 @@ public class HttpConnectionUtil {
 		}
 		return result;
 	}
-	
-	
-	
+
 	public static int getResponseCode(URL url, String httpMethod, Map<String, String> headerMap, byte[] content) {
 		int reponseCode = 0;
 		log.trace("requestBody=" + content);
@@ -144,12 +135,10 @@ public class HttpConnectionUtil {
 		HttpURLConnection httpURLConnection = null;
 		String result = null;
 		try {
-	 
-			
+
 			URLConnection urlConnection = url.openConnection();
 			httpURLConnection = (HttpURLConnection) urlConnection;
-			
-	 
+
 			httpURLConnection.setFixedLengthStreamingMode((int) content.length);
 			httpURLConnection.setConnectTimeout(200000);
 			httpURLConnection.setReadTimeout(200000);
@@ -167,7 +156,7 @@ public class HttpConnectionUtil {
 			httpURLConnection.setRequestMethod(httpMethod);
 			httpURLConnection.connect();
 
-			if (content!=null && content.length>0) {
+			if (content != null && content.length > 0) {
 				OutputStream outputStream = httpURLConnection.getOutputStream();
 				dataOutputStream = new DataOutputStream(outputStream);
 				dataOutputStream.write(content);
@@ -175,19 +164,15 @@ public class HttpConnectionUtil {
 				dataOutputStream.close();
 			}
 			// 获得响应状态
-			 reponseCode = httpURLConnection.getResponseCode();
+			reponseCode = httpURLConnection.getResponseCode();
 			log.info("reponseCode=" + reponseCode);
 
-	 
-
-			 
-
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			log.error("", e);
 		} finally {
 			if (httpURLConnection != null) {
 				httpURLConnection.disconnect();
-			}			 
+			}
 			if (dataOutputStream != null) {
 				try {
 					dataOutputStream.close();
@@ -198,12 +183,11 @@ public class HttpConnectionUtil {
 		}
 		return reponseCode;
 	}
-	
-	
-	
-	public static int getResponseCode(String urlString, String httpMethod, Map<String, String> headerMap, String content) {
-		 
-		DataOutputStream dataOutputStream = null;	
+
+	public static int getResponseCode(String urlString, String httpMethod, Map<String, String> headerMap,
+			String content) {
+
+		DataOutputStream dataOutputStream = null;
 		HttpURLConnection httpURLConnection = null;
 		int reponseCode = 0;
 		try {
@@ -237,14 +221,12 @@ public class HttpConnectionUtil {
 			reponseCode = httpURLConnection.getResponseCode();
 			log.info("reponseCode=" + reponseCode);
 
-			 
-
-		} catch (Exception e) {			
+		} catch (Exception e) {
 			log.error("", e);
 		} finally {
 			if (httpURLConnection != null) {
 				httpURLConnection.disconnect();
-			}			 
+			}
 			if (dataOutputStream != null) {
 				try {
 					dataOutputStream.close();
@@ -255,16 +237,16 @@ public class HttpConnectionUtil {
 		}
 		return reponseCode;
 	}
-	
-	public static void main(String[] args) throws Exception{
-		String result=send("https://video.ctccc.cn/fsapi/sipUser/getSipInfo?user="+"1011", "GET", null, null);
+
+	public static void main(String[] args) throws Exception {
+		String result = send("https://video.ctccc.cn/fsapi/sipUser/getSipInfo?user=" + "1011", "GET", null, null);
 		System.out.println(result);
 		org.json.JSONObject json = new org.json.JSONObject(result);
 		org.json.JSONObject data = json.getJSONObject("data");
 		String ip = data.getString("domain");
 		int port = Integer.parseInt(data.getString("port"));
 		String username = data.getString("user");
-		String password =  data.getString("password");
+		String password = data.getString("password");
 		System.out.println(ip);
 		System.out.println(port);
 		System.out.println(username);
@@ -272,5 +254,3 @@ public class HttpConnectionUtil {
 	}
 
 }
-
- 

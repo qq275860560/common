@@ -28,13 +28,9 @@ import net.bull.javamelody.internal.common.LOG;
 public class JsonParameterFilter implements Filter {
 	private static final Log log = LogFactory.getLog(LoginFilter.class);
 
-  
-
-	
-    
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
-			ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
+			throws IOException, ServletException {
 
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
@@ -43,14 +39,12 @@ public class JsonParameterFilter implements Filter {
 		String path = request.getRequestURI();
 
 		String array[] = path.split("/");
-		if(array[array.length-1].matches("^(get|list|page|count|check|save|update|delete)")){;
+		if (array[array.length - 1].matches("^(get|list|page|count|check|save|update|delete)")) {
+			;
 			chain.doFilter(new MyHttpServletRequestWrapper((HttpServletRequest) request), response);
-		}else{
+		} else {
 			chain.doFilter(req, res);
 		}
-		
- 
-		
 
 	}
 
@@ -58,38 +52,33 @@ public class JsonParameterFilter implements Filter {
 	public void destroy() {
 		return;
 	}
-	
-	
-	
+
 }
 
+class MyHttpServletRequestWrapper extends HttpServletRequestWrapper {
+	private static final Log log = LogFactory.getLog(MyHttpServletRequestWrapper.class);
+	private String requestBody = null;
 
-
-
-  class MyHttpServletRequestWrapper  extends HttpServletRequestWrapper {
-	  private static final Log log = LogFactory.getLog(MyHttpServletRequestWrapper.class);
-	  private String requestBody = null;
-	  
-		public MyHttpServletRequestWrapper(HttpServletRequest request) {
-			super(request);
-			if (requestBody == null) {
-				requestBody = readBody(request);
-			}
-			log.info("requestBody="+requestBody);
-			;
+	public MyHttpServletRequestWrapper(HttpServletRequest request) {
+		super(request);
+		if (requestBody == null) {
+			requestBody = readBody(request);
 		}
-	 
-		@Override
-		public BufferedReader getReader() throws IOException {
-			return new BufferedReader(new InputStreamReader(getInputStream()));
-		}
-	 
-		@Override
-		public ServletInputStream getInputStream() throws IOException {
-			return new CustomServletInputStream(requestBody);
-		}
+		log.info("requestBody=" + requestBody);
+		;
+	}
 
-    private static String readBody(ServletRequest request) {
+	@Override
+	public BufferedReader getReader() throws IOException {
+		return new BufferedReader(new InputStreamReader(getInputStream()));
+	}
+
+	@Override
+	public ServletInputStream getInputStream() throws IOException {
+		return new CustomServletInputStream(requestBody);
+	}
+
+	private static String readBody(ServletRequest request) {
 		StringBuilder sb = new StringBuilder();
 		String inputLine;
 		BufferedReader br = null;
@@ -110,20 +99,20 @@ public class JsonParameterFilter implements Filter {
 		}
 		return sb.toString();
 
-    }
+	}
 
-     class CustomServletInputStream extends ServletInputStream {
-    	private ByteArrayInputStream buffer;
-    	 
+	class CustomServletInputStream extends ServletInputStream {
+		private ByteArrayInputStream buffer;
+
 		public CustomServletInputStream(String body) {
 			body = body == null ? "" : body;
 			this.buffer = new ByteArrayInputStream(body.getBytes());
 		}
 
-        @Override
-        public int read() throws IOException {
-        	return buffer.read();
-        }
+		@Override
+		public int read() throws IOException {
+			return buffer.read();
+		}
 
 		@Override
 		public boolean isFinished() {
@@ -139,7 +128,7 @@ public class JsonParameterFilter implements Filter {
 		@Override
 		public void setReadListener(ReadListener readListener) {
 			throw new RuntimeException("Not implemented");
-			
+
 		}
-    }
+	}
 }

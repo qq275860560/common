@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  *
@@ -19,19 +20,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class JdbcTemplateSqlGeneratorUtil {
 
-	public static String url ;
+	public static String url;
 	public static String username;
-	public static String password ;
-	public static String driverClassName ;
+	public static String password;
+	public static String driverClassName;
 	public static String schemaName;
 
-	public static String tableName ;
-	public static String modelName ;
+	public static String tableName;
+	public static String modelName;
 
-	 
 	public static void main(String[] args) throws Exception {
 		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://10.18.96.50:3306/rest_home_hz?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
-		JdbcTemplateSqlGeneratorUtil.username="resthome";
+		JdbcTemplateSqlGeneratorUtil.username = "resthome";
 		JdbcTemplateSqlGeneratorUtil.password = "resthome&*()";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "rest_home_hz";

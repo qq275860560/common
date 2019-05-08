@@ -27,8 +27,9 @@ public class JksUtil {
 
 	}
 
-	private static PrivateKey getPrivateKey(String jwtJksFileName, String jwtJksPassword, String jwtJksAlias) throws KeyStoreException,
-			IOException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
+	private static PrivateKey getPrivateKey(String jwtJksFileName, String jwtJksPassword, String jwtJksAlias)
+			throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
+			UnrecoverableKeyException {
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(jwtJksFileName);
 
 		KeyStore keyStore = KeyStore.getInstance("JKS");
@@ -38,8 +39,9 @@ public class JksUtil {
 
 	}
 
-	private static PublicKey getPublicKey(String jwtJksFileName, String jwtJksPassword, String jwtJksAlias) throws KeyStoreException,
-			IOException, NoSuchAlgorithmException, CertificateException, UnrecoverableKeyException {
+	private static PublicKey getPublicKey(String jwtJksFileName, String jwtJksPassword, String jwtJksAlias)
+			throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException,
+			UnrecoverableKeyException {
 		InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(jwtJksFileName);
 
 		KeyStore keyStore = KeyStore.getInstance("JKS");

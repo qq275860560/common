@@ -30,13 +30,11 @@ public class IpUtil {
 
 	}
 
- 
-	
 	private static final String unknown = "unknown";
- 
+
 	public static boolean getIpStatus(String ip) {
 		log.debug("getPingStatus start");
-		BufferedReader bufferedReader =  null;
+		BufferedReader bufferedReader = null;
 		try {
 			List<String> commend = new java.util.ArrayList<String>();
 			commend.add("ping");
@@ -62,18 +60,17 @@ public class IpUtil {
 			}
 		} catch (Exception e) {
 			log.error("", e);
-		}finally {
+		} finally {
 			try {
 				if (bufferedReader != null)
 					bufferedReader.close();
 			} catch (Exception e) {
-				log.error("", e);			
+				log.error("", e);
 			}
 		}
 		return false;
 	}
 
- 
 	public static boolean getPortStatus(String ip, int port) {
 		log.debug("getPortStatus start");
 		Socket socket = null;
@@ -88,7 +85,7 @@ public class IpUtil {
 				if (socket != null)
 					socket.close();
 			} catch (Exception e) {
-				log.error("", e);			
+				log.error("", e);
 			}
 		}
 
@@ -104,13 +101,13 @@ public class IpUtil {
 			connection.connect();
 			return true;
 		} catch (Exception e1) {
-			log.error("",e1);			
+			log.error("", e1);
 		}
 		return false;
 	}
 
 	// 获取客户端ip地址(可以穿透代理)
-	
+
 	public static String getIpAddr(HttpServletRequest request) {
 		log.debug("getIpAddr start");
 		String ip = request.getHeader("X-Real-IP");
@@ -166,8 +163,8 @@ public class IpUtil {
 		return ip;
 	}
 
-	//通过IP获取地址(需要联网，调用淘宝的IP库)
- 	public static String getIpInfo(String ip) {
+	// 通过IP获取地址(需要联网，调用淘宝的IP库)
+	public static String getIpInfo(String ip) {
 		log.debug("getIpInfo start");
 		// 如果输入的是域名，先转换为ip
 		HttpURLConnection httpURLConnection = null;
@@ -216,40 +213,43 @@ public class IpUtil {
 		}
 		return null;
 	}
-	
-	
+
 	private static String localIP = null;
-	public static String getLocalIp() throws Exception{;
-		if(localIP!=null)return localIP;
-		else return getLocalHostLANAddress().getHostAddress();
+
+	public static String getLocalIp() throws Exception {
+		;
+		if (localIP != null)
+			return localIP;
+		else
+			return getLocalHostLANAddress().getHostAddress();
 	}
+
 	public static InetAddress getLocalHostLANAddress() throws Exception {
-	 
-	        InetAddress candidateAddress = null;
-	        // 遍历所有的网络接口
-	        for (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements(); ) {
-	            NetworkInterface iface = (NetworkInterface) ifaces.nextElement();
-	            // 在所有的接口下再遍历IP
-	            for (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements(); ) {
-	                InetAddress inetAddr = (InetAddress) inetAddrs.nextElement();
-	                if (!inetAddr.isLoopbackAddress()) {// 排除loopback类型地址
-	                    if (inetAddr.isSiteLocalAddress()) {
-	                        // 如果是site-local地址，就是它了
-	                        return inetAddr;
-	                    } else if (candidateAddress == null) {
-	                        // site-local类型的地址未被发现，先记录候选地址
-	                        candidateAddress = inetAddr;
-	                    }
-	                }
-	            }
-	        }
-	        if (candidateAddress != null) {
-	            return candidateAddress;
-	        }
-	        // 如果没有发现 non-loopback地址.只能用最次选的方案
-	        return InetAddress.getLocalHost();
-	         
-	 
+
+		InetAddress candidateAddress = null;
+		// 遍历所有的网络接口
+		for (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements();) {
+			NetworkInterface iface = (NetworkInterface) ifaces.nextElement();
+			// 在所有的接口下再遍历IP
+			for (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements();) {
+				InetAddress inetAddr = (InetAddress) inetAddrs.nextElement();
+				if (!inetAddr.isLoopbackAddress()) {// 排除loopback类型地址
+					if (inetAddr.isSiteLocalAddress()) {
+						// 如果是site-local地址，就是它了
+						return inetAddr;
+					} else if (candidateAddress == null) {
+						// site-local类型的地址未被发现，先记录候选地址
+						candidateAddress = inetAddr;
+					}
+				}
+			}
+		}
+		if (candidateAddress != null) {
+			return candidateAddress;
+		}
+		// 如果没有发现 non-loopback地址.只能用最次选的方案
+		return InetAddress.getLocalHost();
+
 	}
 
 }

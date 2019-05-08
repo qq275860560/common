@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class CorsFilter implements Filter {
 
-
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		return;
@@ -31,7 +30,8 @@ public class CorsFilter implements Filter {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
 		response.setHeader("Access-Control-Allow-Headers", "*,Content-Type,token,Authorization");
-		response.setHeader("Access-Control-Expose-Headers", "Content-Disposition,downloadFileName,Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
+		response.setHeader("Access-Control-Expose-Headers",
+				"Content-Disposition,downloadFileName,Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
 			response.setStatus(200);

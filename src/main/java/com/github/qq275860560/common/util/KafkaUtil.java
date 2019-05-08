@@ -30,8 +30,8 @@ public class KafkaUtil {
 	private static String BOOTSTRAP_SERVERS = "132.122.237.68:9092";
 	private static String TOPIC_NAME = "test";
 
-	//生产者，注意kafka生产者不能够从代码上生成主题，只有在服务器上用命令生成
-	
+	// 生产者，注意kafka生产者不能够从代码上生成主题，只有在服务器上用命令生成
+
 	static {
 		Properties props = new Properties();
 		props.put("bootstrap.servers", BOOTSTRAP_SERVERS);// 服务器ip:端口号，集群用逗号分隔
@@ -45,7 +45,6 @@ public class KafkaUtil {
 		producer = new KafkaProducer<>(props);
 	}
 
-	
 	static {
 		Properties props = new Properties();
 		props.put("bootstrap.servers", BOOTSTRAP_SERVERS);// 服务器ip:端口号，集群用逗号分隔
@@ -59,15 +58,14 @@ public class KafkaUtil {
 		consumer.subscribe(Arrays.asList(TOPIC_NAME));
 	}
 
-	//发送对象消息 至kafka上,调用json转化为json字符串，应为kafka存储的是String。
-	
+	// 发送对象消息 至kafka上,调用json转化为json字符串，应为kafka存储的是String。
+
 	public static void sendMsgToKafka(Map<String, Object> msg) {
-		producer.send(new ProducerRecord<String, String>(TOPIC_NAME, 
-				JSONUtils.toJSONString(msg)));
+		producer.send(new ProducerRecord<String, String>(TOPIC_NAME, JSONUtils.toJSONString(msg)));
 	}
 
-	//从kafka上接收对象消息，将json字符串转化为对象，便于获取消息的时候可以使用get方法获取。
-	
+	// 从kafka上接收对象消息，将json字符串转化为对象，便于获取消息的时候可以使用get方法获取。
+
 	public static void getMsgFromKafka() {
 		while (true) {
 			ConsumerRecords<String, String> records = KafkaUtil.getKafkaConsumer().poll(100);
@@ -96,12 +94,14 @@ public class KafkaUtil {
 	public static void closeKafkaConsumer() {
 		consumer.close();
 	}
+
 	public static void main(String[] args) {
 		getMsgFromKafka();
 	}
+
 	public static void main2(String[] args) {
-		Map<String, Object> msg=new HashMap<>();
-		msg.put("msg", "hello world"+System.currentTimeMillis());
+		Map<String, Object> msg = new HashMap<>();
+		msg.put("msg", "hello world" + System.currentTimeMillis());
 		sendMsgToKafka(msg);
 	}
 }

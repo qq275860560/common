@@ -14,15 +14,14 @@ public class EhCacheUtil {
 
 	public static void main(String[] args) {
 		CacheManagerBuilder cacheManagerBuilder = CacheManagerBuilder.newCacheManagerBuilder();
-		CacheConfigurationBuilder cacheConfigurationBuilder = CacheConfigurationBuilder.newCacheConfigurationBuilder(String.class,
-				String.class, ResourcePoolsBuilder.heap(10));
-		
-		CacheManager cacheManager = cacheManagerBuilder	.withCache("preConfigured",cacheConfigurationBuilder )
-				.build();
+		CacheConfigurationBuilder cacheConfigurationBuilder = CacheConfigurationBuilder
+				.newCacheConfigurationBuilder(String.class, String.class, ResourcePoolsBuilder.heap(10));
+
+		CacheManager cacheManager = cacheManagerBuilder.withCache("preConfigured", cacheConfigurationBuilder).build();
 		// 初始化缓存管理器
 
 		cacheManager.init();
-		Cache<String,String> preConfigured = cacheManager.getCache("preConfigured", String.class, String.class);
+		Cache<String, String> preConfigured = cacheManager.getCache("preConfigured", String.class, String.class);
 		preConfigured.put("key1", "zheng pens");
 		preConfigured.put("key1", "pens");
 		System.out.println(preConfigured.get("key1"));

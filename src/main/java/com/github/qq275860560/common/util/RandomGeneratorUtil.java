@@ -10,8 +10,8 @@ import org.apache.commons.lang3.StringUtils;
  * @author jiangyuanlin@163.com
  */
 public class RandomGeneratorUtil {
-	//6位数字的随机数
-	
+	// 6位数字的随机数
+
 	public static String generate6Num() {
 		int[] array = { 0, 1, 2, 3, 5, 6, 7, 8, 9 };
 		Random rand = new Random();
@@ -24,16 +24,14 @@ public class RandomGeneratorUtil {
 		int result = 0;
 		for (int i = 0; i < 6; i++)
 			result = result * 10 + array[i];
-		return String.format("%06d", result);	
+		return String.format("%06d", result);
 	}
 
- 
+	// 生成指定位数的数字型字符串，前面可以为0
 
-	//生成指定位数的数字型字符串，前面可以为0
-	
 	public static String generateNum(int dight) {
 		int[] array = { 0, 1, 2, 3, 5, 6, 7, 8, 9 };
-		StringBuilder sb = new StringBuilder();	
+		StringBuilder sb = new StringBuilder();
 		Random r = new Random();
 		for (int i = 0; i < dight; i++) {
 			int num = r.nextInt(array.length);
@@ -42,19 +40,16 @@ public class RandomGeneratorUtil {
 		return sb.toString();
 	}
 
-	//生成指定位数的数字型字符串，前面可以为0
+	// 生成指定位数的数字型字符串，前面可以为0
 
 	public static String randomNumeric(int dight) {
-		return RandomStringUtils.randomNumeric(dight); 
+		return RandomStringUtils.randomNumeric(dight);
 	}
 
-	//生成32的uuid，全球唯一
-	 
-	 
+	// 生成32的uuid，全球唯一
+
 	public static String generateUUID() {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
-	
-		
 
 }

@@ -16,75 +16,71 @@ import org.springframework.core.io.ClassPathResource;
  */
 public class FileUtil {
 	private static Log log = LogFactory.getLog(FileUtil.class);
- 
 
 	private FileUtil() {
 	}
 
-	public static File getFileFromClassPath(String path) throws Exception{
+	public static File getFileFromClassPath(String path) throws Exception {
 		ClassPathResource resource = new ClassPathResource(path);
-		File destination = new File(FileUtils.getTempDirectoryPath()+"/"+path);
-		
-		//if(!destination.exists()){		 
-			FileUtils.copyInputStreamToFile(resource.getInputStream(), destination);
-		//}
+		File destination = new File(FileUtils.getTempDirectoryPath() + "/" + path);
+
+		// if(!destination.exists()){
+		FileUtils.copyInputStreamToFile(resource.getInputStream(), destination);
+		// }
 		return destination;
-		//return new ClassPathResource(path).getFile();
-		//return new File(Thread.class.getResource("path").getFile());
+		// return new ClassPathResource(path).getFile();
+		// return new File(Thread.class.getResource("path").getFile());
 	}
-	 
-	//复制文件
-	
+
+	// 复制文件
+
 	public static void copyFile(File srcFile, File destFile) throws Exception {
 		org.apache.commons.io.FileUtils.copyFile(srcFile, destFile);
 	}
 
-	 
-	//复制文件到目标文件夹
-	
+	// 复制文件到目标文件夹
+
 	public static void copyFileToDirectory(File srcFile, File destDir) throws Exception {
 		org.apache.commons.io.FileUtils.copyFileToDirectory(srcFile, destDir);
 	}
 
- 
-	//读取文件
-	
+	// 读取文件
+
 	public static List<String> readLines(File file, String encoding) throws Exception {
 		return org.apache.commons.io.FileUtils.readLines(file, encoding);
 	}
- 
-	//写入文件		  
+
+	// 写入文件
 	public static void writeLines(File file, String encoding, Collection<?> lines) throws Exception {
 		org.apache.commons.io.FileUtils.writeLines(file, encoding, lines);
 	}
-	
-	//写入文件
-	
-	public static void writeStringToFile(File file,String data, String encoding) throws Exception {
+
+	// 写入文件
+
+	public static void writeStringToFile(File file, String data, String encoding) throws Exception {
 		org.apache.commons.io.FileUtils.writeStringToFile(file, data, encoding);
 	}
-	
 
 	// 网络流拷贝文件
-	 
+
 	public static void copyURLToFile(URL source, File destination) throws Exception {
 		org.apache.commons.io.FileUtils.copyURLToFile(source, destination);
 	}
 
-	//获取前缀
-	
+	// 获取前缀
+
 	public static String getPrefix(String filename) {
 		return org.apache.commons.io.FilenameUtils.getPrefix(filename);
 	}
 
-	//获取后缀
-	
+	// 获取后缀
+
 	public static String getExtension(File file) {
 		return org.apache.commons.io.FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
 	}
 
-	//从输入流中读取制定起始位置和长度的字节
-	
+	// 从输入流中读取制定起始位置和长度的字节
+
 	public static byte[] getFileContentByte(InputStream inputStream, long offset, long length) throws Exception {
 		log.debug("getFileContentByte start");
 		byte[] fileContent = null;
