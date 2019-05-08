@@ -70,3 +70,5 @@ public static void main(String[] args) throws Exception {
 	JdbcTemplateSqlGeneratorUtil.generate();
 }
 ```
+
+# 喜欢请留下star,给我一个前进的动力,谢谢
