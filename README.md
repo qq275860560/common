@@ -1,5 +1,4 @@
-平常工作中积累的小而美的代码
-
+小而美的代码片段
 
 # 跨域过滤器
 com.github.qq275860560.common.filter.CorsFilter
@@ -71,4 +70,6 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-# 此项目将会长期维护，增加或改进实用的功能，喜欢请留下star,给我一点前进的动力,谢谢
+# 温馨提醒
+* 此项目将会得到长期维护，增加或改进实用的功能
+* 喜欢请留下<font color=red>star</font>,给我一点前进的动力,谢谢
