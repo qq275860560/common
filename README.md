@@ -34,12 +34,12 @@ com.github.qq275860560.common.util.RequestUtil
 * 对于Content-Type=application/json;charset=UTF-8的消息体格式为标准json字符串，调用jackson反序列化
 
 ## 使用方式
-ContentType=application/x-www-form-urlencoded的
+ContentType=application/x-www-form-urlencoded时
 ```
 Map<String, Object> map=RequestUtil.parameterToMap(request);//解析类似这种格式a=1&b=2
 log.info("请求参数="+map);
 ```
-Content-Type=application/json;charset=UTF-8
+Content-Type=application/json;charset=UTF-8时
 ```
 Map<String, Object> map=RequestUtil.bodyToMap(request);//解析类似这种格式{"a":1,"b":"2"}
 log.info("请求参数="+map);
