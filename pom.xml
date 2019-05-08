@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>201905061822</version>
+	<version>20190508</version>
 	<packaging>jar</packaging>
 	<name>github-qq275860560-common</name>
 	<description>github-qq275860560-common</description>	
@@ -713,7 +713,7 @@
                     <!-- -Dgpg.passphrase='秘钥密码'或者-Darguments='gpg.passphrase=秘钥密码' -->
                 </executions>
             </plugin>
-            <!-- <plugin>
+            <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.8</version>
@@ -723,7 +723,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin>  -->
+            </plugin> 
 			
 			<!-- 切换到项目根目录执行mvn clean compile test package sonar:sonar能够生成测试报告  http://132.122.237.68:9000可以查看 -->			
 			<plugin>
