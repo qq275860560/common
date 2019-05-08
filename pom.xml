@@ -33,8 +33,6 @@
     </developer>
   </developers>
   
-	
-  
 	<distributionManagement>
 		<snapshotRepository>
                     <id>sonatype-nexus-snapshots</id>
@@ -713,7 +711,7 @@
                     <!-- -Dgpg.passphrase='秘钥密码'或者-Darguments='gpg.passphrase=秘钥密码' -->
                 </executions>
             </plugin>
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
                 <version>1.6.8</version>
@@ -723,14 +721,7 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
-            </plugin> 
-			
-			<!-- 切换到项目根目录执行mvn clean compile test package sonar:sonar能够生成测试报告  http://132.122.237.68:9000可以查看 -->			
-			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-			    <artifactId>sonar-maven-plugin</artifactId>
-			    <version>3.4.0.905</version>
-			</plugin>
+            </plugin> --> 			
 			<!-- 拷贝依赖包插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -745,7 +736,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<!-- 单元测试插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -786,8 +776,12 @@
 				</executions>
 			</plugin>
 			<!-- 性能测试，安全测试,docker发布插件，暂略 -->
-			
-		 
+			 <!-- 切换到项目根目录执行mvn sonar:sonar能够生成测试报告  http://132.122.237.68:9000可以查看 -->
+             <plugin>
+                     <groupId>org.sonarsource.scanner.maven</groupId>
+                     <artifactId>sonar-maven-plugin</artifactId>
+                     <version>3.5.0.1254</version>
+             </plugin> 		 
 		</plugins>
 	 
 	</build>
