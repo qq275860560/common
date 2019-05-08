@@ -71,4 +71,4 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-# 喜欢请留下star,给我一个前进的动力,谢谢
+# 喜欢请留下star,给我一点前进的动力,谢谢
