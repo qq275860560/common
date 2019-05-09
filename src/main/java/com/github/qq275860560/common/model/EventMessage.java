@@ -11,7 +11,7 @@ public class EventMessage implements Serializable {
 	/**
 	 * 文本消息
 	 */
-	public static final int TEXT_Type = 1;
+	public static final int TEXT_TYPE = 1;
 
 	/**
 	 * 消息说明
@@ -23,22 +23,31 @@ public class EventMessage implements Serializable {
 	 */
 	private long timestamp = System.currentTimeMillis();//
 	/**
-	 * 此对象的序列号，默认与时间戳相同	
+	 * 此对象的序列号，默认与时间戳相同,
+	 * 如果消息发出后需要对方响应，则字段必填，
+	 * 如果消息发出后不需要对方响应，则不要填写	
 	 */
-	private long seq = timestamp;
+	private Long seq = timestamp;
+	
+	/**
+	 * 此对象的确认号，默认为空
+	 * 如果消息是首次发出，则字段不要填写，因为没有收到seq不知道填写什么
+	 * 如果消息是要对接收到的消息的确认，则必填，并且跟接收到的消息的seq相同	  	
+	 */
+	private Long ack = null;
 
 	/**
 	 * 消息类型，消息格式,比如{1:文本消息,2:视频消息,3:音乐消息,4:图片消息}
 	 */
-	private int type = TEXT_Type;
+	private int type = TEXT_TYPE;
 	/**
 	 * 消息命令
 	 */
-	// private int command = TEXT_Type;
+	//private int command = TEXT_TYPE;
 	/**
 	 * 消息动作 
 	 */
-	// private int action = TEXT_Type;
+	//private int action = TEXT_TYPE;
 
 	/**
 	 * 当前发送方id,此id不一定为用户id，可能是群组id，某种组织id，如果业务需要区分，建议继承此类，扩展字段,比如增加fromType
