@@ -73,5 +73,5 @@ public static void main(String[] args) throws Exception {
 ```
 
 # 温馨提醒
-* 此项目将会得到长期维护，增加或改进实用的功能
+* 此项目将会长期维护，增加或改进实用的功能
 * 左上角点击star，将会给我继续前进的动力,谢谢
