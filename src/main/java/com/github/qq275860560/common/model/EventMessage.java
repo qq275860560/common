@@ -9,6 +9,11 @@ import java.io.Serializable;
 public class EventMessage implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 文本消息
 	 */
 	public static final int TEXT_TYPE = 1;
@@ -155,7 +160,7 @@ public class EventMessage implements Serializable {
 
 	@Override
 	public String toString() {
-		return "{\"timestamp\":" + timestamp + ",\"seq\":" + seq + ", \"type\":" + type + ", \"from\":" + from
+		return "{\"timestamp\":" + timestamp + ",\"seq\":" + seq+ ",\"ack\":" + ack + ", \"type\":" + type + ", \"from\":" + from
 				+ ", \"to\":" + to + ", \"remark\":" + remark + ", \"data\":" + data + "}";
 	}
 
