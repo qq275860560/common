@@ -54,10 +54,12 @@
 		<sonar.java.libraries>target/dependency/*.jar</sonar.java.libraries>
 		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
 		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>	
-		<sonar.ws.timeout>300</sonar.ws.timeout>
+		<sonar.ws.timeout>300</sonar.ws.timeout>	
+		<javacpp.platform.dependencies>windows-x86_64</javacpp.platform.dependencies>
+        <!-- <javacpp.platform.linux-x86_64>linux-x86_64</javacpp.platform.linux-x86_64>-->
  	</properties>
- 	
-	<dependencies>	
+	<dependencies>
+	
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
