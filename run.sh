@@ -16,5 +16,4 @@ timeout 600 mvn clean  deploy -DskipTests
 cd ${SHELL_FOLDER}
 mvn sonar:sonar  || true
 
-
-
+#(git add src pom.xml README.md  || true) && (git commit -m "commit" || true) && git push
