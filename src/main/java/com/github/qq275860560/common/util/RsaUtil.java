@@ -15,7 +15,7 @@ import org.springframework.util.Base64Utils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 适用场景，比如jwt对token进行非对称加密，需要公钥和私钥
+ * 适用场景，比如jwt对token进行非对称加密，需要公钥和私钥，把生成的公钥和私钥字符串（base64形式）放到配置文件
  * @author jiangyuanlin@163.com
  */
 @Slf4j
