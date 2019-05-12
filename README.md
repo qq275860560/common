@@ -67,14 +67,15 @@ log.info("请求参数="+map);
 
 
 # sql语句生成器
-mysql增删改查语句模板生成
-com.github.qq275860560.common.util.JdbcTemplateSqlGeneratorUtil
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/filter/JdbcTemplateSqlGeneratorUtil.java)
 ## 适用场景
-有些项目使用轻量级的JdbcTemplate,
-跟jpa不同的是，sql语句几乎要自己写，
-然而，对于单表的增加，删除，修改，查询，分页等操作写法都是相似的，只是一些字段名不同，此工具类只要输入数据库表名，即可动态生成对应的sql语句
-
+对于mysql增删改查虽然可以使用JPA或者mybatis，
+但是JPA对应用的侵入性太强，并且JPA很难对付复杂查询
+mybatis，需要写配置文件或者使用一大堆乱七八糟的注解，很难进行断点调试，分页功能实现也是很麻烦
+spring自带的JdbcTemplate刚好解决这两个问题，但是sql语句编写难度大，此工具类为了简化JdbcTemplate的使用，自动生成常用的增删改查模板(时间跟字符串相互转换)，然后简单修改模板即可
 ## 使用方式
+mysql建表,字段命名使用驼峰，
+字段类型通常尽量使用int,double,varchar,datetime,其中datetime被解释为字符串格式yyyy-MM-dd HH:mm:ss
 ```
 public static void main(String[] args) throws Exception {
 	JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://10.18.96.50:3306/rest_home_hz?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
