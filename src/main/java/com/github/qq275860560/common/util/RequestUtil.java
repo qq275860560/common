@@ -20,8 +20,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntityEnclosingRequest;
 
 /**
- * @author jiangyuanlin@163.com 
- * */
+ * @author jiangyuanlin@163.com
+ 请求对象解释器
+*/
 public class RequestUtil {
 
 	private static Log log = LogFactory.getLog(RequestUtil.class);

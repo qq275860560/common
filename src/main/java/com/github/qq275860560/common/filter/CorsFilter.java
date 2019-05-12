@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author jiangyuanlin@163.com
+跨域过滤器
  */
 public class CorsFilter implements Filter {
 

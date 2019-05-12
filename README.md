@@ -1,9 +1,24 @@
+[TOC]
 小而美的代码片段
 
-# 跨域过滤器
-com.github.qq275860560.common.filter.CorsFilter
+# RSA字符串生成器
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/RsaUtil.java)
 ## 适用场景
-适用于前后端跨域的项目，只要在web.xml或javaconfig，加入此过滤器即可
+比如jwt对token进行非对称加密，需要公钥和私钥字符串（base64形式）
+把生成的公钥和私钥字符串（base64形式）放到配置文件
+## 使用方式
+```
+public static void main(String[] args) throws Exception {
+	RsaUtil.generateRsaKeyBase64EncodeString();
+}
+```
+
+
+# 跨域过滤器
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/filter/CorsFilter.java)
+## 适用场景
+比如前后端跨域的项目，经常碰到跨域问题，尤其集成已有旧系统，
+只要在web.xml或javaconfig，加入此过滤器即可 
 ## 使用方式
 ### web.xml方式
 ```
@@ -27,26 +42,27 @@ public FilterRegistrationBean filterRegistrationBean() {
 }
 ```
 
+
+
 # 请求对象解释器
-http请求的参数变成Map或者List的工具类
-com.github.qq275860560.common.util.RequestUtil
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/RequestUtil.java)
 ## 适用场景
-* 对于ContentType为application/x-www-form-urlencoded的格式一般为a=1&b=2&b=3，解析后的Map有两个key，其中一个key为a，value为"1"，另一个key为b，value为new String[]{"2","3"};   
-* 对于Content-Type=application/json;charset=UTF-8的消息体格式为标准json字符串，调用jackson反序列化
+controller,filter，interceptor等接收参数有时候为了方便需要先解释成自行解释。次工具类可以将其解释到HashMap中，应用程序再从HashMap取值即可
+对于ContentType为application/x-www-form-urlencoded的消息体格式，比如a=1&b=2&b=3，解析后是HashMap，包括两个key，其中一个key为a，value为"1"，另一个key为b，value为Arrays.asList(2,3);   
+对于Content-Type=application/json;charset=UTF-8的消息体格式，比如{"a":"1","b":[2,3]}，解析后是HashMap，包括两个key，其中一个key为a，value为"1"，另一个key为b，value为Arrays.asList(2,3);
+
 
 ## 使用方式
-ContentType=application/x-www-form-urlencoded时
+当ContentType=application/x-www-form-urlencoded时
 ```
 Map<String, Object> map=RequestUtil.parameterToMap(request);//解析类似这种格式a=1&b=2
 log.info("请求参数="+map);
 ```
-Content-Type=application/json;charset=UTF-8时
+当Content-Type=application/json;charset=UTF-8时
 ```
 Map<String, Object> map=RequestUtil.bodyToMap(request);//解析类似这种格式{"a":1,"b":"2"}
 log.info("请求参数="+map);
 
-List list=RequestUtil.bodyToMap(request);//解析类似这种格式[{"a":1},{"a":2}]
-log.info("请求参数="+list);
 ```
 
 
