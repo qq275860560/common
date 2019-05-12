@@ -67,7 +67,7 @@ log.info("请求参数="+map);
 
 
 # sql语句生成器
-[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/filter/JdbcTemplateSqlGeneratorUtil.java)
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/JdbcTemplateSqlGeneratorUtil.java)
 ## 适用场景
 对于mysql增删改查虽然可以使用JPA或者mybatis，
 但是JPA对应用的侵入性太强，并且JPA很难对付复杂查询
