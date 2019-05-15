@@ -1,6 +1,22 @@
 [TOC]
 小而美的代码片段
 
+# 搞笑代码
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/FunnyUtil.java)
+## 适用场景
+娱乐
+## 使用方式
+```
+public static void main(String[] args) throws Exception {
+	// 升序排序
+	System.out.println(sort(Arrays.asList(6, 7, 8, 9, 10, 1, 2, 3, 4, 5)));
+	// 获取一天后的时间
+	System.out.println(getNextDate());
+	// 显示佛祖
+	System.out.println(getSakyamuni());
+}
+```
+
 # RSA字符串生成器
 [源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/RsaUtil.java)
 ## 适用场景
