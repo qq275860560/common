@@ -324,9 +324,9 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("\n");
 
 		if (modelName == null) {
-			sb1.append("public Map<String,Object> get(String id) throws Exception ; ").append("\n");
+			sb1.append("public Map<String,Object> get(Object id) throws Exception ; ").append("\n");
 		} else {
-			sb1.append("public Map<String,Object> get" + modelName + "(String id) throws Exception ; ").append("\n");
+			sb1.append("public Map<String,Object> get" + modelName + "(Object id) throws Exception ; ").append("\n");
 		}
 		return sb1;
 	}
@@ -338,9 +338,9 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
-			sb1.append("public Map<String,Object> get(String id) throws Exception { ").append("\n");
+			sb1.append("public Map<String,Object> get(Object id) throws Exception { ").append("\n");
 		} else {
-			sb1.append("public Map<String,Object> get" + modelName + "(String id) throws Exception { ").append("\n");
+			sb1.append("public Map<String,Object> get" + modelName + "(Object id) throws Exception { ").append("\n");
 		}
 		sb1.append("    StringBuilder sb  = new StringBuilder();").append("\n");
 		sb1.append("    List<Object> condition = new ArrayList<Object>();").append("\n");
