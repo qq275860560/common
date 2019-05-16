@@ -92,8 +92,8 @@ log.info("请求参数="+map);
 ## 适用场景
 * 对于mysql增删改查常用的框架是JPA或者mybatis，
 * JPA对应用的侵入性太强，并且很难对付复杂查询，也很难针对性进行优化
-* mybatis需要写配置文件或者使用一大堆乱七八糟的注解，两种都很难进行断点调试，分页功能实现也是很不优雅，前者还不符合javaConfig方式，当前流行的springboot也不推荐使用xml,因此xml可能作为历史存在，在新项目xml能不用就不用
-spring自带的JdbcTemplate刚好解决这两个问题，既容易对付复杂场景，又能针对性调优，容易断点编程，写起来相对优雅，但是sql语句编写难度较大，此工具类为了简化JdbcTemplate的使用，自动生成常用的统计数量，校验唯一性，增加,删除,修改,查询，分页搜索模板，作为模板简单修改即可满足业务
+* mybatis需要写配置文件或者使用一大堆乱七八糟的注解，两种都很难进行断点调试，分页功能实现也是很不优雅，前者还不符合javaConfig方式，当前流行的springboot也不推荐使用xml,因此xml可能作为历史存在，新项目xml能不用就不用
+* spring自带的JdbcTemplate刚好解决这两个问题，既容易对付复杂场景，又能针对性调优，容易断点编程，写起来相对优雅，但是sql语句编写难度较大，此工具类为了简化JdbcTemplate的使用，自动生成常用的统计数量，校验唯一性，增加,删除,修改,查询，分页搜索模板，作为模板简单修改即可满足业务
 
 ## 使用方式
 
@@ -179,7 +179,7 @@ public int deleteUser(String id) throws Exception {
 public Map<String,Object> getUser(String id) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT from t_user where 1=1 "); 
+    sb.append(" SELECT id,sex,weight,mobilePhone,date_format(birthDay,	'%Y-%m-%d %H:%i:%s') birthDay from t_user where 1=1 "); 
     if (StringUtils.isNotBlank(id)) {
     	sb .append(" and id = ? ");
     	condition.add(id);
@@ -200,7 +200,7 @@ public Map<String,Object> getUser(String id) throws Exception {
 public Map<String,Object> getUserByKeyValue(String key,Object value) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT from t_user where 1=1 "); 
+    sb.append(" SELECT id,sex,weight,mobilePhone,date_format(birthDay,	'%Y-%m-%d %H:%i:%s') birthDay from t_user where 1=1 "); 
    	sb .append(" and "+key+" = ? ");
    	condition.add(value);
     sb.append(" limit ? ,?  ");
@@ -220,6 +220,26 @@ public int saveUser( Map<String,Object> map)  throws Exception  {
     StringBuilder sb1 = new StringBuilder();
     StringBuilder sb2 = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
+    sb1.append("id").append(",");
+    sb2.append("?,");
+    condition.add(map.get("id"));
+
+    sb1.append("sex").append(",");
+    sb2.append("?,");
+    condition.add(map.get("sex"));
+
+    sb1.append("weight").append(",");
+    sb2.append("?,");
+    condition.add(map.get("weight"));
+
+    sb1.append("mobilePhone").append(",");
+    sb2.append("?,");
+    condition.add(map.get("mobilePhone"));
+
+    sb1.append("birthDay").append(",");
+    sb2.append("?,");
+    condition.add(map.get("birthDay"));
+
     if (sb1.length() > 0)
         sb1.deleteCharAt(sb1.length() - 1);
     if (sb2.length() > 0)
@@ -234,6 +254,18 @@ public int saveUser( Map<String,Object> map)  throws Exception  {
 public int updateUser( Map<String,Object> map) throws Exception  {
     StringBuilder sb = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
+    sb.append(" sex = ? ,");
+    condition.add(map.get("sex"));
+    
+    sb.append(" weight = ? ,");
+    condition.add(map.get("weight"));
+    
+    sb.append(" mobilePhone = ? ,");
+    condition.add(map.get("mobilePhone"));
+    
+    sb.append(" birthDay = ? ,");
+    condition.add(map.get("birthDay"));
+    
     if (sb.length() > 0)
         sb.deleteCharAt(sb.length() - 1);	
     String sql = "update t_user set " + sb.toString() + " where    id=?";
@@ -243,27 +275,75 @@ public int updateUser( Map<String,Object> map) throws Exception  {
     return jdbcTemplate.update(  sql, condition.toArray());
 }
 
-public List<Map<String,Object>> listUser() throws Exception  {
+public List<Map<String,Object>> listUser( String id,Integer sex,Double weight,String mobilePhone,String startBirthDay,String endBirthDay) throws Exception  {
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT from t_user where 1=1 "); 
+    sb.append(" SELECT id,sex,weight,mobilePhone,date_format(birthDay,	'%Y-%m-%d %H:%i:%s') birthDay from t_user where 1=1 "); 
+    if (StringUtils.isNotBlank(id)) {
+    	sb .append(" and id like ? ");
+    	condition.add("%"+id+"%");
+    }
+    if (sex!=null) {
+    	sb .append(" and sex = ? ");
+    	condition.add(sex);
+    }
+    if (weight!=null) {
+    	sb .append(" and weight = ? ");
+    	condition.add(weight);
+    }
+    if (StringUtils.isNotBlank(mobilePhone)) {
+    	sb .append(" and mobilePhone like ? ");
+    	condition.add("%"+mobilePhone+"%");
+    }
+    if (StringUtils.isNotBlank(startBirthDay)) {
+    	sb .append(" and birthDay >=  ?  ");
+    	condition.add(startBirthDay);
+    }
+    if (StringUtils.isNotBlank(endBirthDay)) {
+    	sb .append(" and birthDay <=  ?  ");
+    	condition.add(endBirthDay);
+    }
     log.info("sql=" + sb.toString());
     log.info("condition=" + Arrays.deepToString(condition.toArray()));
     return jdbcTemplate.queryForList( sb.toString(), condition.toArray());
 
 }
 
-public Map<String,Object> pageUser( Integer pageNum,Integer pageSize) throws Exception  {
+public Map<String,Object> pageUser( String id,Integer sex,Double weight,String mobilePhone,String startBirthDay,String endBirthDay,Integer pageNum,Integer pageSize) throws Exception  {
     if(pageNum==null) pageNum=1;//取名pageNum为了兼容mybatis-pageHelper中的page对象的pageNum,注意spring的PageRequest使用page表示页号,综合比较，感觉pageNum更加直观,不需要看上下文能猜出字段是页号
     if(pageSize==null)pageSize=10;//取名pageSize为了兼容mybatis-pageHelper中的page对象的pageSize,注意spring的PageRequest使用size表示页数量，综合比较，感觉pageSize会更加直观,不需要看上下文能猜出字段是分页时当前页的数量
     int from = (pageNum-1)*pageSize;
     int size = pageSize;
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT from t_user where 1=1 "); 
+    sb.append(" SELECT id,sex,weight,mobilePhone,date_format(birthDay,	'%Y-%m-%d %H:%i:%s') birthDay from t_user where 1=1 "); 
+    if (StringUtils.isNotBlank(id)) {
+    	sb .append(" and id like ? ");
+    	condition.add("%"+id+"%");
+    }
+    if (sex!=null) {
+    	sb .append(" and sex = ? ");
+    	condition.add(sex);
+    }
+    if (weight!=null) {
+    	sb .append(" and weight = ? ");
+    	condition.add(weight);
+    }
+    if (StringUtils.isNotBlank(mobilePhone)) {
+    	sb .append(" and mobilePhone like ? ");
+    	condition.add("%"+mobilePhone+"%");
+    }
+    if (StringUtils.isNotBlank(startBirthDay)) {
+    	sb .append(" and birthDay >=  ?  ");
+    	condition.add(startBirthDay);
+    }
+    if (StringUtils.isNotBlank(endBirthDay)) {
+    	sb .append(" and birthDay <=  ?  ");
+    	condition.add(endBirthDay);
+    }
     String countSql = "select count(1) count from ( " + sb.toString()+") t";
     int count = jdbcTemplate.queryForObject(countSql, condition.toArray(),Integer.class);
-    sb.append(" order by id desc ");
+    sb.append(" order by birthDay desc ");
     sb.append(" limit ? ,?  ");
     condition.add(from);
     condition.add(size);
@@ -272,7 +352,7 @@ public Map<String,Object> pageUser( Integer pageNum,Integer pageSize) throws Exc
     List<Map<String, Object>> list = jdbcTemplate.queryForList( sb.toString(), condition.toArray());
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("total", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total
-    map.put("list", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名错综复杂，有时pages，有时pageList，有时result，综合比较，感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表
+    map.put("list", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名乱七八糟，有时pages，有时pageList，有时result，综上感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表
     return map;
 
 }
