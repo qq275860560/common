@@ -90,16 +90,17 @@ log.info("请求参数="+map);
 # sql语句生成器
 [源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/JdbcTemplateSqlGeneratorUtil.java)
 ## 适用场景
-对于mysql增删改查虽然可以使用JPA或者mybatis，
-但是JPA对应用的侵入性太强，并且JPA很难对付复杂查询
-mybatis，需要写配置文件或者使用一大堆乱七八糟的注解，很难进行断点调试，分页功能实现也是很麻烦
-spring自带的JdbcTemplate刚好解决这两个问题，但是sql语句编写难度大，此工具类为了简化JdbcTemplate的使用，自动生成常用的统计数量，校验唯一性，增加,删除,修改,查询，分页搜索模板(时间跟字符串相互转换)，然后简单修改模板即可
+* 对于mysql增删改查常用的框架是JPA或者mybatis，
+* JPA对应用的侵入性太强，并且很难对付复杂查询，也很难针对性进行优化
+* mybatis需要写配置文件或者使用一大堆乱七八糟的注解，两种都很难进行断点调试，分页功能实现也是很不优雅，前者还不符合javaConfig方式，当前流行的springboot也不推荐使用xml,因此xml可能作为历史存在，在新项目xml能不用就不用
+spring自带的JdbcTemplate刚好解决这两个问题，既容易对付复杂场景，又能针对性调优，容易断点编程，写起来相对优雅，但是sql语句编写难度较大，此工具类为了简化JdbcTemplate的使用，自动生成常用的统计数量，校验唯一性，增加,删除,修改,查询，分页搜索模板，作为模板简单修改即可满足业务
 
 ## 使用方式
 
 ### mysql建表
-* 字段命名使用驼峰，
-* 字段类型通常尽量使用int,double,varchar,datetime,其中datetime被解释为字符串(格式yyyy-MM-dd HH:mm:ss)
+* 字段命名使用驼峰，原因是大多数知名开源项目都使用驼峰命名，足以说明最适合工程化，此外如果程序和数据库的命名保持一致可以提高开发维护效率，比如cityName,CITY_NAME,总感觉前者的理解速度会快一些,因此统一使用驼峰
+* 字段类型通常尽量使用int,double,varchar,datetime,性能优化以后再说，注意datetime跟字符串(格式yyyy-MM-dd HH:mm:ss)相互转换,而不是Date对象
+* 此两个规则适用于前后端分离时双方的交互
 
 ```
 drop table t_user;
@@ -129,7 +130,8 @@ public static void main(String[] args) throws Exception {
 }
 ```
 ### 运行结果
-把需要的函数拷贝到项目中的dao层,引入@JdbcTemplate,根据业务功能简单修改一下查询条件即可使用
+把需要的函数拷贝到项目中的dao层,引入@JdbcTemplate,根据业务功能简单修改一下查询条件即可使用，
+如果需要缓存，还可以添加spring的@Cacheable注解
 
 ```
 @Autowired
@@ -270,7 +272,7 @@ public Map<String,Object> pageUser( Integer pageNum,Integer pageSize) throws Exc
     List<Map<String, Object>> list = jdbcTemplate.queryForList( sb.toString(), condition.toArray());
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("total", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total
-    map.put("list", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名乱七八糟，有时pages，有时pageList，有时result，综上感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表
+    map.put("list", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名错综复杂，有时pages，有时pageList，有时result，综合比较，感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表
     return map;
 
 }

@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>20190516</version>
+	<version>2019051615</version>
 	<packaging>jar</packaging>
 	<name>github-qq275860560-common</name>
 	<description>github-qq275860560-common</description>	
@@ -116,13 +116,13 @@
 		<dependency>    
 	        <groupId>com.fasterxml.jackson.core</groupId>    
 	        <artifactId>jackson-core</artifactId>    
-	        <version>2.9.5</version> 
+	        <version>2.9.8</version> 
 	        <optional>true</optional>   
 	    </dependency> 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.9.5</version>
+			<version>2.9.8</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -149,7 +149,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 		    <artifactId>commons-compress</artifactId>
-		    <version>1.16.1</version>
+		    <version>1.18</version>
 		    <optional>true</optional>
 		</dependency>
 		
@@ -162,25 +162,25 @@
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.5.5</version>
+			<version>4.5.8</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpmime</artifactId>
-			<version>4.5.5</version>
+			<version>4.5.8</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.8</version>
+			<version>3.9</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.3.3</version>
+			<version>1.4</version>
 			<optional>true</optional>
 			<exclusions>
 				<exclusion>
@@ -196,9 +196,9 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>commons-collections</groupId>
-			<artifactId>commons-collections</artifactId>
-			<version>3.2.2</version>
+			<groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		    <version>4.3</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -210,7 +210,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 		    <artifactId>commons-configuration2</artifactId>
-		    <version>2.3</version>
+		    <version>2.4</version>
 		    <optional>true</optional>
 		</dependency>
 		<dependency>
@@ -706,10 +706,7 @@
                         <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
-                        </goals>
-                        <configuration>
-                             <passphrase>123456</passphrase> 
-                        </configuration>                         
+                        </goals>                                            
                     </execution>
                     <!-- -Dgpg.passphrase='秘钥密码'或者-Darguments='gpg.passphrase=秘钥密码' -->
                 </executions>
