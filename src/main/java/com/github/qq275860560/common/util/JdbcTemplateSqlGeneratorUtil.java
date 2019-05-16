@@ -33,8 +33,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		JdbcTemplateSqlGeneratorUtil.password = "resthome&*()";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "rest_home_hz";
-		JdbcTemplateSqlGeneratorUtil.tableName = "c_service_catalog";
-		JdbcTemplateSqlGeneratorUtil.modelName = "CServiceCatalog";
+		JdbcTemplateSqlGeneratorUtil.tableName = "t_user";
+		JdbcTemplateSqlGeneratorUtil.modelName = "User";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
@@ -49,7 +49,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 				+ listInterface(schemaName, tableName, modelName) + "\n"
 				+ pageInterface(schemaName, tableName, modelName));
 
-		log.info(countImplement(schemaName, tableName, modelName) + "\n"
+		log.info("\n"+"@Autowired"+"\n"+"private JdbcTemplate jdbcTemplate;"+"\n"+countImplement(schemaName, tableName, modelName) + "\n"
 				+ checkImplement(schemaName, tableName, modelName) + "\n"
 				+ deleteImplement(schemaName, tableName, modelName) + "\n"
 				+ getImplement(schemaName, tableName, modelName) + "\n"
@@ -105,7 +105,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		List<String[]> list = getColumn(schemaName, tableName);
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public Map<String,Object> page( ");
 		} else {
@@ -129,8 +129,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.delete(sb1.length() - 1, sb1.length());
 		sb1.append(") throws Exception  {").append("\n");
 
-		sb1.append("    if(pageNum==null) pageNum=1;").append("\n");
-		sb1.append("    if(pageSize==null)pageSize=10;").append("\n");
+		sb1.append("    if(pageNum==null) pageNum=1;//取名pageNum为了兼容mybatis-pageHelper中的page对象的pageNum,注意spring的PageRequest使用page表示页号,综合比较，感觉pageNum更加直观,不需要看上下文能猜出字段是页号").append("\n");
+		sb1.append("    if(pageSize==null)pageSize=10;//取名pageSize为了兼容mybatis-pageHelper中的page对象的pageSize,注意spring的PageRequest使用size表示页数量，综合比较，感觉pageSize会更加直观,不需要看上下文能猜出字段是分页时当前页的数量").append("\n");
 		sb1.append("    int from = (pageNum-1)*pageSize;").append("\n");
 		sb1.append("    int size = pageSize;").append("\n");
 
@@ -211,8 +211,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				.append("\n");
 
 		sb1.append("    Map<String, Object> map = new HashMap<String, Object>();").append("\n");
-		sb1.append("    map.put(\"total\", count);//取名total为了兼容khala分页对象的total").append("\n");
-		sb1.append("    map.put(\"list\", list);//取名list为了兼容khala分页对象的list").append("\n");
+		sb1.append("    map.put(\"total\", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total").append("\n");
+		sb1.append("    map.put(\"list\", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名乱七八糟，有时pages，有时pageList，有时result，综上感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表").append("\n");
 		sb1.append("    return map;").append("\n");
 
 		sb1.append("\n").append("}");
@@ -238,7 +238,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		List<String[]> list = getColumn(schemaName, tableName);
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public List<Map<String,Object>> list( ");
 		} else {
@@ -311,31 +311,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 		}
 
-		/*
-		 * sb1.
-		 * append("    String countSql = \"select count(1) count from ( \" + sb.toString()+\") t\";"
-		 * ).append("\n"); sb1.
-		 * append("    int count = jdbcTemplate.queryForObject(countSql, condition.toArray(),Integer.class);"
-		 * ).append("\n");
-		 * 
-		 * sb1.append("    sb.append(\" order by id desc \");").append("\n");
-		 * sb1.append("    sb.append(\" limit ? ,?  \");").append("\n");
-		 * sb1.append("    condition.add(from);").append("\n");
-		 * sb1.append("    condition.add(size);").append("\n");
-		 * 
-		 * sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n"); sb1.
-		 * append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));"
-		 * ).append("\n"); sb1.
-		 * append("    List<Map<String, Object>> list = jdbcTemplate.queryForList( sb.toString(), condition.toArray());"
-		 * ).append("\n");
-		 * 
-		 * sb1.append("    Map<String, Object> map = new HashMap<String, Object>();").
-		 * append("\n");
-		 * sb1.append("    map.put(\"total\", count);//兼容khala分页对象").append("\n");
-		 * sb1.append("    map.put(\"list\", list);//兼容khala分页对象").append("\n");
-		 * sb1.append("    return map;").append("\n");
-		 */
-
+	 
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
 		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
 		sb1.append("    return jdbcTemplate.queryForList( sb.toString(), condition.toArray());").append("\n");
@@ -360,7 +336,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
 
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public Map<String,Object> get(String id) throws Exception { ").append("\n");
 		} else {
@@ -421,7 +397,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
 
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public Map<String,Object> getByKeyValue(String key,Object value) throws Exception { ")
 					.append("\n");
@@ -480,7 +456,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
 
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public int count(String name) throws Exception { ").append("\n");
 		} else {
@@ -519,7 +495,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
 
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public boolean check(String id,String name) throws Exception { ").append("\n");
 		} else {
@@ -568,7 +544,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
 
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public int delete(String id) throws Exception { ").append("\n");
 		} else {
@@ -613,7 +589,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		List<String[]> list = getColumn(schemaName, tableName);
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public int save( ");
 		} else {
@@ -675,7 +651,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		List<String[]> list = getColumn(schemaName, tableName);
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public int save( ");
 		} else {
@@ -736,7 +712,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		List<String[]> list = getColumn(schemaName, tableName);
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public int update( ");
 		} else {
@@ -791,7 +767,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		List<String[]> list = getColumn(schemaName, tableName);
 		StringBuilder sb1 = new StringBuilder();
 		sb1.append("\n");
-		sb1.append("@Override").append("\n");
+		//sb1.append("@Override").append("\n");
 		if (modelName == null) {
 			sb1.append("public int update( ");
 		} else {
