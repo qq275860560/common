@@ -1,6 +1,16 @@
 [TOC]
 小而美的代码片段
 
+# 使用方式
+## spring-boot项目pom文件引入依赖
+```
+<dependency>
+ 	<groupId>com.github.qq275860560</groupId>
+	<artifactId>github-qq275860560-common</artifactId>
+	<version>20190516</version>
+</dependency>	
+```
+
 # 搞笑代码
 [源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/FunnyUtil.java)
 ## 适用场景
