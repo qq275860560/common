@@ -7,7 +7,7 @@
 <dependency>
  	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>20190516</version>
+	<version>20190517</version>
 </dependency>	
 ```
 
