@@ -7,7 +7,7 @@
 <dependency>
  	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>20190517</version>
+	<version>20190518</version>
 </dependency>	
 ```
 
@@ -74,7 +74,7 @@ public FilterRegistrationBean filterRegistrationBean() {
 [源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/RequestUtil.java)
 
 ## 适用场景
-controller,filter，interceptor等接收参数有时候为了方便需要先解释成自行解释。次工具类可以将其解释到HashMap中，应用程序再从HashMap取值即可
+controller,filter，interceptor等接收参数有时候为了方便需要先解释成自行解释。此工具类可以将其解释到HashMap中，应用程序再从HashMap取值即可
 对于ContentType为application/x-www-form-urlencoded的消息体格式，比如a=1&b=2&b=3，解析后是HashMap，包括两个key，其中一个key为a，value为"1"，另一个key为b，value为Arrays.asList(2,3);   
 对于Content-Type=application/json;charset=UTF-8的消息体格式，比如{"a":"1","b":[2,3]}，解析后是HashMap，包括两个key，其中一个key为a，value为"1"，另一个key为b，value为Arrays.asList(2,3);
 
@@ -364,6 +364,70 @@ public Map<String,Object> pageUser( String id,Integer sex,Double weight,String m
     map.put("total", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total
     map.put("list", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名乱七八糟，有时pages，有时pageList，有时result，综上感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表
     return map;
+
+}
+```
+
+# 模版渲染工具
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/FreemarkerUtil.java)
+
+## 适用场景
+* 有时为了生成格式固定某些内容不同的字符串或文件，需要使用大量的字符串和和文件操作，
+* 此时采用模板引擎是一种很好的选择，比如Freemarker
+* 然而应用程序通常只需要简单的几种功能，模板引擎的设置参数却过于复杂，使用成本较高
+* 本工具类专门对付常用的几种
+
+## 使用方式
+
+```
+public static void main1(String[] args) {
+	// 模板字符串->目标字符串
+	String templateString = "hello ${msg}";
+	Map<String, Object> map = new HashMap<String, Object>() {
+		{
+			put("msg", "world");
+		}
+	};
+	String destString = generateString(templateString, map);
+	log.info("destString=" + destString);// 最终打印hello world
+}
+
+public static void main2(String[] args) throws Exception {
+	// 模板字符串->目标文件
+	String templateString = "hello ${msg}";
+	Map<String, Object> map = new HashMap<String, Object>() {
+		{
+			put("msg", "world");
+		}
+	};
+	File destFile = new File("c:/2.txt");
+	generateFile(templateString, map, destFile);// 最终文件内容hello world
+
+}
+
+public static void main3(String[] args) throws Exception {
+	// 模板文件->目标字符串
+	File templateFile = new File("c:/1.txt");
+	Map<String, Object> map = new HashMap<String, Object>() {
+		{
+			put("msg", "world");
+		}
+	};
+	String destString = generateString(templateFile, map);
+	log.info("destString=" + destString);// 最终打印hello world
+
+}
+
+public static void main(String[] args) throws Exception {
+	// 模板文件->目标文件
+	File templateFile = new File("c:/1.txt");
+	Map<String, Object> map = new HashMap<String, Object>() {
+		{
+			put("msg", "world");
+		}
+	};
+	File destFile = new File("c:/2.txt");
+	generateFile(templateFile, map, destFile);// 最终文件内容hello world
 
 }
 ```

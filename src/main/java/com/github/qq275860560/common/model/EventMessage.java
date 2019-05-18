@@ -53,6 +53,10 @@ public class EventMessage implements Serializable {
 	 * 消息动作 
 	 */
 	//private int action = TEXT_TYPE;
+	/**
+	 * 消息方法 
+	 */
+	//private int method = TEXT_TYPE;
 
 	/**
 	 * 当前发送方id,此id不一定为用户id，可能是群组id，某种组织id，如果业务需要区分，建议继承此类，扩展字段,比如增加fromType

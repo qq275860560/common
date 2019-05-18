@@ -1,88 +1,131 @@
 package com.github.qq275860560.common.util;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
- * Freemarker 模版引擎类
+ * Freemarker 模版渲染工具
  */
+@Slf4j
 public class FreemarkerUtil {
 
-	private static Logger log = LoggerFactory.getLogger(FreemarkerUtil.class);
+	public static void main1(String[] args) {
+		// 模板字符串->目标字符串
+		String templateString = "hello ${msg}";
+		Map<String, Object> map = new HashMap<String, Object>() {
+			{
+				put("msg", "world");
+			}
+		};
+		String destString = generateString(templateString, map);
+		log.info("destString=" + destString);// 最终打印hello world
+	}
+
+	public static void main2(String[] args) throws Exception {
+		// 模板字符串->目标文件
+		String templateString = "hello ${msg}";
+		Map<String, Object> map = new HashMap<String, Object>() {
+			{
+				put("msg", "world");
+			}
+		};
+		File destFile = new File("c:/2.txt");
+		generateFile(templateString, map, destFile);// 最终文件内容hello world
+
+	}
+
+	public static void main3(String[] args) throws Exception {
+		// 模板文件->目标字符串
+		File templateFile = new File("c:/1.txt");
+		Map<String, Object> map = new HashMap<String, Object>() {
+			{
+				put("msg", "world");
+			}
+		};
+		String destString = generateString(templateFile, map);
+		log.info("destString=" + destString);// 最终打印hello world
+
+	}
 
 	public static void main(String[] args) throws Exception {
-		File srcFile = new File(Thread.class.getResource("/callDevice.txt").getFile());
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("contentLength", 215);
-		File destFile = new File("c:/444.txt");
-		generateFile(srcFile, map, destFile);
-		String result = generateString(srcFile, map);
-		log.info(result);
+		// 模板文件->目标文件
+		File templateFile = new File("c:/1.txt");
+		Map<String, Object> map = new HashMap<String, Object>() {
+			{
+				put("msg", "world");
+			}
+		};
+		File destFile = new File("c:/2.txt");
+		generateFile(templateFile, map, destFile);// 最终文件内容hello world
 
 	}
 
-	public static void generateFile(File srcFile, Map<String, Object> map, File destFile) throws IOException {
-		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(destFile), "UTF-8"));
-		convertWriter(srcFile, map, writer);
-	}
-
-	public static String generateString(File srcFile, Map<String, Object> map) throws IOException {
-		Writer writer = new StringWriter();
-		;
-		convertWriter(srcFile, map, writer);
-		return writer.toString();
-	}
-
-	protected static void convertWriter(File srcFile, Map<String, Object> map, Writer writer) throws IOException {
-		try {
-			Configuration configuration = new Configuration();
-			configuration.setDefaultEncoding("utf-8");
-			configuration.setDirectoryForTemplateLoading(srcFile.getParentFile());
-			Template template = configuration.getTemplate(srcFile.getName());
-			template.process(map, writer);
-			writer.close();
-		} catch (Exception e) {
-			log.error("", e);
-		} finally {
-			if (writer != null)
-				writer.close();
-		}
-	}
-
-	public static String renderString(String templateString, Map<String, ?> model) {
-		try {
-			StringWriter writer = new StringWriter();
-			Template t = new Template("name", new StringReader(templateString), new Configuration());
-			t.process(model, writer);
+	/**模板字符串->目标字符串
+	 * @param templateString 模板文件
+	 * @param map
+	 * @return
+	 */
+	public static String generateString(String templateString, Map<String, Object> map) {
+		try (StringWriter writer = new StringWriter();) {
+			Template t = new Template("name", new StringReader(templateString),
+					new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS));
+			t.process(map, writer);
 			return writer.toString();
 		} catch (Exception e) {
 			log.error("", e);
+
 		}
 		return null;
 	}
 
-	public static Configuration buildConfiguration(String directory) throws IOException {
-		Configuration cfg = new Configuration();
-		Resource path = new DefaultResourceLoader().getResource(directory);
-		cfg.setDirectoryForTemplateLoading(path.getFile());
-		return cfg;
+	/**模板字符串->目标文件
+	 * @param templateString 模板文件
+	 * @param map 
+	 * @param 生成后的文件
+	 * @return
+	 * @throws IOException 
+	 */
+	public static void generateFile(String templateString, Map<String, Object> map, File destFile) throws IOException {
+		String destString = generateString(templateString, map);
+		FileUtils.writeStringToFile(destFile, destString, "UTF-8");
+
+	}
+
+	/**模板文件->目标字符串
+	 * @param templateFile 模板文件
+	 * @param map 
+	 * @return
+	 * @throws Exception
+	 */
+	public static String generateString(File templateFile, Map<String, Object> map) throws Exception {
+		String sourceString = FileUtils.readFileToString(templateFile, "UTF-8");
+		return generateString(sourceString, map);
+	}
+
+	/**模板文件->目标文件
+	 * @param templateFile 模板文件
+	 * @param map 
+	 * @param 生成后的文件
+	 * @return
+	 * @throws Exception
+	 */
+	public static void generateFile(File templateFile, Map<String, Object> map, File destFile) throws Exception {
+		String sourceString = FileUtils.readFileToString(templateFile, "UTF-8");
+		String destString = generateString(sourceString, map);
+		FileUtils.writeStringToFile(destFile, destString, "UTF-8");
 	}
 
 }

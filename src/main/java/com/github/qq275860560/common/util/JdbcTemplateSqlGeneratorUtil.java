@@ -207,12 +207,12 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
 		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
 		sb1.append(
-				"    List<Map<String, Object>> list = jdbcTemplate.queryForList( sb.toString(), condition.toArray());")
+				"    List<Map<String, Object>> pageList = jdbcTemplate.queryForList( sb.toString(), condition.toArray());")
 				.append("\n");
 
 		sb1.append("    Map<String, Object> map = new HashMap<String, Object>();").append("\n");
 		sb1.append("    map.put(\"total\", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total").append("\n");
-		sb1.append("    map.put(\"list\", list);//不同的框架取名不一样，可以把list改成array,rows,data,content,result等,spring框架使用的是content,mybatis因为page是继承ArrayList，字段命名乱七八糟，有时pages，有时pageList，有时result，综上感觉list会更加直观和简洁,不需要看上下文能猜出字段是列表").append("\n");
+		sb1.append("    map.put(\"pageList\", pageList);//不同的框架取名不一样，可以把pageList改成list,array,rows,data,content,result等,spring框架使用的是content,mybatis因为page对象是继承ArrayList，字段命名乱七八糟，有时pageList，有时result，综上感觉pageList会更加直观和简洁,不需要看上下文能猜出字段是列表").append("\n");
 		sb1.append("    return map;").append("\n");
 
 		sb1.append("\n").append("}");
