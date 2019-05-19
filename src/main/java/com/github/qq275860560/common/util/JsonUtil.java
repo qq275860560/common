@@ -27,10 +27,7 @@ public class JsonUtil {
 
 	// 将对象序列化成Json字符串
 
-	/**
-	 * @param obj
-	 * @return
-	 */
+
 	public static String toJSONString(Object obj) {
 		if (obj == null)
 			return null;

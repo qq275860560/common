@@ -53,11 +53,10 @@ public class ExcelUtil {
 	// mapper.readValue(jsonArrayString,mapper.getTypeFactory().constructParametricType(List.class,
 	// Student.class));
 
-	/**把excel表的数据转为json数组字符串,使用例子见单元测试
-	 * @param properties excel表中，每列的英文名称,比如new String[]{"a","b","c"}
-	 * @param xlsFile 带头部的excel表，每页的第一行是列名称，第二行开始才是真正的数据,比如execl表有1页4行，其实数据区才3行，返回的json数组是3个元素
-	 * @return 返回json数组     [{"a":"1","b":"2","c":"3"},{"a":"10","b":"20","c":"30"},{"a":"11","b":"22","c":"33"}]
-	 */
+	//把excel表的数据转为json数组字符串,使用例子见单元测试
+	// @param properties excel表中，每列的英文名称,比如new String[]{"a","b","c"}
+	// @param xlsFile 带头部的excel表，每页的第一行是列名称，第二行开始才是真正的数据,比如execl表有1页4行，其实数据区才3行，返回的json数组是3个元素
+	// @return 返回json数组     [{"a":"1","b":"2","c":"3"},{"a":"10","b":"20","c":"30"},{"a":"11","b":"22","c":"33"}]
 	public static List<Map<String, String>> readFromExcelToList(String[] properties, File xlsFile) {
 		String extension = FilenameUtils.getExtension(xlsFile.getName());
 		Workbook workbook = null;
@@ -248,11 +247,11 @@ public class ExcelUtil {
 	// file);
 	// log.info(file.getAbsolutePath());
 
-	/**输出到文件 把json数组字符串换成excel文件 ,其中，每页的开头一行为中文名称(非数据),使用例子见单元测试,支持百万级别数据导入
-	 * @param headers 每列第一行名称，比如new String[]{"姓名","年龄","性别"}
-	 * @param properties 每列的属性，要跟json数组元素的属性名一致，比如new String[]{"name","age","sex"}
-	 * @param xlsFile 转换后的excel文件	
-	 */
+	//输出到文件 把json数组字符串换成excel文件 ,其中，每页的开头一行为中文名称(非数据),使用例子见单元测试,支持百万级别数据导入
+	// @param headers 每列第一行名称，比如new String[]{"姓名","年龄","性别"}
+	// @param properties 每列的属性，要跟json数组元素的属性名一致，比如new String[]{"name","age","sex"}
+	// @param xlsFile 转换后的excel文件	
+	//
 	public static void writeToExcel(String[] headers, String[] properties, List<Map<String, Object>> list,
 			File xlsFile) {
 		SXSSFWorkbook workbook = null;// 缓存;
