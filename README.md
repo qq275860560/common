@@ -372,10 +372,10 @@ public Map<String,Object> pageUser( String id,Integer sex,Double weight,String m
 [源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/FreemarkerUtil.java)
 
 ## 适用场景
-* 有时为了生成格式固定某些内容不同的字符串或文件，需要使用大量的字符串和和文件操作，
-* 此时采用模板引擎是一种很好的选择，比如Freemarker
+* 有时为了生成格式固定某些内容不同的字符串或文件，需要使用大量的字符串和和文件操作,代码混乱难于维护
+* 此时采用模板引擎是一种很好的选择，比如Freemarker，相对直观
 * 然而应用程序通常只需要简单的几种功能，模板引擎的设置参数却过于复杂，使用成本较高
-* 本工具类专门对付常用的几种
+* 为了达到直观并且易于使用的目的，本工具类基于freemarker进行二次封装
 
 ## 使用方式
 

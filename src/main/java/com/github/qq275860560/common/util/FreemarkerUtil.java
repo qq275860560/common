@@ -73,11 +73,7 @@ public class FreemarkerUtil {
 
 	}
 
-	/**模板字符串->目标字符串
-	 * @param templateString 模板文件
-	 * @param map
-	 * @return
-	 */
+	//模板字符串->目标字符串	 
 	public static String generateString(String templateString, Map<String, Object> map) {
 		try (StringWriter writer = new StringWriter();) {
 			Template t = new Template("name", new StringReader(templateString),
@@ -91,37 +87,20 @@ public class FreemarkerUtil {
 		return null;
 	}
 
-	/**模板字符串->目标文件
-	 * @param templateString 模板文件
-	 * @param map 
-	 * @param 生成后的文件
-	 * @return
-	 * @throws IOException 
-	 */
+    //模板字符串->目标文件	 
 	public static void generateFile(String templateString, Map<String, Object> map, File destFile) throws IOException {
 		String destString = generateString(templateString, map);
 		FileUtils.writeStringToFile(destFile, destString, "UTF-8");
 
 	}
 
-	/**模板文件->目标字符串
-	 * @param templateFile 模板文件
-	 * @param map 
-	 * @return
-	 * @throws Exception
-	 */
+	///模板文件->目标字符串	 
 	public static String generateString(File templateFile, Map<String, Object> map) throws Exception {
 		String sourceString = FileUtils.readFileToString(templateFile, "UTF-8");
 		return generateString(sourceString, map);
 	}
 
-	/**模板文件->目标文件
-	 * @param templateFile 模板文件
-	 * @param map 
-	 * @param 生成后的文件
-	 * @return
-	 * @throws Exception
-	 */
+	//模板文件->目标文件	 
 	public static void generateFile(File templateFile, Map<String, Object> map, File destFile) throws Exception {
 		String sourceString = FileUtils.readFileToString(templateFile, "UTF-8");
 		String destString = generateString(sourceString, map);
