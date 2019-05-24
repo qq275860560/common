@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author jiangyuanlin@163.com
-跨域过滤器
+Frame过滤器
  */
-public class CorsFilter implements Filter {
+public class FrameFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
@@ -27,18 +27,9 @@ public class CorsFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
-		/**********跨域设置开始**********/
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
-		response.setHeader("Access-Control-Allow-Headers", "*,Content-Type,token,Authorization");
-		response.setHeader("Access-Control-Expose-Headers",
-				"Content-Disposition,downloadFileName,Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
-		response.setHeader("Access-Control-Allow-Credentials", "true");
-		if (request.getMethod().equalsIgnoreCase("OPTIONS")) {
-			response.setStatus(200);
-			return;
-		}
-		/**********跨域设置结束**********/
+		/**********Frame设置开始**********/
+		response.setHeader("x-frame-options","SAMEORIGIN");
+		/**********Frame设置结束**********/
 		chain.doFilter(request, response);
 	}
 
