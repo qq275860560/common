@@ -68,6 +68,33 @@ public FilterRegistrationBean filterRegistrationBean() {
 }
 ```
 
+# Frame过滤器
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/filter/FrameFilter.java)
+## 适用场景
+返回的页面要嵌套在当前页面时。
+只要在web.xml或javaconfig，加入此过滤器即可 
+## 使用方式
+### web.xml方式
+```
+<filter>
+	<filter-name>FRAME</filter-name>
+	<filter-class>com.github.qq275860560.common.filter.FrameFilter</filter-class>
+</filter>
+<filter-mapping>
+	<filter-name>FRAME</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+### javaconfig方式
+```
+@Bean
+public FilterRegistrationBean filterRegistrationBean() {
+	FilterRegistrationBean registration = new FilterRegistrationBean(new FrameFilter());
+	registration.addUrlPatterns("/*");
+	registration.setOrder(0);
+	return registration;
+}
+```
 
 
 # 请求对象解释器

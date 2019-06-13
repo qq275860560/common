@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>20190523</version>
+	<version>20190613</version>
 	<packaging>jar</packaging>
 	<name>github-qq275860560-common</name>
 	<description>github-qq275860560-common</description>	
@@ -624,7 +624,46 @@
 		    <artifactId>mqtt-client</artifactId>
 		    <version>1.15</version>
 		    <optional>true</optional>
-		</dependency>		
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-jwt</artifactId>
+		    <version>1.0.10.RELEASE</version>
+		      <optional>true</optional>
+		</dependency>
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.58</version>
+		      <optional>true</optional>
+		</dependency>	
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-jwt</artifactId>
+		    <version>1.0.10.RELEASE</version>
+		     <optional>true</optional>
+		</dependency>	
+		
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.9.2</version>
+		    <optional>true</optional>
+		</dependency>
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.9.2</version>
+		    <optional>true</optional>
+		</dependency>	
+		<dependency>
+		    <groupId>org.javassist</groupId>
+		    <artifactId>javassist</artifactId>
+		    <version>3.25.0-GA</version>
+		    <optional>true</optional>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

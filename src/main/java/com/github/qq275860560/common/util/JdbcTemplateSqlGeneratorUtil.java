@@ -28,13 +28,13 @@ public class JdbcTemplateSqlGeneratorUtil {
 	public static String modelName;
 
 	public static void main(String[] args) throws Exception {
-		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://10.18.96.50:3306/rest_home_hz?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
-		JdbcTemplateSqlGeneratorUtil.username = "resthome";
-		JdbcTemplateSqlGeneratorUtil.password = "resthome&*()";
+		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://localhost:3306/dataxweb?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
+		JdbcTemplateSqlGeneratorUtil.username = "root";
+		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
-		JdbcTemplateSqlGeneratorUtil.schemaName = "rest_home_hz";
-		JdbcTemplateSqlGeneratorUtil.tableName = "t_user";
-		JdbcTemplateSqlGeneratorUtil.modelName = "User";
+		JdbcTemplateSqlGeneratorUtil.schemaName = "dataxweb";
+		JdbcTemplateSqlGeneratorUtil.tableName = "job";
+		JdbcTemplateSqlGeneratorUtil.modelName = "Job";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
@@ -152,13 +152,13 @@ public class JdbcTemplateSqlGeneratorUtil {
 		for (String[] array : list) {
 			if (array[0].equals("Date")) {
 
-				sb1.append("    if (StringUtils.isNotBlank(start" + array[1].substring(0, 1).toUpperCase()
+				sb1.append("    if (!StringUtils.isEmpty(start" + array[1].substring(0, 1).toUpperCase()
 						+ array[1].substring(1) + ")) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " >=  ?  \");").append("\n");
 				sb1.append("    	condition.add(start" + array[1].substring(0, 1).toUpperCase()
 						+ array[1].substring(1) + ");").append("\n");
 				sb1.append("    }").append("\n");
-				sb1.append("    if (StringUtils.isNotBlank(end" + array[1].substring(0, 1).toUpperCase()
+				sb1.append("    if (!StringUtils.isEmpty(end" + array[1].substring(0, 1).toUpperCase()
 						+ array[1].substring(1) + ")) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " <=  ?  \");").append("\n");
 				sb1.append("    	condition.add(end" + array[1].substring(0, 1).toUpperCase() + array[1].substring(1)
@@ -167,7 +167,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 			} else if (array[0].equals("String")) {
 
-				sb1.append("    if (StringUtils.isNotBlank(" + array[1] + ")) {").append("\n");
+				sb1.append("    if (!StringUtils.isEmpty(" + array[1] + ")) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " like ? \");").append("\n");
 				sb1.append("    	condition.add(\"%\"+" + array[1] + "+\"%\");").append("\n");
 				sb1.append("    }").append("\n");
@@ -278,13 +278,13 @@ public class JdbcTemplateSqlGeneratorUtil {
 		for (String[] array : list) {
 			if (array[0].equals("Date")) {
 
-				sb1.append("    if (StringUtils.isNotBlank(start" + array[1].substring(0, 1).toUpperCase()
+				sb1.append("    if (!StringUtils.isEmpty(start" + array[1].substring(0, 1).toUpperCase()
 						+ array[1].substring(1) + ")) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " >=  ?  \");").append("\n");
 				sb1.append("    	condition.add(start" + array[1].substring(0, 1).toUpperCase()
 						+ array[1].substring(1) + ");").append("\n");
 				sb1.append("    }").append("\n");
-				sb1.append("    if (StringUtils.isNotBlank(end" + array[1].substring(0, 1).toUpperCase()
+				sb1.append("    if (!StringUtils.isEmpty(end" + array[1].substring(0, 1).toUpperCase()
 						+ array[1].substring(1) + ")) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " <=  ?  \");").append("\n");
 				sb1.append("    	condition.add(end" + array[1].substring(0, 1).toUpperCase() + array[1].substring(1)
@@ -293,7 +293,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 			} else if (array[0].equals("String")) {
 
-				sb1.append("    if (StringUtils.isNotBlank(" + array[1] + ")) {").append("\n");
+				sb1.append("    if (!StringUtils.isEmpty(" + array[1] + ")) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " like ? \");").append("\n");
 				sb1.append("    	condition.add(\"%\"+" + array[1] + "+\"%\");").append("\n");
 				sb1.append("    }").append("\n");
@@ -357,7 +357,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.delete(sb1.length() - 1, sb1.length());
 		sb1.append(" from " + tableName + " where 1=1 \"); ").append("\n");
 
-		sb1.append("    if (StringUtils.isNotBlank(id)) {").append("\n");
+		sb1.append("    if (!StringUtils.isEmpty(id)) {").append("\n");
 		sb1.append("    	sb .append(\" and id = ? \");").append("\n");
 		sb1.append("    	condition.add(id);").append("\n");
 		sb1.append("    }").append("\n");
@@ -507,7 +507,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 		sb1.append(" from " + tableName + " where 1=1 \"); ").append("\n");
 
-		sb1.append("    if (StringUtils.isNotBlank(id)) {").append("\n");
+		sb1.append("    if (!StringUtils.isEmpty(id)) {").append("\n");
 		sb1.append("    	sb .append(\" and id != ? \");").append("\n");
 		sb1.append("    	condition.add(id);").append("\n");
 		sb1.append("    }").append("\n");

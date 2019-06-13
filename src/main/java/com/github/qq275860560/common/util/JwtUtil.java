@@ -3,11 +3,16 @@ package com.github.qq275860560.common.util;
 import java.io.File;
 import java.security.Key;
 import java.security.KeyFactory;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.lang3.StringUtils;
@@ -20,8 +25,11 @@ import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.jwt.consumer.JwtConsumer;
 import org.jose4j.jwt.consumer.JwtConsumerBuilder;
 import org.jose4j.lang.JoseException;
+import org.springframework.security.jwt.JwtHelper;
+import org.springframework.security.jwt.crypto.sign.RsaSigner;
+import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 
-import org.apache.commons.codec.binary.Base64;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author jiangyuanlin@163.com
@@ -134,4 +142,24 @@ public class JwtUtil {
 
 	}
 
+	
+	public static void main(String[] args) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Map<String, String> map = RsaUtil.generateRsaKeyBase64EncodeString();
+		PrivateKey privateKey = RsaUtil
+				.getPrivateKeyFromPrivateKeyBase64EncodeString(map.get("privateKeyBase64EncodeString"));
+
+		PublicKey publicKey = RsaUtil
+				.getPublicKeyFromPublicKeyBase64EncodeString(map.get("publicKeyBase64EncodeString"));
+ 
+
+		Map<String, Object> src = new HashMap<>();
+		src.put("username", "username1");
+
+		String token = JwtHelper.encode(objectMapper.writeValueAsString(src), new RsaSigner((RSAPrivateKey) privateKey)).getEncoded();
+		System.out.println(token);
+
+		src = objectMapper.readValue(JwtHelper.decodeAndVerify(token, new RsaVerifier((RSAPublicKey) publicKey)).getClaims(), Map.class);
+		log.info("" + src);
+	}
 }
