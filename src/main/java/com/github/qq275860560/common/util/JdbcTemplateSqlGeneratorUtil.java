@@ -33,8 +33,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "dataxweb";
-		JdbcTemplateSqlGeneratorUtil.tableName = "plugin";
-		JdbcTemplateSqlGeneratorUtil.modelName = "Plugin";
+		JdbcTemplateSqlGeneratorUtil.tableName = "input";
+		JdbcTemplateSqlGeneratorUtil.modelName = "Input";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
@@ -205,7 +205,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    condition.add(size);").append("\n");
 
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append(
 				"    List<Map<String, Object>> pageList = jdbcTemplate.queryForList( sb.toString(), condition.toArray());")
 				.append("\n");
@@ -313,7 +313,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 	 
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    return jdbcTemplate.queryForList( sb.toString(), condition.toArray());").append("\n");
 		sb1.append("\n").append("}");
 		return sb1;
@@ -365,7 +365,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    condition.add(0);").append("\n");
 		sb1.append("    condition.add(1);").append("\n");
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    Map<String,Object> map = Collections.EMPTY_MAP;").append("\n");
 		sb1.append("    try{").append("\n");
 		sb1.append("    	map =jdbcTemplate.queryForMap( sb.toString(), condition.toArray());").append("\n");
@@ -427,7 +427,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    condition.add(0);").append("\n");
 		sb1.append("    condition.add(1);").append("\n");
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    Map<String,Object> map = Collections.EMPTY_MAP;").append("\n");
 		sb1.append("    try{").append("\n");
 		sb1.append("    	map =jdbcTemplate.queryForMap( sb.toString(), condition.toArray());").append("\n");
@@ -470,7 +470,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    sb .append(\" and name = ? \");").append("\n");
 		sb1.append("    condition.add(name);").append("\n");
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    return jdbcTemplate.queryForObject( sb.toString(), condition.toArray(),Integer.class);")
 				.append("\n");
 		sb1.append("}");
@@ -516,7 +516,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    condition.add(name);").append("\n");
 
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    int count = jdbcTemplate.queryForObject( sb.toString(), condition.toArray(),Integer.class);")
 				.append("\n");
 		sb1.append("    if(count>0) return false;").append("\n");
@@ -558,7 +558,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    condition.add(id);").append("\n");
 
 		sb1.append("    log.info(\"sql=\" + sb.toString());").append("\n");
-		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    return jdbcTemplate.update( sb.toString(), condition.toArray());").append("\n");
 		sb1.append("}");
 		return sb1;
@@ -625,7 +625,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    ").append("String sql = \"insert into " + tableName
 				+ "(\" + sb1.toString() + \") values(\" + sb2.toString() + \")\";").append("\n");
 		sb1.append("    ").append("log.info(\"sql=\" + sql);").append("\n");
-		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    ").append("return jdbcTemplate.update( sql, condition.toArray());").append("\n");
 
 		sb1.append("\n").append("}");
@@ -681,7 +681,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    ").append("String sql = \"insert into " + tableName
 				+ "(\" + sb1.toString() + \") values(\" + sb2.toString() + \")\";").append("\n");
 		sb1.append("    ").append("log.info(\"sql=\" + sql);").append("\n");
-		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    ").append("return jdbcTemplate.update( sql, condition.toArray());").append("\n");
 
 		sb1.append("\n").append("}");
@@ -742,7 +742,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 				.append("\n");
 		sb1.append("    ").append("condition.add(id);").append("\n");
 		sb1.append("    ").append("log.info(\"sql=\" + sql);").append("\n");
-		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    ").append("return jdbcTemplate.update(  sql, condition.toArray());").append("\n");
 		sb1.append("}");
 		return sb1;
@@ -794,7 +794,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 				.append("\n");
 		sb1.append("    ").append("condition.add(map.get(\"id\"));").append("\n");
 		sb1.append("    ").append("log.info(\"sql=\" + sql);").append("\n");
-		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));").append("\n");
+		sb1.append("    ").append("log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		sb1.append("    ").append("return jdbcTemplate.update(  sql, condition.toArray());").append("\n");
 		sb1.append("}");
 		return sb1;
