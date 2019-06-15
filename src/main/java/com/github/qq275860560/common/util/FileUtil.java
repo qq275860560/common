@@ -102,4 +102,11 @@ public class FileUtil {
 		return fileContent;
 	}
 
+	public static void writeStringToFile(File file, String data) throws Exception {
+		FileUtils.writeStringToFile(file, data, "UTF-8");
+	}
+
+	public static String readFileToString(File file) throws Exception {
+		return FileUtils.readFileToString(file, "UTF-8");
+	}
 }

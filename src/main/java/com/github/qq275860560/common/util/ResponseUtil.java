@@ -1,14 +1,13 @@
 package com.github.qq275860560.common.util;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -21,8 +20,7 @@ public class ResponseUtil {
 	private ResponseUtil() {
 	}
 
-	// 把字符串发回给客户端
-
+	// 发字符串发送到客户端
 	public static void sendResult(HttpServletResponse response, String result) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setHeader("Content-Type", "application/json;charset=UTF-8");// 解决乱码
@@ -36,52 +34,28 @@ public class ResponseUtil {
 		out.close();
 	}
 
-	// 把文件流发回给客户端
+	// 文件发送到客户端
+	public static void sendFile(HttpServletResponse response, File file, String responseContentType) throws Exception {
+		byte[] byteArray = FileUtils.readFileToByteArray(file);
+		String fileName = URLEncoder.encode(file.getName(), "utf-8"); // 解决中文文件名下载后乱码的问题
+		sendFileByteArray(response, byteArray, fileName, responseContentType);
+	}
 
-	public static void sendResult(HttpServletResponse response, File file, String contentType) throws IOException {
-		FileInputStream fis = null;
-		ServletOutputStream out = null;
-		try {
-			fis = new FileInputStream(file);
+	
 
-			String filename = URLEncoder.encode(file.getName(), "utf-8"); // 解决中文文件名下载后乱码的问题
-			byte[] b = new byte[fis.available()];
-			int count = fis.read(b);
-			log.info("字节总数:" + count);
-			response.setCharacterEncoding("utf-8");
-			if (contentType != null) {
-				response.setContentType(contentType);
-			} else {// 字节流默认为excel文件
-				response.setContentType("application/vnd.ms-excel;charset=utf-8");
-				// "application/octet-stream;charset=UTF-8"
-			}
-			response.addHeader("Content-Disposition",
-					"attachment;filename=" + new String(filename.getBytes(), "utf-8"));
-			response.addHeader("Content-Length", "" + file.length());
-			response.addHeader("pargam", "no-cache");
-
-			// 获取响应报文输出流对象
-			out = response.getOutputStream();
-			// 输出
-			out.write(b);
-			out.flush();
-		} catch (Exception e) {
-			// TODO: handle exception
-		} finally {
-			if (out != null)
-				try {
-					out.close();
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-			if (fis != null)
-				try {
-					fis.close();
-				} catch (Exception e2) {
-					// TODO: handle exception
-				}
-		}
-
+	//内存中的文件字节数组发送到客户端
+	public static void sendFileByteArray(HttpServletResponse response, byte[] byteArray, String fileName,
+			String responseContentType) throws Exception {
+		response.setCharacterEncoding("utf-8");
+		// "application/vnd.ms-excel;charset=utf-8"
+		// "application/octet-stream;charset=UTF-8"
+		response.setContentType(responseContentType);
+		response.setContentType("application/octet-stream;charset=UTF-8");
+		response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "utf-8"));
+		response.addHeader("Content-Length", "" + byteArray.length);
+		response.addHeader("pargam", "no-cache");
+		response.getOutputStream().write(byteArray);
+		response.getOutputStream().flush();
 	}
 
 }

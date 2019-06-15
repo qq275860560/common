@@ -33,8 +33,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "dataxweb";
-		JdbcTemplateSqlGeneratorUtil.tableName = "job";
-		JdbcTemplateSqlGeneratorUtil.modelName = "Job";
+		JdbcTemplateSqlGeneratorUtil.tableName = "plugin";
+		JdbcTemplateSqlGeneratorUtil.modelName = "Plugin";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
@@ -899,6 +899,16 @@ public class JdbcTemplateSqlGeneratorUtil {
 			javaTypeName = "Double";
 		} else if (columnTypeName.equalsIgnoreCase("varbinary")) {
 			javaTypeName = "byte[]";
+			
+		} else if (columnTypeName.equalsIgnoreCase("TinyBlob")) {
+			javaTypeName = "byte[]";
+		} else if (columnTypeName.equalsIgnoreCase("Blob")) {
+			javaTypeName = "byte[]";
+		} else if (columnTypeName.equalsIgnoreCase("MediumBlob")) {
+			javaTypeName = "byte[]";
+		} else if (columnTypeName.equalsIgnoreCase("LongBlob")) {
+			javaTypeName = "byte[]";
+			
 		} else {
 			javaTypeName = "String";
 		}
