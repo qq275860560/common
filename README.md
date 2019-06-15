@@ -124,6 +124,40 @@ log.info("请求参数="+map);
 
 
 
+# http响应工具
+[源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/ResponseUtil.java)
+
+## 适用场景
+发送自定义格式的字符串
+发送文件
+发送内存中的文件字节数组
+
+
+## 使用方式
+
+
+### 发送自定义格式的字符串时
+
+```
+ResponseUtil.sendResult(response, result)
+```
+
+### 发送文件时
+
+```
+
+ResponseUtil.sendFile(response, file,   responseContentType)
+```
+### 发送内存中的文件字节数组
+
+```
+ResponseUtil.sendFileByteArray(response, byteArray,  fileName, responseContentType)
+```
+其中responseContentType通常为一下几种
+"application/vnd.ms-excel;charset=utf-8"
+"application/octet-stream;charset=UTF-8"
+
+
 # sql语句生成器
 [源码](https://github.com/qq275860560/common/blob/master/src/main/java/com/github/qq275860560/common/util/JdbcTemplateSqlGeneratorUtil.java)
 ## 适用场景
