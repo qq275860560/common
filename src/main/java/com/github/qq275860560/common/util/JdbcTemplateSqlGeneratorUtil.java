@@ -33,8 +33,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "dataxweb";
-		JdbcTemplateSqlGeneratorUtil.tableName = "input";
-		JdbcTemplateSqlGeneratorUtil.modelName = "Input";
+		JdbcTemplateSqlGeneratorUtil.tableName = "plugin";
+		JdbcTemplateSqlGeneratorUtil.modelName = "Plugin";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 

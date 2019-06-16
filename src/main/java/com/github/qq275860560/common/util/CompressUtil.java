@@ -13,20 +13,24 @@ import org.apache.commons.io.FileUtils;
  */
 public class CompressUtil {
 
-	public static void unZip(File file) throws Exception {
+	public static File unZip(File file) throws Exception {
+		String destPath=file.getParent()+File.separator+file.getName().substring(0,file.getName().indexOf(('.')));
+		File destDir = new File(destPath);//解压到文件夹，文件夹名称和压缩包名称相同,
+		destDir.mkdirs();
 		try (ZipFile zipFile = new ZipFile(file);) {
 			Enumeration<?> entries = zipFile.getEntries();
 			while (entries.hasMoreElements()) {
 				ZipArchiveEntry entry = (ZipArchiveEntry) entries.nextElement();
 				if (entry.isDirectory()) {
-					new File(file.getParent(), entry.getName()).mkdirs();
+					new File(destPath, entry.getName()).mkdirs();
 				} else {
-					File tmpFile = new File(file.getParent(), entry.getName());
+					File tmpFile = new File(destPath, entry.getName());
 					InputStream is = zipFile.getInputStream(entry);
 					FileUtils.copyInputStreamToFile(is, tmpFile);
 				}
 			}
 		}
+		return destDir;
 
 	}
 }
