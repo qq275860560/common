@@ -5,15 +5,14 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class ThreadPoolExecutorUtil {
-	private static Log log = LogFactory.getLog(ThreadPoolExecutorUtil.class);
-
+	 
 	public static ThreadFactory threadFactory = new ThreadFactory() {
 		@Override
 		public Thread newThread(Runnable runnable) {

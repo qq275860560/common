@@ -18,13 +18,13 @@ import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.github.qq275860560.common.model.ApiResult;
 import com.github.qq275860560.common.util.JsonUtil;
 import com.github.qq275860560.common.util.JwtUtil;
 import com.github.qq275860560.common.util.ResponseUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
@@ -34,9 +34,9 @@ import com.github.qq275860560.common.util.ResponseUtil;
   * 如果某些token不需要解密,比如开发或测试联调时的固定token，请配置loginFilter.exclude.urls参数,以逗号区分,其中冒号前半部分为token后半部分为userId,例如
  * loginFilterTokenUserIdPairs=admin_token:cabde236a3f84b2898ef99521c7e852e,neva3_token:9a9f1dd687c246d99583fed4e4755c68
  */
+@Slf4j
 public class LoginFilter implements Filter {
-	private static final Log log = LogFactory.getLog(LoginFilter.class);
-
+	 
 	private Pattern excludeUrlsPattern = null; // 匹配不需要过滤路径的正则表达式
 	private String[] tokens = null; // 匹配特殊的token，这些token不需要经过jwt解密，直接转换成对应的userid
 	private String[] userIds = null;

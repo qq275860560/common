@@ -17,8 +17,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CreationHelper;
@@ -32,16 +30,16 @@ import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.codehaus.jackson.map.JsonMappingException;
+import com.github.qq275860560.common.filter.ExceptionFilter;
 
-import com.fasterxml.jackson.core.JsonParseException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class ExcelUtil {
-	private static Log log = LogFactory.getLog(ExcelUtil.class);
-
+	 
 	private ExcelUtil() {
 	}
 

@@ -8,9 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import com.github.qq275860560.common.filter.ExceptionFilter;
 import com.netflix.client.ClientFactory;
 import com.netflix.client.http.HttpRequest;
 import com.netflix.client.http.HttpResponse;
@@ -31,15 +29,14 @@ import feign.hystrix.SetterFactory;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import feign.ribbon.RibbonClient;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class FeignUtil {
-
-	private static final Log log = LogFactory.getLog(FeignUtil.class);
-
-	public static <T> T buildHystrixFeign(String clientName, Set<String> serverList, final Class<T> clazz, String url,
+ 	public static <T> T buildHystrixFeign(String clientName, Set<String> serverList, final Class<T> clazz, String url,
 			T fallback) {
 		RibbonUtil.initServers(clientName, serverList);
 		return HystrixFeign.builder().client(RibbonClient.create()).encoder(new JacksonEncoder())

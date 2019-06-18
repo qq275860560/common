@@ -2,15 +2,14 @@ package com.github.qq275860560.common.util;
 
 import java.net.URLEncoder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class URLEncodeUtil {
-	private static Log log = LogFactory.getLog(URLEncodeUtil.class);
-
+	 
 	private URLEncodeUtil() {
 	}
 

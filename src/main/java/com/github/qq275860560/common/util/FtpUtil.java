@@ -1,28 +1,24 @@
 package com.github.qq275860560.common.util;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URL;
-import java.util.Collection;
-import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
-import org.apache.log4j.Logger;
+
+import com.github.qq275860560.common.filter.ExceptionFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class FtpUtil {
-	private static Log log = LogFactory.getLog(FtpUtil.class);
-	private static FTPClient ftpClient = new FTPClient();
+	 	private static FTPClient ftpClient = new FTPClient();
 
 	static {
 		ftpClient.setConnectTimeout(20000);

@@ -7,16 +7,16 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.core.io.ClassPathResource;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class FileUtil {
-	private static Log log = LogFactory.getLog(FileUtil.class);
-
+	 
 	private FileUtil() {
 	}
 

@@ -15,18 +15,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntityEnclosingRequest;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  请求对象解释器
 */
+@Slf4j
 public class RequestUtil {
-
-	private static Log log = LogFactory.getLog(RequestUtil.class);
-
+ 
 	// http请求的参数变成Map或者List的工具类;对于ContentType为application/x-www-form-urlencoded的格式一般为a=1&b=2&b=3，解析后的Map有两个key，其中一个key为a，value为"1"，另一个key为b，value为new
 	// String[]{"2","3"};
 	// 对于Content-Type=application/json;charset=UTF-8的消息体格式为标准json字符串，调用jackson反序列化

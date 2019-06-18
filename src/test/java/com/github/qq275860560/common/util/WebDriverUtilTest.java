@@ -1,22 +1,20 @@
 package com.github.qq275860560.common.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-import com.github.qq275860560.common.util.WebDriverUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class WebDriverUtilTest {
-	private static Log log = LogFactory.getLog(WebDriverUtilTest.class);
-
+	 
 	/**
 	 * 启动chrome浏览器测试，如果系统不需要兼容此浏览器，把这段代码注释掉即可
 	 */

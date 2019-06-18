@@ -6,12 +6,8 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.github.qq275860560.common.util.ByteBufUtil;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
@@ -57,9 +53,7 @@ public class TcpServer {
 					log.info("tcp新建连接=" + socketChannel.config());
 					final ChannelPipeline pipeline = socketChannel.pipeline();
 					pipeline.addLast(new SimpleChannelInboundHandler<Object>() {
-						private Log log = LogFactory.getLog(SimpleChannelInboundHandler.class);
-
-						@Override
+				 		@Override
 						public void channelActive(ChannelHandlerContext ctx) throws Exception {
 							super.channelActive(ctx);
 						}

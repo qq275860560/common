@@ -5,16 +5,15 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class UdpUtil {
 
-	private static Log log = LogFactory.getLog(UdpUtil.class);
-
+	 
 	public static byte[] send(String ip, Integer port, byte[] buf, Integer timeout) {
 		DatagramSocket datagramSocket = null;
 		DatagramPacket datagramPacket = null;

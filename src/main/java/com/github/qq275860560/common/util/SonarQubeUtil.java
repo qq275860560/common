@@ -8,16 +8,15 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class SonarQubeUtil {
-	private static Log log = LogFactory.getLog(SonarQubeUtil.class);
-
+	 
 	private SonarQubeUtil() {
 	}
 

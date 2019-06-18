@@ -5,13 +5,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 public class SerializeUtil {
-	private static final Log log = LogFactory.getLog(SerializeUtil.class);
-
+	 
 	public static byte[] serialize(Object object) throws Exception {
 		if (object == null)
 			return null;
@@ -25,7 +22,7 @@ public class SerializeUtil {
 			byte[] bytes = baos.toByteArray();
 			return bytes;
 		} catch (Exception e) {
-			log.error(e);
+			log.error("",e);
 			throw e;
 		}
 	}
@@ -40,7 +37,7 @@ public class SerializeUtil {
 			ObjectInputStream ois = new ObjectInputStream(bais);
 			return ois.readObject();
 		} catch (Exception e) {
-			log.error(e);
+			log.error("",e);
 			throw e;
 		}
 	}

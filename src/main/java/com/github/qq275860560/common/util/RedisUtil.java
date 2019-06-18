@@ -7,9 +7,8 @@ import java.util.Set;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPoolConfig;
@@ -17,10 +16,9 @@ import redis.clients.jedis.JedisPoolConfig;
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class RedisUtil {
-
-	private static Log log = LogFactory.getLog(RedisUtil.class);
-
+ 
 	private RedisUtil() {
 	}
 

@@ -3,8 +3,6 @@ package com.github.qq275860560.common.util;
 import java.io.ByteArrayInputStream;
 import java.net.Socket;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.ConnectionReuseStrategy;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -30,16 +28,15 @@ import org.apache.http.protocol.RequestUserAgent;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-import com.github.qq275860560.common.util.IpUtil;
-import com.github.qq275860560.common.util.URLEncodeUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class HttpServerUtilTest {
-	private static Log log = LogFactory.getLog(HttpServerUtilTest.class);
-	
+	 	
 
 	@Test
 	public void get() throws Exception {

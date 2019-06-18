@@ -1,15 +1,13 @@
 package com.github.qq275860560.common.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class IntegerUtil {
-	private static Log log = LogFactory.getLog(IntegerUtil.class);
-
-	private IntegerUtil() {
+	 	private IntegerUtil() {
 	}
 
 	// 低位低字节

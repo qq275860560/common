@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.netflix.client.ClientFactory;
 import com.netflix.config.AggregatedConfiguration;
 import com.netflix.config.ConcurrentMapConfiguration;
@@ -17,13 +14,15 @@ import com.netflix.loadbalancer.DynamicServerListLoadBalancer;
 import com.netflix.loadbalancer.RandomRule;
 import com.netflix.loadbalancer.Server;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class RibbonUtil {
 
-	private static final Log log = LogFactory.getLog(RibbonUtil.class);
-
+ 
 	public static Server getServer(String clientName) {
 		// ClientFactory.getNamedLoadBalancer会缓存结果, 所以不用担心它每次都会向eureka发起查询
 		@SuppressWarnings("rawtypes")

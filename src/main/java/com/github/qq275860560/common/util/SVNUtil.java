@@ -12,8 +12,6 @@ import java.util.List;
 import javax.net.ssl.SSLContext;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -32,12 +30,14 @@ import org.tmatesoft.svn.core.internal.wc.DefaultSVNOptions;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class SVNUtil {
-	private static Log log = LogFactory.getLog(SVNUtil.class);
-
+	 
 	private SVNUtil() {
 	}
 

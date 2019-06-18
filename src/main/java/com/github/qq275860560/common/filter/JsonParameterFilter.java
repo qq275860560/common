@@ -16,18 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import net.bull.javamelody.internal.common.LOG;
-
+import lombok.extern.slf4j.Slf4j;
+ 
 /**
  * @author jiangyuanlin@163.com
  * json输入输出参数拦截
  */
+@Slf4j
 public class JsonParameterFilter implements Filter {
-	private static final Log log = LogFactory.getLog(LoginFilter.class);
-
+	 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
@@ -54,10 +51,9 @@ public class JsonParameterFilter implements Filter {
 	}
 
 }
-
+@Slf4j
 class MyHttpServletRequestWrapper extends HttpServletRequestWrapper {
-	private static final Log log = LogFactory.getLog(MyHttpServletRequestWrapper.class);
-	private String requestBody = null;
+ 	private String requestBody = null;
 
 	public MyHttpServletRequestWrapper(HttpServletRequest request) {
 		super(request);

@@ -6,16 +6,15 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class SocketUtil {
 
-	private static Log log = LogFactory.getLog(SocketUtil.class);
-
+	 
 	private SocketUtil() {
 	}
 

@@ -14,8 +14,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.poi.ss.formula.functions.T;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -23,12 +21,14 @@ import org.jdom2.input.SAXBuilder;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class XmlUtil {
-	private static Log log = LogFactory.getLog(XmlUtil.class);
-
+	 
 	private XmlUtil() {
 	}
 

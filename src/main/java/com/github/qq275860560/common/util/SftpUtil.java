@@ -6,15 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
 import java.util.Vector;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
@@ -23,11 +16,13 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class SftpUtil {
-	private static Log log = LogFactory.getLog(SftpUtil.class);
 
 	public static ChannelSftp connect(String host, int port, String username, String password) {
 		ChannelSftp sftp = null;
@@ -107,7 +102,7 @@ public class SftpUtil {
 			}
 			reader.close();
 		} catch (IOException e) {
-			log.error(e);
+			log.error("",e);
 		} finally {
 			if (reader != null) {
 				try {
@@ -125,7 +120,7 @@ public class SftpUtil {
 			sftp.cd(directory);
 			sftp.rm(deleteFile);
 		} catch (Exception e) {
-			log.error(e);
+			log.error("",e);
 		}
 	}
 

@@ -3,24 +3,19 @@ package com.github.qq275860560.common.util;
 import java.io.File;
 import java.net.URL;
 
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.github.qq275860560.common.util.Base64Util;
-import com.github.qq275860560.common.util.MD5Util;
-import com.github.qq275860560.common.util.RandomGeneratorUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class Base64UtilTest {
-	private static Log log = LogFactory.getLog(Base64UtilTest.class);
-
+	 
 	
 	@Ignore
 	@Test

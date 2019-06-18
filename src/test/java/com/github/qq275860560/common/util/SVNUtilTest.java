@@ -1,23 +1,17 @@
 package com.github.qq275860560.common.util;
 
 import java.io.File;
-import java.util.Map;
 
-import org.apache.commons.configuration2.Configuration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
-import com.github.qq275860560.common.util.SVNUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class SVNUtilTest {
-	private static Log log = LogFactory.getLog(SVNUtilTest.class);
-
 	@Test
 	public void get() throws Exception{ 
 		String url = "https://192.168.115.56:9000/svn/github-build/trunk/github-build/pom.xml";

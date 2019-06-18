@@ -5,17 +5,19 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+
+import com.github.qq275860560.common.filter.ExceptionFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class AspectLogUtil {
-	private static final Log log = LogFactory.getLog(AspectLogUtil.class);
-
+	 
 	public static Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();

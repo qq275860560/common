@@ -1,6 +1,5 @@
 package com.github.qq275860560.common.util;
 
-import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.File;
 import java.io.IOException;
@@ -18,8 +17,6 @@ import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -47,6 +44,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  * webdriver工具类 
@@ -57,10 +56,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  * 关闭driver
  * 判断元素是否存在 *
  */
-
+@Slf4j
 public class WebDriverUtil {
-	private static Log log = LogFactory.getLog(WebDriverUtil.class);
-
+	 
 	private WebDriverUtil() {
 	}
 
@@ -836,11 +834,10 @@ public class WebDriverUtil {
 	}
 
 }
-
+@Slf4j
 class MyWebDriverEventListener implements WebDriverEventListener {
 
-	private static Log log = LogFactory.getLog(MyWebDriverEventListener.class);
-
+	 
 	@Override
 	public void beforeNavigateTo(String url, WebDriver driver) {
 

@@ -16,8 +16,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.jwt.JwtClaims;
@@ -31,12 +29,14 @@ import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class JwtUtil {
-	private static Log log = LogFactory.getLog(JwtUtil.class);
-
+	 
 	private JwtUtil() {
 	}
 

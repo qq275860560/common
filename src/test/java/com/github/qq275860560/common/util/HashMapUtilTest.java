@@ -3,20 +3,17 @@ package com.github.qq275860560.common.util;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
-import com.github.qq275860560.common.util.HashMapUtil;
-import com.github.qq275860560.common.util.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class HashMapUtilTest {
-	private static Log log = LogFactory.getLog(HashMapUtilTest.class);
-
+	 
 	 
 	@Test
 	public void test() throws Exception {

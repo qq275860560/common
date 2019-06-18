@@ -1,19 +1,17 @@
 package com.github.qq275860560.common.util;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.qq275860560.common.util.TokenUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class TokenUtilTest {
-	private static Log log = LogFactory.getLog(TokenUtilTest.class);
-
+	 
 	@Test
 	public void encrypt() throws Exception {
 		String user_id = "123";

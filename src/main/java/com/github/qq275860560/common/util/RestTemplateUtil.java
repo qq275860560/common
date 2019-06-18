@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.AsyncClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequest;
@@ -16,12 +14,16 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import com.github.qq275860560.common.filter.ExceptionFilter;
+
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class RestTemplateUtil {
-	private static Log log = LogFactory.getLog(RestTemplateUtil.class);
-
+ 
 	private RestTemplateUtil() {
 	}
 
@@ -120,7 +122,7 @@ public class RestTemplateUtil {
 			Map<String, Object> result = restTemplate.postForObject(
 					"http://" + EurekaUtil.properties.getProperty("eureka.vipAddress") + "/api/msmng/user/login",
 					requestBody, Map.class);
-			log.info(result);
+			log.info(""+result);
 		}
 
 	}

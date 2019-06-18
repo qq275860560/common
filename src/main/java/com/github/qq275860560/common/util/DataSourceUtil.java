@@ -7,19 +7,18 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.alibaba.druid.pool.DruidDataSource;
+import com.github.qq275860560.common.filter.ExceptionFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class DataSourceUtil {
 
-	private static Log log = LogFactory.getLog(DataSourceUtil.class);
-
-	private DataSourceUtil() {
+	 	private DataSourceUtil() {
 	}
 
 	public static DataSource dataSource;

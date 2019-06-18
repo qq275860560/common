@@ -8,15 +8,17 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import com.github.qq275860560.common.filter.ExceptionFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class ResponseUtil {
-	private static Log log = LogFactory.getLog(ResponseUtil.class);
-
+	 
 	private ResponseUtil() {
 	}
 

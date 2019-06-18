@@ -7,16 +7,10 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.qq275860560.common.util.ByteBufUtil;
-import com.github.qq275860560.common.util.ThreadPoolExecutorUtil;
-
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -26,10 +20,12 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class UdpServer {
 	private static Logger log = LoggerFactory.getLogger(UdpServer.class);
 
@@ -50,8 +46,7 @@ public class UdpServer {
 						log.info("udp新建连接=" + ch.config());
 						final ChannelPipeline pipeline = ch.pipeline();
 						pipeline.addLast(new SimpleChannelInboundHandler<Object>() {
-							private Log log = LogFactory.getLog(SimpleChannelInboundHandler.class);
-
+							 
 							@Override
 							public void channelActive(ChannelHandlerContext ctx) throws Exception {
 								super.channelActive(ctx);

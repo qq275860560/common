@@ -8,8 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -22,13 +20,14 @@ import io.netty.channel.socket.DatagramChannel;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import io.netty.handler.codec.MessageToMessageDecoder;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class NettyServerUtil {
-	private static Log log = LogFactory.getLog(NettyServerUtil.class);
-
+	 
 	public static void main(String[] args) throws Exception {
 		String ipAddress = IpUtil.getLocalIp();
 		int port = 5060;
@@ -50,8 +49,7 @@ public class NettyServerUtil {
 					protected void initChannel(final DatagramChannel ch) throws Exception {
 						final ChannelPipeline pipeline = ch.pipeline();
 						pipeline.addLast("decoder", new MessageToMessageDecoder<DatagramPacket>() {
-							private Log log = LogFactory.getLog(MessageToMessageDecoder.class);
-
+						 
 							@Override
 							protected void decode(final ChannelHandlerContext ctx, final DatagramPacket msg,
 									final List<Object> out) throws Exception {

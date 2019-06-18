@@ -6,15 +6,15 @@ import java.util.Map;
 
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  * 生成每个用户的token
  */
+@Slf4j
 public class TokenUtil {
-	private static Log log = LogFactory.getLog(TokenUtil.class);
 	private static String issUser;// 牌的创建者 网站或应用clientId
 	private static String audience;// 令牌使用者 用户ID
 	private static Float minutes;// 有效期时间，分钟

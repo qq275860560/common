@@ -11,17 +11,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.github.qq275860560.common.util.RequestUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class TimeFilter implements Filter {
-	private static final Log log = LogFactory.getLog(TimeFilter.class);
-
+	 
 	@Override
 	public void init(FilterConfig config) throws ServletException {
 		return;

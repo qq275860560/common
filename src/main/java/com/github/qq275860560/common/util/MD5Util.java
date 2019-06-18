@@ -3,15 +3,16 @@ package com.github.qq275860560.common.util;
 import java.io.File;
 import java.util.UUID;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.github.qq275860560.common.filter.ExceptionFilter;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class MD5Util {
-	private static Log log = LogFactory.getLog(MD5Util.class);
-
+	 
 	private MD5Util() {
 	}
 

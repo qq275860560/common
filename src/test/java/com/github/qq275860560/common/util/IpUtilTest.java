@@ -2,22 +2,18 @@ package com.github.qq275860560.common.util;
 
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.github.qq275860560.common.util.IpUtil;
-import com.github.qq275860560.common.util.JsonUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  *
  */
+@Slf4j
 public class IpUtilTest {
-	private static Log log = LogFactory.getLog(IpUtilTest.class);
-
 	@Ignore
 	@Test
 	public void getPingStatus() throws Exception {
@@ -50,6 +46,6 @@ public class IpUtilTest {
 	public void getUrlStatus() throws Exception{
 		String url = "http://www.baidu.com";
 		boolean b = IpUtil.getUrlStatus(url);
-		log.info(b);
+		log.info(""+b);
 	}
 }

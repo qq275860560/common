@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  *  
@@ -18,10 +18,10 @@ import org.apache.commons.logging.LogFactory;
  * https://blog.csdn.net/appledurian/article/details/73134558
  *
  */
+@Slf4j
 public class RtpUtil {
 
-	private static Log log = LogFactory.getLog(RtpUtil.class);
-
+	 
 	private RtpUtil() {
 	};
 
@@ -88,10 +88,9 @@ public class RtpUtil {
 
 	}
 }
-
+@Slf4j
 class PS {
-	private static Log log = LogFactory.getLog(PS.class);
-	public byte[] packStartCode;
+	 	public byte[] packStartCode;
 	public int packStuffingLength;
 
 	public PS(byte[] buffer, int off, int len) {
@@ -341,9 +340,9 @@ class PS {
  * 
  * @author Matteo Merli
  */
+@Slf4j
 class RTPPacket {
-	private static Log log = LogFactory.getLog(RTPPacket.class);
-	/**
+	 	/**
 	 * This field identifies the version of RTP. The version defined by this
 	 * specification is two (2). (The value 1 is used by the first draft version
 	 * of RTP and the value 0 is used by the protocol initially implemented in

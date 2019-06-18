@@ -15,17 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import com.github.qq275860560.common.util.ResponseUtil;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class ExceptionFilter implements Filter {
-	private static final Log log = LogFactory.getLog(ExceptionFilter.class);
-
+	
 	private static String environment;
 
 	static {

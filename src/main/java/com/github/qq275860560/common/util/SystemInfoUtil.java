@@ -14,17 +14,16 @@ import java.util.TimerTask;
 
 import javax.annotation.PreDestroy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import com.sun.management.OperatingSystemMXBean;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class SystemInfoUtil {
-	private static Log log = LogFactory.getLog(SystemInfoUtil.class);
-	private static final int CPUTIME = 5000;
+	 	private static final int CPUTIME = 5000;
 	// 网管进程信息采集周期(注意：PERIOD_TIME 一定要大于 SLEEP_TIME )
 
 	private static final int PERIOD_TIME = 1000 * 60 * 15;

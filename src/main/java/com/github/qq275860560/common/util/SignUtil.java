@@ -13,15 +13,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author jiangyuanlin@163.com
  */
+@Slf4j
 public class SignUtil {
-	private static Log log = LogFactory.getLog(SignUtil.class);
-
+	 
 	private SignUtil() {
 	}
 
