@@ -16,9 +16,9 @@ public class CommandUtil {
 		command=command.trim();
 		if(!command.startsWith("cmd") && !command.startsWith("/bin/sh") ) {
 			if(System.getProperty("os.name").toLowerCase().indexOf("windows")>=0) {
-				command="cmd /c "+ command;
+				command="cmd /c \""+ command+"\"";
 			}else {
-				command="/bin/sh -c "+command;
+				command="/bin/sh -c \""+command + "\"";
 			}
 		}
 		StringBuilder result = new StringBuilder();
