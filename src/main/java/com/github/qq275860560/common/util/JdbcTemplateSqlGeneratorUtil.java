@@ -416,7 +416,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		if(noBlogField==true) {
 			sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		}
-		sb1.append("    Map<String,Object> map = Collections.EMPTY_MAP;").append("\n");
+		sb1.append("    Map<String,Object> map = new HashMap<>();").append("\n");
 		sb1.append("    try{").append("\n");
 		sb1.append("    	map =jdbcTemplate.queryForMap( sb.toString(), condition.toArray());").append("\n");
 		sb1.append("    }catch (Exception e) {").append("\n");
@@ -491,7 +491,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		if(noBlogField==true) {
 			sb1.append("    log.info(\"condition=\" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印").append("\n");
 		}
-		sb1.append("    Map<String,Object> map = Collections.EMPTY_MAP;").append("\n");
+		sb1.append("    Map<String,Object> map = new HashMap<>();").append("\n");
 		sb1.append("    try{").append("\n");
 		sb1.append("    	map =jdbcTemplate.queryForMap( sb.toString(), condition.toArray());").append("\n");
 		sb1.append("    }catch (Exception e) {").append("\n");
