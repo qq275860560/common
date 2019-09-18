@@ -27,14 +27,15 @@ public class JdbcTemplateSqlGeneratorUtil {
 	public static String tableName;
 	public static String modelName;
 
+	//select to_char(createTime,'yyyy-mm-dd hh:Mi:SS') from input
 	public static void main(String[] args) throws Exception {
 		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://localhost:3306/dataxweb?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
 		JdbcTemplateSqlGeneratorUtil.username = "root";
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "dataxweb";
-		JdbcTemplateSqlGeneratorUtil.tableName = "build";
-		JdbcTemplateSqlGeneratorUtil.modelName = "Build";
+		JdbcTemplateSqlGeneratorUtil.tableName = "httpWriter";
+		JdbcTemplateSqlGeneratorUtil.modelName = "HttpWriter";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
