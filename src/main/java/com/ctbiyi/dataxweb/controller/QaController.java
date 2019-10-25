@@ -13,35 +13,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ctbiyi.dataxweb.dao.TransformerDao;
+import com.ctbiyi.dataxweb.dao.QaDao;
 
 import lombok.extern.slf4j.Slf4j;
  
 @RestController
 @Slf4j
-public class TransformerController {
+public class QaController {
 
 
-  
+
 	@Autowired
-	private TransformerDao transformerDao;
+	private QaDao qaDao;
+ 
  
   
-	@RequestMapping(value = "/api/transformer/checkTransformer")
-	public Map<String, Object> checkTransformer(@RequestParam Map<String, Object> requestMap) throws Exception {
+	@RequestMapping(value = "/api/qa/checkQa")
+	public Map<String, Object> checkQa(@RequestParam Map<String, Object> requestMap) throws Exception {
 		String id = (String) requestMap.get("id");
-		String name = (String) requestMap.get("name");
-		if (StringUtils.isEmpty(name)) {
+		String q = (String) requestMap.get("q");
+		if (StringUtils.isEmpty(q)) {
 			return new HashMap<String, Object>() {
 				{
 					put("code", HttpStatus.BAD_REQUEST.value());
-					put("msg", "名称必填");
+					put("msg", "必填");
 					put("data", null);
 				}
 			};
 		}
-		boolean data = transformerDao.checkTransformer(id, name);
-		String msg = data == true ? "名称有效" : "名称已存在";
+		boolean data = qaDao.checkQa(id, q);
+		String msg = data == true ? "有效" : "已存在";
 		return new HashMap<String, Object>() {
 			{
 				put("code", HttpStatus.OK.value());
@@ -51,23 +52,20 @@ public class TransformerController {
 		};
 
 	}
-	
- 
-	@RequestMapping(value = "/api/transformer/pageTransformer")
-	public Map<String, Object> pageTransformer(
+
+	 
+	@RequestMapping(value = "/api/qa/pageQa")
+	public Map<String, Object> pageQa(
 			@RequestParam Map<String, Object> requestMap
-			)  throws Exception{
-		 
-		String name=(String)requestMap.get("name");
-		String type=(String)requestMap.get("type");
-	
+			)  throws Exception{		
+		String q=(String)requestMap.get("q");
 		String createUserName=(String)requestMap.get("createUserName");
 		String startCreateTime=(String)requestMap.get("startCreateTime");
 		String endCreateTime=(String)requestMap.get("endCreateTime");
 		Integer pageNum =requestMap.get("pageNum")==null?1:Integer.parseInt(requestMap.get("pageNum").toString());
 		Integer pageSize =requestMap.get("pageSize")==null?10:Integer.parseInt(requestMap.get("pageSize").toString());
 		 
-		Map<String, Object> data = transformerDao.pageTransformer(null, name, type, null, null,null, createUserName, startCreateTime, endCreateTime, pageNum, pageSize) ;
+		Map<String, Object> data = qaDao.pageQa(null, q, null ,null, createUserName, startCreateTime, endCreateTime, pageNum, pageSize) ;
 		return new HashMap<String, Object>() {
 			{				 
 				put("code", HttpStatus.OK.value());//此字段可以省略，这里仿照蚂蚁金服的接口返回字段code，增加状态码说明
@@ -80,11 +78,11 @@ public class TransformerController {
 	 
 	
  
- 	@RequestMapping(value = "/api/transformer/getTransformer")
-	public Map<String, Object> getTransformer(@RequestParam Map<String, Object> requestMap)  throws Exception{
-		 
+ 	@RequestMapping(value = "/api/qa/getQa")
+	public Map<String, Object> getQa(@RequestParam Map<String, Object> requestMap)  throws Exception{
+	 
 		String id=(String)requestMap.get("id");
-		Map<String, Object> data=transformerDao.getTransformer(id);
+		Map<String, Object> data=qaDao.getQa(id);	 
 		return new HashMap<String, Object>() {
 			{
 				put("code", HttpStatus.OK.value());
@@ -94,51 +92,41 @@ public class TransformerController {
 		};
 	}
 	
+ 	
+	 
 	
- 
+ 	
  	 
-	@RequestMapping(value = "/api/transformer/saveTransformer")
-	public Map<String, Object> saveTransformer(@RequestParam Map<String, Object> requestMap)  throws Exception{
+  
+	@RequestMapping(value = "/api/qa/saveQa")
+	public Map<String, Object> saveQa(@RequestParam Map<String, Object> requestMap  )  throws Exception{
+		 	
 	 
 		String id=UUID.randomUUID().toString().replace("-", "");
 		requestMap.put("id", id);	
-		
-		String name = (String) requestMap.get("name");
-		if (StringUtils.isEmpty(name)) {
-			return new HashMap<String, Object>() {
-				{
-					put("code", HttpStatus.BAD_REQUEST.value());
-					put("msg", "名称不能为空");
-					put("data", null);
-				}
-			};
-		}
-		
-	 
+	
 		String createTime=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 		requestMap.put("createTime", createTime);
-		transformerDao.saveTransformer(requestMap);
+		qaDao.saveQa(requestMap);
 		return new HashMap<String, Object>() {
 			{
 				put("code", HttpStatus.OK.value());
 				put("msg", "保存成功");
-				put("data", null);
+				put("data", id);
 			}
 		};
 	}
 	
-
-
-	
 	 
-	@RequestMapping(value = "/api/transformer/updateTransformer")
-	public Map<String, Object> updateTransformer(
-			@RequestParam Map<String, Object> requestMap)  throws Exception{
-	 	
-		String id=(String)requestMap.get("id");
-		Map<String, Object> map=transformerDao.getTransformer(id);
-		map.putAll(requestMap);
-		transformerDao.updateTransformer(map);		
+	
+ 
+	@RequestMapping(value = "/api/qa/updateQa")
+	public Map<String, Object> updateQa(@RequestParam Map<String, Object> requestMap) throws Exception {
+		String id = (String) requestMap.get("id");		
+		Map<String, Object> qaMap = qaDao.getQa(id);	
+		qaMap.putAll(requestMap);
+		qaDao.updateQa(qaMap); 
+		
 		return new HashMap<String, Object>() {
 			{
 				put("code", HttpStatus.OK.value());
@@ -147,14 +135,15 @@ public class TransformerController {
 			}
 		};
 	}
-	
+
  
- 	@RequestMapping(value = "/api/transformer/deleteTransformer")
-	public Map<String, Object> deleteTransformer(
+ 	@RequestMapping(value = "/api/qa/deleteQa")
+	public Map<String, Object> deleteQa(
 			@RequestParam Map<String, Object> requestMap)  throws Exception{
-	 	
+	 
+		
 		String id=(String)requestMap.get("id");
-		transformerDao.deleteTransformer(id);
+		qaDao.deleteQa(id);
 		return new HashMap<String, Object>() {
 			{
 				put("code", HttpStatus.OK.value());
@@ -165,4 +154,8 @@ public class TransformerController {
 	}
 	 
  	
+ 	 
+ 	 
+ 	
+ 
 }

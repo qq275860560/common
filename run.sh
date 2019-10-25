@@ -10,7 +10,7 @@ cd ${SHELL_FOLDER}
 
 #执行打包
 cd ${SHELL_FOLDER}
-timeout 600 mvn clean  deploy -DskipTests 
+timeout 600 mvn clean  install -DskipTests -Dgpg.skip -Dmaven.javadoc.skip=true
 
 #代码分析
 cd ${SHELL_FOLDER}

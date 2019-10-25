@@ -1,7 +1,6 @@
 package com.ctbiyi.dataxweb.dao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,27 +19,26 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class OutputDao {
+public class DocumentDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 
-public int countOutput(String name) throws Exception { 
+public int countDocument(String name) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT count(1) count from output where 1=1 "); 
+    sb.append(" SELECT count(1) count from document where 1=1 "); 
     sb .append(" and name = ? ");
     condition.add(name);
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.queryForObject( sb.toString(), condition.toArray(),Integer.class);
 }
 
-public boolean checkOutput(String id,String name) throws Exception { 
+public boolean checkDocument(String id,String name) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT count(1) count  from output where 1=1 "); 
+    sb.append(" SELECT count(1) count  from document where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id != ? ");
     	condition.add(id);
@@ -48,27 +46,25 @@ public boolean checkOutput(String id,String name) throws Exception {
     sb .append(" and name= ? ");
     condition.add(name);
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     int count = jdbcTemplate.queryForObject( sb.toString(), condition.toArray(),Integer.class);
     if(count>0) return false;
     else return true;
 }
 
-public int deleteOutput(String id) throws Exception { 
+public int deleteDocument(String id) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" delete  from output where 1=1 "); 
+    sb.append(" delete  from document where 1=1 "); 
     sb .append(" and id = ? ");
     condition.add(id);
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.update( sb.toString(), condition.toArray());
 }
 
-public Map<String,Object> getOutput(Object id) throws Exception { 
+public Map<String,Object> getDocument(Object id) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from output where 1=1 "); 
+    sb.append(" SELECT id,name,file,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from document where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id = ? ");
     	condition.add(id);
@@ -77,8 +73,7 @@ public Map<String,Object> getOutput(Object id) throws Exception {
     condition.add(0);
     condition.add(1);
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
-    Map<String,Object> map = new HashMap<>();
+    Map<String,Object> map = Collections.EMPTY_MAP;
     try{
     	map =jdbcTemplate.queryForMap( sb.toString(), condition.toArray());
     }catch (Exception e) {
@@ -86,18 +81,17 @@ public Map<String,Object> getOutput(Object id) throws Exception {
     return map;
 }
 
-public Map<String,Object> getOutputByKeyValue(String key,Object value) throws Exception { 
+public Map<String,Object> getDocumentByKeyValue(String key,Object value) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from output where 1=1 "); 
+    sb.append(" SELECT id,name,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from document where 1=1 "); 
    	sb .append(" and "+key+" = ? ");
    	condition.add(value);
     sb.append(" limit ? ,?  ");
     condition.add(0);
     condition.add(1);
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
-    Map<String,Object> map = new HashMap<>();
+    Map<String,Object> map = Collections.EMPTY_MAP;
     try{
     	map =jdbcTemplate.queryForMap( sb.toString(), condition.toArray());
     }catch (Exception e) {
@@ -105,7 +99,7 @@ public Map<String,Object> getOutputByKeyValue(String key,Object value) throws Ex
     return map;
 }
 
-public int saveOutput( Map<String,Object> map)  throws Exception  {
+public int saveDocument( Map<String,Object> map)  throws Exception  {
     StringBuilder sb1 = new StringBuilder();
     StringBuilder sb2 = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
@@ -117,10 +111,11 @@ public int saveOutput( Map<String,Object> map)  throws Exception  {
     sb2.append("?,");
     condition.add(map.get("name"));
 
-    sb1.append("type").append(",");
+    sb1.append("file").append(",");
     sb2.append("?,");
-    condition.add(map.get("type"));
+    condition.add(map.get("file"));
 
+     
     sb1.append("createUserId").append(",");
     sb2.append("?,");
     condition.add(map.get("createUserId"));
@@ -137,21 +132,17 @@ public int saveOutput( Map<String,Object> map)  throws Exception  {
         sb1.deleteCharAt(sb1.length() - 1);
     if (sb2.length() > 0)
         sb2.deleteCharAt(sb2.length() - 1);
-    String sql = "insert into output(" + sb1.toString() + ") values(" + sb2.toString() + ")";
+    String sql = "insert into document(" + sb1.toString() + ") values(" + sb2.toString() + ")";
     log.info("sql=" + sql);
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.update( sql, condition.toArray());
 
 }
 
-public int updateOutput( Map<String,Object> map) throws Exception  {
+public int updateDocument( Map<String,Object> map) throws Exception  {
     StringBuilder sb = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
     sb.append(" name = ? ,");
     condition.add(map.get("name"));
-    
-    sb.append(" type = ? ,");
-    condition.add(map.get("type"));
     
     sb.append(" createUserId = ? ,");
     condition.add(map.get("createUserId"));
@@ -164,17 +155,16 @@ public int updateOutput( Map<String,Object> map) throws Exception  {
     
     if (sb.length() > 0)
         sb.deleteCharAt(sb.length() - 1);	
-    String sql = "update output set " + sb.toString() + " where    id=?";
+    String sql = "update document set " + sb.toString() + " where    id=?";
     condition.add(map.get("id"));
     log.info("sql=" + sql);
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.update(  sql, condition.toArray());
 }
 
-public List<Map<String,Object>> listOutput( String id,String name,String type,String createUserId,String createUserName,String startCreateTime,String endCreateTime) throws Exception  {
+public List<Map<String,Object>> listDocument( String id,String name,String createUserId,String createUserName,String startCreateTime,String endCreateTime) throws Exception  {
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from output where 1=1 "); 
+    sb.append(" SELECT id,name,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from document where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id like ? ");
     	condition.add("%"+id+"%");
@@ -182,10 +172,6 @@ public List<Map<String,Object>> listOutput( String id,String name,String type,St
     if (!StringUtils.isEmpty(name)) {
     	sb .append(" and name like ? ");
     	condition.add("%"+name+"%");
-    }
-    if (!StringUtils.isEmpty(type)) {
-    	sb .append(" and type like ? ");
-    	condition.add("%"+type+"%");
     }
     if (!StringUtils.isEmpty(createUserId)) {
     	sb .append(" and createUserId like ? ");
@@ -204,19 +190,18 @@ public List<Map<String,Object>> listOutput( String id,String name,String type,St
     	condition.add(endCreateTime);
     }
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.queryForList( sb.toString(), condition.toArray());
 
 }
 
-public Map<String,Object> pageOutput( String id,String name,String type,String createUserId,String createUserName,String startCreateTime,String endCreateTime,Integer pageNum,Integer pageSize) throws Exception  {
+public Map<String,Object> pageDocument( String id,String name,String createUserId,String createUserName,String startCreateTime,String endCreateTime,Integer pageNum,Integer pageSize) throws Exception  {
     if(pageNum==null) pageNum=1;//取名pageNum为了兼容mybatis-pageHelper中的page对象的pageNum,注意spring的PageRequest使用page表示页号,综合比较，感觉pageNum更加直观,不需要看上下文能猜出字段是页号
     if(pageSize==null)pageSize=10;//取名pageSize为了兼容mybatis-pageHelper中的page对象的pageSize,注意spring的PageRequest使用size表示页数量，综合比较，感觉pageSize会更加直观,不需要看上下文能猜出字段是分页时当前页的数量
     int from = (pageNum-1)*pageSize;
     int size = pageSize;
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from output where 1=1 "); 
+    sb.append(" SELECT id,name,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from document where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id like ? ");
     	condition.add("%"+id+"%");
@@ -224,10 +209,6 @@ public Map<String,Object> pageOutput( String id,String name,String type,String c
     if (!StringUtils.isEmpty(name)) {
     	sb .append(" and name like ? ");
     	condition.add("%"+name+"%");
-    }
-    if (!StringUtils.isEmpty(type)) {
-    	sb .append(" and type like ? ");
-    	condition.add("%"+type+"%");
     }
     if (!StringUtils.isEmpty(createUserId)) {
     	sb .append(" and createUserId like ? ");
@@ -252,7 +233,6 @@ public Map<String,Object> pageOutput( String id,String name,String type,String c
     condition.add(from);
     condition.add(size);
     log.info("sql=" + sb.toString());
-    log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     List<Map<String, Object>> pageList = jdbcTemplate.queryForList( sb.toString(), condition.toArray());
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("total", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total

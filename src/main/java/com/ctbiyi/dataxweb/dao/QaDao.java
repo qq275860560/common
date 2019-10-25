@@ -2,15 +2,24 @@ package com.ctbiyi.dataxweb.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import com.github.qq275860560.common.util.JsonUtil;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,33 +29,36 @@ import lombok.extern.slf4j.Slf4j;
  */
 @RestController
 @Slf4j
-public class MysqlWriterDao {
+public class QaDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Value("${esUrl}")
+	private String esUrl;
 
 
-public int countMysqlWriter(String name) throws Exception { 
+public int countQa(String q) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT count(1) count from mysqlWriter where 1=1 "); 
-    sb .append(" and name = ? ");
-    condition.add(name);
+    sb.append(" SELECT count(1) count from qa where 1=1 "); 
+    sb .append(" and q = ? ");
+    condition.add(q);
     log.info("sql=" + sb.toString());
     log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.queryForObject( sb.toString(), condition.toArray(),Integer.class);
 }
 
-public boolean checkMysqlWriter(String id,String name) throws Exception { 
+public boolean checkQa(String id,String q) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT count(1) count  from mysqlWriter where 1=1 "); 
+    sb.append(" SELECT count(1) count  from qa where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id != ? ");
     	condition.add(id);
     }
-    sb .append(" and name= ? ");
-    condition.add(name);
+    sb .append(" and q= ? ");
+    condition.add(q);
     log.info("sql=" + sb.toString());
     log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     int count = jdbcTemplate.queryForObject( sb.toString(), condition.toArray(),Integer.class);
@@ -54,10 +66,16 @@ public boolean checkMysqlWriter(String id,String name) throws Exception {
     else return true;
 }
 
-public int deleteMysqlWriter(String id) throws Exception { 
+public int deleteQa(String id) throws Exception { 
+	
+ 
+
+	new RestTemplate().delete(esUrl + "/qa/qa/" + id  );
+	
+	
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" delete  from mysqlWriter where 1=1 "); 
+    sb.append(" delete  from qa where 1=1 "); 
     sb .append(" and id = ? ");
     condition.add(id);
     log.info("sql=" + sb.toString());
@@ -65,10 +83,11 @@ public int deleteMysqlWriter(String id) throws Exception {
     return jdbcTemplate.update( sb.toString(), condition.toArray());
 }
 
-public Map<String,Object> getMysqlWriter(Object id) throws Exception { 
+ 
+public Map<String,Object> getQa(Object id) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,parameterUsername,parameterPassword,parameterWriteMode,parameterColumn,parameterPreSql,parameterConnectionJdbcUrl,parameterConnectionTable,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from mysqlWriter where 1=1 "); 
+    sb.append(" SELECT id,q,a,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from qa where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id = ? ");
     	condition.add(id);
@@ -86,10 +105,10 @@ public Map<String,Object> getMysqlWriter(Object id) throws Exception {
     return map;
 }
 
-public Map<String,Object> getMysqlWriterByKeyValue(String key,Object value) throws Exception { 
+public Map<String,Object> getQaByKeyValue(String key,Object value) throws Exception { 
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,parameterUsername,parameterPassword,parameterWriteMode,parameterColumn,parameterPreSql,parameterConnectionJdbcUrl,parameterConnectionTable,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from mysqlWriter where 1=1 "); 
+    sb.append(" SELECT id,q,a,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from qa where 1=1 "); 
    	sb .append(" and "+key+" = ? ");
    	condition.add(value);
     sb.append(" limit ? ,?  ");
@@ -105,7 +124,29 @@ public Map<String,Object> getMysqlWriterByKeyValue(String key,Object value) thro
     return map;
 }
 
-public int saveMysqlWriter( Map<String,Object> map)  throws Exception  {
+public int saveQa( Map<String,Object> map)  throws Exception  {
+	
+	
+		Map<String, Object> qaMap = new HashMap<String, Object>() {
+			{
+				put("id", map.get("id"));
+				put("q", map.get("q"));
+				put("a", map.get("a"));
+			}
+		}; 
+
+		new RestTemplate().exchange(esUrl + "/qa/qa/" + map.get("id"), HttpMethod.PUT,
+
+				new HttpEntity<>(qaMap,
+
+						new HttpHeaders() {
+							{
+								setContentType(MediaType.APPLICATION_JSON);
+
+							}
+						}),
+				Map.class);
+
     StringBuilder sb1 = new StringBuilder();
     StringBuilder sb2 = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
@@ -113,41 +154,13 @@ public int saveMysqlWriter( Map<String,Object> map)  throws Exception  {
     sb2.append("?,");
     condition.add(map.get("id"));
 
-    sb1.append("name").append(",");
+    sb1.append("q").append(",");
     sb2.append("?,");
-    condition.add(map.get("name"));
+    condition.add(map.get("q"));
 
-    sb1.append("type").append(",");
+    sb1.append("a").append(",");
     sb2.append("?,");
-    condition.add(map.get("type"));
-
-    sb1.append("parameterUsername").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterUsername"));
-
-    sb1.append("parameterPassword").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterPassword"));
-
-    sb1.append("parameterWriteMode").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterWriteMode"));
-
-    sb1.append("parameterColumn").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterColumn"));
-
-    sb1.append("parameterPreSql").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterPreSql"));
-
-    sb1.append("parameterConnectionJdbcUrl").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterConnectionJdbcUrl"));
-
-    sb1.append("parameterConnectionTable").append(",");
-    sb2.append("?,");
-    condition.add(map.get("parameterConnectionTable"));
+    condition.add(map.get("a"));
 
     sb1.append("createUserId").append(",");
     sb2.append("?,");
@@ -165,42 +178,42 @@ public int saveMysqlWriter( Map<String,Object> map)  throws Exception  {
         sb1.deleteCharAt(sb1.length() - 1);
     if (sb2.length() > 0)
         sb2.deleteCharAt(sb2.length() - 1);
-    String sql = "insert into mysqlWriter(" + sb1.toString() + ") values(" + sb2.toString() + ")";
+    String sql = "insert into qa(" + sb1.toString() + ") values(" + sb2.toString() + ")";
     log.info("sql=" + sql);
     log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.update( sql, condition.toArray());
 
 }
 
-public int updateMysqlWriter( Map<String,Object> map) throws Exception  {
+public int updateQa( Map<String,Object> map) throws Exception  {
+	
+	Map<String, Object> qaMap = new HashMap<String, Object>() {
+		{
+			put("id", map.get("id"));
+			put("q", map.get("q"));
+			put("a", map.get("a"));
+		}
+	}; 
+
+	new RestTemplate().exchange(esUrl + "/qa/qa/" + map.get("id"), HttpMethod.PUT,
+
+			new HttpEntity<>(qaMap,
+
+					new HttpHeaders() {
+						{
+							setContentType(MediaType.APPLICATION_JSON);
+
+						}
+					}),
+			Map.class);
+	
     StringBuilder sb = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" name = ? ,");
-    condition.add(map.get("name"));
+    sb.append(" q = ? ,");
+    condition.add(map.get("q"));
     
-    sb.append(" type = ? ,");
-    condition.add(map.get("type"));
-    
-    sb.append(" parameterUsername = ? ,");
-    condition.add(map.get("parameterUsername"));
-    
-    sb.append(" parameterPassword = ? ,");
-    condition.add(map.get("parameterPassword"));
-    
-    sb.append(" parameterWriteMode = ? ,");
-    condition.add(map.get("parameterWriteMode"));
-    
-    sb.append(" parameterColumn = ? ,");
-    condition.add(map.get("parameterColumn"));
-    
-    sb.append(" parameterPreSql = ? ,");
-    condition.add(map.get("parameterPreSql"));
-    
-    sb.append(" parameterConnectionJdbcUrl = ? ,");
-    condition.add(map.get("parameterConnectionJdbcUrl"));
-    
-    sb.append(" parameterConnectionTable = ? ,");
-    condition.add(map.get("parameterConnectionTable"));
+    sb.append(" a = ? ,");
+    condition.add(map.get("a"));
     
     sb.append(" createUserId = ? ,");
     condition.add(map.get("createUserId"));
@@ -213,56 +226,28 @@ public int updateMysqlWriter( Map<String,Object> map) throws Exception  {
     
     if (sb.length() > 0)
         sb.deleteCharAt(sb.length() - 1);	
-    String sql = "update mysqlWriter set " + sb.toString() + " where    id=?";
+    String sql = "update qa set " + sb.toString() + " where    id=?";
     condition.add(map.get("id"));
     log.info("sql=" + sql);
     log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
     return jdbcTemplate.update(  sql, condition.toArray());
 }
 
-public List<Map<String,Object>> listMysqlWriter( String id,String name,String type,String parameterUsername,String parameterPassword,String parameterWriteMode,String parameterColumn,String parameterPreSql,String parameterConnectionJdbcUrl,String parameterConnectionTable,String createUserId,String createUserName,String startCreateTime,String endCreateTime) throws Exception  {
+public List<Map<String,Object>> listQa( String id,String q,String a,String createUserId,String createUserName,String startCreateTime,String endCreateTime) throws Exception  {
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,parameterUsername,parameterPassword,parameterWriteMode,parameterColumn,parameterPreSql,parameterConnectionJdbcUrl,parameterConnectionTable,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from mysqlWriter where 1=1 "); 
+    sb.append(" SELECT id,q,a,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from qa where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id like ? ");
     	condition.add("%"+id+"%");
     }
-    if (!StringUtils.isEmpty(name)) {
-    	sb .append(" and name like ? ");
-    	condition.add("%"+name+"%");
+    if (!StringUtils.isEmpty(q)) {
+    	sb .append(" and q like ? ");
+    	condition.add("%"+q+"%");
     }
-    if (!StringUtils.isEmpty(type)) {
-    	sb .append(" and type like ? ");
-    	condition.add("%"+type+"%");
-    }
-    if (!StringUtils.isEmpty(parameterUsername)) {
-    	sb .append(" and parameterUsername like ? ");
-    	condition.add("%"+parameterUsername+"%");
-    }
-    if (!StringUtils.isEmpty(parameterPassword)) {
-    	sb .append(" and parameterPassword like ? ");
-    	condition.add("%"+parameterPassword+"%");
-    }
-    if (!StringUtils.isEmpty(parameterWriteMode)) {
-    	sb .append(" and parameterWriteMode like ? ");
-    	condition.add("%"+parameterWriteMode+"%");
-    }
-    if (!StringUtils.isEmpty(parameterColumn)) {
-    	sb .append(" and parameterColumn like ? ");
-    	condition.add("%"+parameterColumn+"%");
-    }
-    if (!StringUtils.isEmpty(parameterPreSql)) {
-    	sb .append(" and parameterPreSql like ? ");
-    	condition.add("%"+parameterPreSql+"%");
-    }
-    if (!StringUtils.isEmpty(parameterConnectionJdbcUrl)) {
-    	sb .append(" and parameterConnectionJdbcUrl like ? ");
-    	condition.add("%"+parameterConnectionJdbcUrl+"%");
-    }
-    if (!StringUtils.isEmpty(parameterConnectionTable)) {
-    	sb .append(" and parameterConnectionTable like ? ");
-    	condition.add("%"+parameterConnectionTable+"%");
+    if (!StringUtils.isEmpty(a)) {
+    	sb .append(" and a like ? ");
+    	condition.add("%"+a+"%");
     }
     if (!StringUtils.isEmpty(createUserId)) {
     	sb .append(" and createUserId like ? ");
@@ -286,53 +271,25 @@ public List<Map<String,Object>> listMysqlWriter( String id,String name,String ty
 
 }
 
-public Map<String,Object> pageMysqlWriter( String id,String name,String type,String parameterUsername,String parameterPassword,String parameterWriteMode,String parameterColumn,String parameterPreSql,String parameterConnectionJdbcUrl,String parameterConnectionTable,String createUserId,String createUserName,String startCreateTime,String endCreateTime,Integer pageNum,Integer pageSize) throws Exception  {
+public Map<String,Object> pageQa( String id,String q,String a,String createUserId,String createUserName,String startCreateTime,String endCreateTime,Integer pageNum,Integer pageSize) throws Exception  {
     if(pageNum==null) pageNum=1;//取名pageNum为了兼容mybatis-pageHelper中的page对象的pageNum,注意spring的PageRequest使用page表示页号,综合比较，感觉pageNum更加直观,不需要看上下文能猜出字段是页号
     if(pageSize==null)pageSize=10;//取名pageSize为了兼容mybatis-pageHelper中的page对象的pageSize,注意spring的PageRequest使用size表示页数量，综合比较，感觉pageSize会更加直观,不需要看上下文能猜出字段是分页时当前页的数量
     int from = (pageNum-1)*pageSize;
     int size = pageSize;
     StringBuilder sb  = new StringBuilder();
     List<Object> condition = new ArrayList<Object>();
-    sb.append(" SELECT id,name,type,parameterUsername,parameterPassword,parameterWriteMode,parameterColumn,parameterPreSql,parameterConnectionJdbcUrl,parameterConnectionTable,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from mysqlWriter where 1=1 "); 
+    sb.append(" SELECT id,q,a,createUserId,createUserName,date_format(createTime,	'%Y-%m-%d %H:%i:%s') createTime from qa where 1=1 "); 
     if (!StringUtils.isEmpty(id)) {
     	sb .append(" and id like ? ");
     	condition.add("%"+id+"%");
     }
-    if (!StringUtils.isEmpty(name)) {
-    	sb .append(" and name like ? ");
-    	condition.add("%"+name+"%");
+    if (!StringUtils.isEmpty(q)) {
+    	sb .append(" and q like ? ");
+    	condition.add("%"+q+"%");
     }
-    if (!StringUtils.isEmpty(type)) {
-    	sb .append(" and type like ? ");
-    	condition.add("%"+type+"%");
-    }
-    if (!StringUtils.isEmpty(parameterUsername)) {
-    	sb .append(" and parameterUsername like ? ");
-    	condition.add("%"+parameterUsername+"%");
-    }
-    if (!StringUtils.isEmpty(parameterPassword)) {
-    	sb .append(" and parameterPassword like ? ");
-    	condition.add("%"+parameterPassword+"%");
-    }
-    if (!StringUtils.isEmpty(parameterWriteMode)) {
-    	sb .append(" and parameterWriteMode like ? ");
-    	condition.add("%"+parameterWriteMode+"%");
-    }
-    if (!StringUtils.isEmpty(parameterColumn)) {
-    	sb .append(" and parameterColumn like ? ");
-    	condition.add("%"+parameterColumn+"%");
-    }
-    if (!StringUtils.isEmpty(parameterPreSql)) {
-    	sb .append(" and parameterPreSql like ? ");
-    	condition.add("%"+parameterPreSql+"%");
-    }
-    if (!StringUtils.isEmpty(parameterConnectionJdbcUrl)) {
-    	sb .append(" and parameterConnectionJdbcUrl like ? ");
-    	condition.add("%"+parameterConnectionJdbcUrl+"%");
-    }
-    if (!StringUtils.isEmpty(parameterConnectionTable)) {
-    	sb .append(" and parameterConnectionTable like ? ");
-    	condition.add("%"+parameterConnectionTable+"%");
+    if (!StringUtils.isEmpty(a)) {
+    	sb .append(" and a like ? ");
+    	condition.add("%"+a+"%");
     }
     if (!StringUtils.isEmpty(createUserId)) {
     	sb .append(" and createUserId like ? ");
@@ -358,6 +315,77 @@ public Map<String,Object> pageMysqlWriter( String id,String name,String type,Str
     condition.add(size);
     log.info("sql=" + sb.toString());
     log.info("condition=" + Arrays.deepToString(condition.toArray()));//如果存在blog等字节数组类型的，请注释此行打印
+    
+    ////////////////如果搜索条件不为空，使用es搜索
+    if (!StringUtils.isEmpty(q)) {
+	    Map<String, Object> qaMap = new HashMap<String, Object>() {
+			{
+				put("from", from);
+				put("size", size);
+				put("query", new HashMap<String, Object>() {{
+					put("bool", new HashMap<String, Object>() {{
+						put("must", new HashMap<String, Object>() {{
+							put("bool", new HashMap<String, Object>() {{
+								put("should", 
+										
+							 
+									
+								new ArrayList<Map>() {{
+									add( 
+											new HashMap<String, Object>() {{ 
+												put( "match", new HashMap<String, Object>() {{ put("q",q );}});
+											}});
+											add(
+											new HashMap<String, Object>() {{ 
+												put( "match", new HashMap<String, Object>() {{ put("a",q );}});
+											}}
+											);
+									 
+								}}
+								
+										
+										);
+							}});
+							
+						}});
+						
+					}});
+					
+				}} );
+			}
+		}; 
+		log.info(JsonUtil.toJSONString(qaMap));
+	    
+		ResponseEntity<Map> response = new RestTemplate().exchange(esUrl + "/qa/_search?pretty" , HttpMethod.POST,
+	
+				new HttpEntity<>(JsonUtil.toJSONString(qaMap),
+	
+						new HttpHeaders() {
+							{
+								setContentType(MediaType.APPLICATION_JSON);
+	
+							}
+						}),
+				Map.class);
+		Map<String,Object> body = response.getBody();
+		
+		Map<String, Object> hits = ((Map<String, Object>)body.get("hits"));
+		int total = (int)hits.get("total");
+		List<Map<String, Object>> pageList  = new ArrayList<>();	
+		if(total>0) {
+			List<Map<String, Object>> hitList =(ArrayList) hits.get("hits");
+			for(Map<String,Object> map:hitList) {
+				pageList.add((Map<String, Object>)map.get("_source"));
+			}
+		}
+		 return new HashMap<String, Object>(){{
+			 put("total", total); 
+			    put("pageList", pageList);
+		 }};
+		 
+	 }
+	////////////////////////////
+    
     List<Map<String, Object>> pageList = jdbcTemplate.queryForList( sb.toString(), condition.toArray());
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("total", count);//取名total为了兼容mybatis-pageHelper中的page对象的total,spring框架的PageImpl也使用total
