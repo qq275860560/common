@@ -4,7 +4,7 @@
 
 	<groupId>com.github.qq275860560</groupId>
 	<artifactId>github-qq275860560-common</artifactId>
-	<version>20191025</version>
+	<version>20191028</version>
 	<packaging>jar</packaging>
 	<name>github-qq275860560-common</name>
 	<description>github-qq275860560-common</description>	
@@ -58,8 +58,24 @@
 		<javacpp.platform.dependencies>windows-x86_64</javacpp.platform.dependencies>
         <!-- <javacpp.platform.linux-x86_64>linux-x86_64</javacpp.platform.linux-x86_64>-->
  	</properties>
-	<dependencies>
+ 	
+	<repositories>
+		<repository>
+			<id>sea-boat-maven-repo</id>
+			 <url>https://raw.githubusercontent.com/sea-boat/qa_extractor/master/repository</url> 
+			<!-- <url>https://raw.githubusercontent.com/sea-boat/qa_extractor/master/repository/com/tele/qa_extractor/0.0.2-SNAPSHOT/qa_extractor-0.0.2-20191025.030118-1.jar</url> -->
+		</repository>
+	</repositories>
 	
+	<dependencies>
+	 
+		<dependency>
+			<groupId>com.tele</groupId>
+			<artifactId>qa_extractor</artifactId>
+			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+ 
+	    
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>

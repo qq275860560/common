@@ -2,7 +2,6 @@ package com.ctbiyi.dataxweb.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ctbiyi.dataxweb.dao.DocumentDao;
 import com.github.qq275860560.common.util.ResponseUtil;
+import com.khala.extractor.QAExtractor;
 
 import lombok.extern.slf4j.Slf4j;
  
@@ -113,7 +113,7 @@ public class DocumentController {
 	
  	
 	public List<Map<String, String>> execute(File file) {
-		List list = new ArrayList<>();
+		/*List list = new ArrayList<>();
 		Map map = new HashMap<>();
 		map.put("q", "现在怎么办");
 		map.put("a", "凉拌");
@@ -123,12 +123,12 @@ public class DocumentController {
 		map2.put("q", "历史上哪个人跑得最快");
 		map2.put("a", "曹操，因为说曹操曹操到");
 		list.add(map2);
-		return list;
+		return list;*/
 		
-		/*QAExtractor extractor = new QAExtractor();
+		QAExtractor extractor = new QAExtractor();
 		List<Map<String, String>> list = extractor
 				.extract(file);
-		return list;*/
+		return list;
 	}
 	
  
