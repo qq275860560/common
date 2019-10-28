@@ -2,6 +2,7 @@ package com.ctbiyi.dataxweb.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +15,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.github.qq275860560.common.util.JsonUtil;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +37,12 @@ public class QaDao {
 	
 	@Value("${esUrl}")
 	private String esUrl;
+	
+	@Value("${esUsername}")
+	private String esUsername;
+	
+	@Value("${esPassword}")
+	private String esPassword;
 
 
 public int countQa(String q) throws Exception { 
@@ -70,7 +77,20 @@ public int deleteQa(String id) throws Exception {
 	
  
 
-	new RestTemplate().delete(esUrl + "/qa/qa/" + id  );
+ 
+	
+	new RestTemplate().exchange(esUrl + "/qa/qa/" + id, HttpMethod.DELETE,
+
+			new HttpEntity<>(null,
+
+					new HttpHeaders() {
+						{
+							setContentType(MediaType.APPLICATION_JSON);
+							add("Authorization", "Basic " + new String(Base64Utils.encode( (esUsername+":"+esPassword).getBytes()))); 
+
+						}
+					}),
+			Map.class);
 	
 	
     StringBuilder sb  = new StringBuilder();
@@ -142,6 +162,7 @@ public int saveQa( Map<String,Object> map)  throws Exception  {
 						new HttpHeaders() {
 							{
 								setContentType(MediaType.APPLICATION_JSON);
+								add("Authorization", "Basic " + new String(Base64Utils.encode( (esUsername+":"+esPassword).getBytes()))); 
 
 							}
 						}),
@@ -202,6 +223,7 @@ public int updateQa( Map<String,Object> map) throws Exception  {
 					new HttpHeaders() {
 						{
 							setContentType(MediaType.APPLICATION_JSON);
+							add("Authorization", "Basic " + new String(Base64Utils.encode( (esUsername+":"+esPassword).getBytes()))); 
 
 						}
 					}),
@@ -363,6 +385,7 @@ public Map<String,Object> pageQa( String id,String q,String a,String createUserI
 						new HttpHeaders() {
 							{
 								setContentType(MediaType.APPLICATION_JSON);
+								add("Authorization", "Basic " + new String(Base64Utils.encode( (esUsername+":"+esPassword).getBytes()))); 
 	
 							}
 						}),
@@ -370,7 +393,7 @@ public Map<String,Object> pageQa( String id,String q,String a,String createUserI
 		Map<String,Object> body = response.getBody();
 		
 		Map<String, Object> hits = ((Map<String, Object>)body.get("hits"));
-		int total = (int)hits.get("total");
+		int total = (int)((Map<String, Object>)hits.get("total")).get("value");
 		List<Map<String, Object>> pageList  = new ArrayList<>();	
 		if(total>0) {
 			List<Map<String, Object>> hitList =(ArrayList) hits.get("hits");
