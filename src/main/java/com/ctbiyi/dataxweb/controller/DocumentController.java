@@ -1,16 +1,13 @@
 package com.ctbiyi.dataxweb.controller;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -22,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ctbiyi.dataxweb.dao.DocumentDao;
 import com.github.qq275860560.common.util.ResponseUtil;
-import com.khala.extractor.QAExtractor;
 
 import lombok.extern.slf4j.Slf4j;
  
@@ -89,48 +85,7 @@ public class DocumentController {
 	 
 	
  
- 	@RequestMapping(value = "/api/document/getDocument")
-	public Map<String, Object> getDocument(@RequestParam Map<String, Object> requestMap)  throws Exception{
-	 
-		String id=(String)requestMap.get("id");
-		Map<String, Object> data=documentDao.getDocument(id);
-		
-		byte[] fileByteArray = (byte[]) data.get("file");
-		File file = new File(System.getProperty("java.io.tmpdir")+File.separator
-				+new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date())+".html");
-		FileUtils.writeByteArrayToFile(file, fileByteArray);
-		
-		data.put("aqs", execute(file));
-		data.remove("file");
-		return new HashMap<String, Object>() {
-			{
-				put("code", HttpStatus.OK.value());
-				put("msg", "获取对象成功");
-				put("data", data);
-			}
-		};
-	}
-	
- 	
-	public List<Map<String, String>> execute(File file) {
-		/*List list = new ArrayList<>();
-		Map map = new HashMap<>();
-		map.put("q", "现在怎么办");
-		map.put("a", "凉拌");
-		list.add(map);
-
-		Map map2 = new HashMap<>();
-		map2.put("q", "历史上哪个人跑得最快");
-		map2.put("a", "曹操，因为说曹操曹操到");
-		list.add(map2);
-		return list;*/
-		
-		QAExtractor extractor = new QAExtractor();
-		List<Map<String, String>> list = extractor
-				.extract(file);
-		return list;
-	}
-	
+ 
  
 	@RequestMapping(value = "/api/document/downloadDocument")
 	public void downloadDocument(@RequestParam Map<String, Object> requestMap,HttpServletResponse response) throws Exception {
