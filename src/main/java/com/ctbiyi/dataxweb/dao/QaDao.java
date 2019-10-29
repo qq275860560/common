@@ -152,6 +152,7 @@ public int saveQa( Map<String,Object> map)  throws Exception  {
 				put("id", map.get("id"));
 				put("q", map.get("q"));
 				put("a", map.get("a"));
+				put("createTime", map.get("createTime"));
 			}
 		}; 
 
@@ -374,6 +375,8 @@ public Map<String,Object> pageQa( String id,String q,String a,String createUserI
 					}});
 					
 				}} );
+				
+			 
 			}
 		}; 
 		log.info(JsonUtil.toJSONString(qaMap));
