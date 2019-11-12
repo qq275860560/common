@@ -358,11 +358,11 @@ public Map<String,Object> pageQa( String id,String q,String a,String createUserI
 											new HashMap<String, Object>() {{ 
 												put( "match", new HashMap<String, Object>() {{ put("q",q );}});
 											}});
-											add(
-											new HashMap<String, Object>() {{ 
-												put( "match", new HashMap<String, Object>() {{ put("a",q );}});
-											}}
-											);
+											//add(
+											//new HashMap<String, Object>() {{ 
+											//	put( "match", new HashMap<String, Object>() {{ put("a",q );}});
+											//}}
+											//);
 									 
 								}}
 								
