@@ -53,7 +53,7 @@ public class ResponseUtil {
 		// "application/octet-stream;charset=UTF-8"
 		response.setContentType(responseContentType);
 		response.setContentType("application/octet-stream;charset=UTF-8");
-		response.addHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes(), "utf-8"));
+		response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 		response.addHeader("Content-Length", "" + byteArray.length);
 		response.addHeader("pargam", "no-cache");
 		response.getOutputStream().write(byteArray);

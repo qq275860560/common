@@ -29,13 +29,13 @@ public class JdbcTemplateSqlGeneratorUtil {
 
 	//select to_char(createTime,'yyyy-mm-dd hh:Mi:SS') from input
 	public static void main(String[] args) throws Exception {
-		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://132.122.1.227:3306/qa?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
+		JdbcTemplateSqlGeneratorUtil.url = "jdbc:mysql://127.0.0.1:3306/wiki?autoReconnect=true&useUnicode=true&characterEncoding=utf-8";
 		JdbcTemplateSqlGeneratorUtil.username = "root";
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
-		JdbcTemplateSqlGeneratorUtil.schemaName = "qa";
-		JdbcTemplateSqlGeneratorUtil.tableName = "qa";
-		JdbcTemplateSqlGeneratorUtil.modelName = "Qa";
+		JdbcTemplateSqlGeneratorUtil.schemaName = "wiki";
+		JdbcTemplateSqlGeneratorUtil.tableName = "org";
+		JdbcTemplateSqlGeneratorUtil.modelName = "Org";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
