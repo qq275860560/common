@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "wiki";
-		JdbcTemplateSqlGeneratorUtil.tableName = "org";
-		JdbcTemplateSqlGeneratorUtil.modelName = "Org";
+		JdbcTemplateSqlGeneratorUtil.tableName = "jobLog";
+		JdbcTemplateSqlGeneratorUtil.modelName = "JobLog";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
@@ -402,7 +403,10 @@ public class JdbcTemplateSqlGeneratorUtil {
 		sb1.append("    if (!StringUtils.isEmpty(id)) {").append("\n");
 		sb1.append("    	sb .append(\" and id = ? \");").append("\n");
 		sb1.append("    	condition.add(id);").append("\n");
+		sb1.append("    }else{ ").append("\n");		
+		sb1.append("    		return new HashMap<>(); ").append("\n");
 		sb1.append("    }").append("\n");
+		
 		sb1.append("    sb.append(\" limit ? ,?  \");").append("\n");
 		sb1.append("    condition.add(0);").append("\n");
 		sb1.append("    condition.add(1);").append("\n");

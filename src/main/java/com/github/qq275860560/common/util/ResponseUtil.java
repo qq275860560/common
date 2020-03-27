@@ -51,8 +51,11 @@ public class ResponseUtil {
 		response.setCharacterEncoding("utf-8");
 		// "application/vnd.ms-excel;charset=utf-8"
 		// "application/octet-stream;charset=UTF-8"
-		response.setContentType(responseContentType);
-		response.setContentType("application/octet-stream;charset=UTF-8");
+		if(responseContentType!=null) { 
+			response.setContentType(responseContentType);		
+		}else {
+			response.setContentType("application/octet-stream;charset=UTF-8");
+		}
 		response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
 		response.addHeader("Content-Length", "" + byteArray.length);
 		response.addHeader("pargam", "no-cache");
