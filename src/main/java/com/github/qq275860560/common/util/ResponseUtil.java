@@ -37,17 +37,17 @@ public class ResponseUtil {
 	}
 
 	// 文件发送到客户端
-	public static void sendFile(HttpServletResponse response, File file, String responseContentType) throws Exception {
+	public static void sendFile(HttpServletResponse response, File file, String responseContentType,String responseContentDisposition) throws Exception {
 		byte[] byteArray = FileUtils.readFileToByteArray(file);
-		String fileName = URLEncoder.encode(file.getName(), "utf-8"); // 解决中文文件名下载后乱码的问题
-		sendFileByteArray(response, byteArray, fileName, responseContentType);
+		String fileName = file.getName(); // 解决中文文件名下载后乱码的问题
+		sendFileByteArray(response, byteArray, fileName, responseContentType,responseContentDisposition);
 	}
 
 	
 
 	//内存中的文件字节数组发送到客户端
 	public static void sendFileByteArray(HttpServletResponse response, byte[] byteArray, String fileName,
-			String responseContentType) throws Exception {
+			String responseContentType,String responseContentDisposition) throws Exception {
 		response.setCharacterEncoding("utf-8");
 		// "application/vnd.ms-excel;charset=utf-8"
 		// "application/octet-stream;charset=UTF-8"
@@ -56,7 +56,11 @@ public class ResponseUtil {
 		}else {
 			response.setContentType("application/octet-stream;charset=UTF-8");
 		}
-		response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		if(responseContentDisposition!=null) {
+		response.addHeader("Content-Disposition", responseContentDisposition);
+		}else {
+			response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
+		}
 		response.addHeader("Content-Length", "" + byteArray.length);
 		response.addHeader("pargam", "no-cache");
 		response.getOutputStream().write(byteArray);
