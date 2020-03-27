@@ -73,7 +73,7 @@ public class ResponseUtil {
 		 return "attachment;filename=" + URLEncoder.encode(filename, "UTF-8");
 	}
 	public static String  getContentType(String filename) {
-		String extension = FilenameUtils.getExtension("1.pptx");
+		String extension = FilenameUtils.getExtension(filename);
 		String mimetype="application/octet-stream";
 		if(extension.equals("png")) mimetype="image/png" ;
 	    else if(extension.equals("gif")) mimetype="image/gif" ;
