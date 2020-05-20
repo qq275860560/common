@@ -35,8 +35,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 		JdbcTemplateSqlGeneratorUtil.password = "123456";
 		JdbcTemplateSqlGeneratorUtil.driverClassName = "com.mysql.jdbc.Driver";
 		JdbcTemplateSqlGeneratorUtil.schemaName = "wiki";
-		JdbcTemplateSqlGeneratorUtil.tableName = "jobLog";
-		JdbcTemplateSqlGeneratorUtil.modelName = "JobLog";
+		JdbcTemplateSqlGeneratorUtil.tableName = "invokeLog";
+		JdbcTemplateSqlGeneratorUtil.modelName = "InvokeLog";
 		JdbcTemplateSqlGeneratorUtil.generate();
 	}
 
@@ -125,6 +125,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append(array[0]).append(" ").append(array[1]).append(",");
 			}else if(array[0].equals("Integer") ){
 				sb1.append(array[0]).append(" ").append(array[1]).append(",");
+			}else if(array[0].equals("Long") ){
+				sb1.append(array[0]).append(" ").append(array[1]).append(",");	
 			}else if(array[0].equals("Double") ){
 				sb1.append(array[0]).append(" ").append(array[1]).append(",");
 			}
@@ -151,6 +153,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append(array[1]).append(",");
 			} else if (array[0].equals("Integer")) { 
 				sb1.append(array[1]).append(",");
+			} else if (array[0].equals("Long")) { 
+				sb1.append(array[1]).append(",");	
 			} else if (array[0].equals("Double")) { 
 				sb1.append(array[1]).append(",");
 			}
@@ -186,6 +190,11 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append("    	sb .append(\" and " + array[1] + " = ? \");").append("\n");
 				sb1.append("    	condition.add(" + array[1] + ");").append("\n");
 				sb1.append("    }").append("\n");
+			} else if (array[0].equals("Long")) {
+				sb1.append("    if (" + array[1] + "!=null) {").append("\n");
+				sb1.append("    	sb .append(\" and " + array[1] + " = ? \");").append("\n");
+				sb1.append("    	condition.add(" + array[1] + ");").append("\n");
+				sb1.append("    }").append("\n");	
 			} else if (array[0].equals("Double")) {
 				sb1.append("    if (" + array[1] + "!=null) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " = ? \");").append("\n");
@@ -274,6 +283,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append(array[0]).append(" ").append(array[1]).append(",");
 			}else if(array[0].equals("Integer") ){
 				sb1.append(array[0]).append(" ").append(array[1]).append(",");
+			}else if(array[0].equals("Long") ){
+				sb1.append(array[0]).append(" ").append(array[1]).append(",");	
 			}else if(array[0].equals("Double") ){
 				sb1.append(array[0]).append(" ").append(array[1]).append(",");
 			}
@@ -295,6 +306,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append(array[1]).append(",");
 			} else if (array[0].equals("Integer")) { 
 				sb1.append(array[1]).append(",");
+			} else if (array[0].equals("Long")) { 
+				sb1.append(array[1]).append(",");	
 			} else if (array[0].equals("Double")) { 
 				sb1.append(array[1]).append(",");
 			}
@@ -330,6 +343,11 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append("    	sb .append(\" and " + array[1] + " = ? \");").append("\n");
 				sb1.append("    	condition.add(" + array[1] + ");").append("\n");
 				sb1.append("    }").append("\n");
+			} else if (array[0].equals("Long")) {
+				sb1.append("    if (" + array[1] + "!=null) {").append("\n");
+				sb1.append("    	sb .append(\" and " + array[1] + " = ? \");").append("\n");
+				sb1.append("    	condition.add(" + array[1] + ");").append("\n");
+				sb1.append("    }").append("\n");	
 			} else if (array[0].equals("Double")) {
 				sb1.append("    if (" + array[1] + "!=null) {").append("\n");
 				sb1.append("    	sb .append(\" and " + array[1] + " = ? \");").append("\n");
@@ -390,6 +408,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append(array[1]).append(",");
 			} else if (array[0].equals("Integer")) { 
 				sb1.append(array[1]).append(",");
+			} else if (array[0].equals("Long")) { 
+				sb1.append(array[1]).append(",");	
 			} else if (array[0].equals("Double")) { 
 				sb1.append(array[1]).append(",");
 			}else if (array[0].equals("byte[]")) { 
@@ -471,6 +491,8 @@ public class JdbcTemplateSqlGeneratorUtil {
 				sb1.append(array[1]).append(",");
 			} else if (array[0].equals("Integer")) { 
 				sb1.append(array[1]).append(",");
+			} else if (array[0].equals("Long")) { 
+				sb1.append(array[1]).append(",");	
 			} else if (array[0].equals("Double")) { 
 				sb1.append(array[1]).append(",");
 			}
@@ -1026,7 +1048,7 @@ public class JdbcTemplateSqlGeneratorUtil {
 		} else if (columnTypeName.equalsIgnoreCase("smallint")) {
 			javaTypeName = "Integer";
 		} else if (columnTypeName.equalsIgnoreCase("bigint")) {
-			javaTypeName = "Integer";
+			javaTypeName = "Long";
 		} else if (columnTypeName.equalsIgnoreCase("decimal")) {
 			javaTypeName = "Double";
 		} else if (columnTypeName.equalsIgnoreCase("double")) {

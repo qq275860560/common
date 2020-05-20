@@ -47,7 +47,7 @@ public class ResponseUtil {
 	//内存中的文件字节数组发送到客户端
 	public static void sendFileByteArray(HttpServletResponse response, byte[] byteArray, String fileName,
 			String responseContentType,String responseContentDisposition) throws Exception {
-		response.setCharacterEncoding("utf-8");
+		// response.setCharacterEncoding("utf-8");
 		// "application/vnd.ms-excel;charset=utf-8"
 		// "application/octet-stream;charset=UTF-8"
 		if(responseContentType!=null) { 
